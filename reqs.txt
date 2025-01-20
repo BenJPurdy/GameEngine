@@ -16,18 +16,21 @@ INSPIRATION:
         Katana Zero     
     SETTING:
         Fallout (maybe)
-        KZ (again)
+        Katana Zero (again)
 
 (stolen from unity)
 Entities:
-    Entity:
-        TagComponenent:
+    Entity:uID
+        TagComponenent:Tag
         MeshComponenent:
         TransformComponenet:
         CameraComponenet:
         RendererComponent:
 
-
+//MY USEFUL REPOS
+https://github.com/itsBowl/ImGuiTest.git
+https://github.com/itsBowl/OpenGLRenderer.git
+//
 
 
 Ideas:
