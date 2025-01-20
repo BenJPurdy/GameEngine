@@ -1,0 +1,47 @@
+ENTITIY:                            |CODE REQS:                     |Types:
+    Geometry (Mesh/Model)           |   assimp/OpenGL               |   Class/Global state  
+    Type (AI/Player/Map)            |   enTT                        |   Middleware
+        Subtype (Solid/Breakable)   |   ^                           |   ^
+    Texture (texture formats)       |   stb_image/assimp/OpenGL     |   Middleware/Global state
+    Program/Shader                  |   GLSL/OpenGL                 |   Class/Global state
+    Transform (pos/rot/scl)         |   glm                         |   GLM my beloved
+    Physics                         |   Middleware to be determined |   tbd (interested in physX tho)
+
+    
+
+
+INSPIRATION:
+    GAMEPLAY:
+        Hotline Miami
+        Katana Zero     
+    SETTING:
+        Fallout (maybe)
+        KZ (again)
+
+(stolen from unity)
+Entities:
+    Entity:
+        TagComponenent:
+        MeshComponenent:
+        TransformComponenet:
+        CameraComponenet:
+        RendererComponent:
+
+
+
+
+Ideas:
+    Tile based system (for map)
+        Allows for W/H X/Y TEX as ints
+        nice easy UV maps
+        COLLISIONS ARE VERY EASY TO CALCULATE ALTHOUGH THIS IS ALSO QUITE PRIMATIVE
+        Tiles can have properties to do with solidity/transparency/ect (added as ECS tags more than likely)
+        Can use atlas for textures, so entities would need an offset into a UV space, and likely need 
+            ↳ to load one LARGE texture to hold all the information (allows for extention by user/editor by
+            ↳ using either voided space on the atlas (left blank intentionally) or by changing the tiles directly)
+        stuff
+        .
+        
+        
+
+    
