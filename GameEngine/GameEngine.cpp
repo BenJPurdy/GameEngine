@@ -1,13 +1,8 @@
-// GameEngine.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
-#include <chrono>
-
+#include "GameEngine.h"
 int main()
 {
 
-    auto frameTime = 16'000'000ll; // 1/60s
+    auto frameTime = 16'000'000ll; // 1/60 s in ns
     auto nextFrame = 0ll;
     auto now = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
