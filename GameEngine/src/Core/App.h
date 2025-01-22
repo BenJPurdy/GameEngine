@@ -1,33 +1,40 @@
 #pragma once
 
 #include "Core.h"
+
+#include "../GameEngine_PCH.h"
+
 #include "Window.h"
+#include "Core/Timestep.h"
+
 
 int main(int argc, char** argv);
 
 namespace GameEngine
 {
-	class Application
+	class App
 	{
 	public:
-		Application(const std::string& name = "HSIAGE");
-		~Application();
+		App(const std::string& name = "HSIAGE");
+		~App();
 
 		inline Window& getWindow() { return *window; }
-		void Close();
-		static Application& Get() { return *instance; }
+		void close();
+		static App& get() { return *instance; }
 	private:
-		Run();
+		void run();
 
 		std::unique_ptr<Window> window;
 		bool running = true;
 		bool minimized = false;
 		float lastFrameTime = 0.0f;
 
-		static Application instance;
+		static App* instance;
 
 		friend int ::main(int argc, char** argv);
 
-		Application* CreteApplication();
+		
 	};
+
+	App* createApp();
 }

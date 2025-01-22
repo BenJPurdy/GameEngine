@@ -13,16 +13,17 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 --Include directories
 IncludeDir = {}
-IncludeDir["SDL"] = "GameEngine/3rdParty/include/SDL"
-IncludeDir["GL"] = "GameEngine/3rdParty/include/GL"
+IncludeDir["SDL"] = "GameEngine/3rdParty/SDL/include"
+IncludeDir["GL"] = "GameEngine/3rdParty/GL/include"
 
 
-include "GameEngine/3rdParty/include/GL"
+include "GameEngine/3rdParty/GL/"
+include "GameEngine/3rdParty/SDL/"
 
 
 
 
-project "HSIAGE"
+project "GameEngine"
     location "GameEngine"
     kind "ConsoleApp"
     language "C++"
@@ -33,11 +34,12 @@ project "HSIAGE"
     objdir("bin-int/" ..outputdir.."%{prj.name}")
 
     --precomiled header file here
-    --pchheader "GAmeEngine_PCH.h"
-    --pchsource "%{prj.name}/src/GameEngine_PCH.cpp"
+    pchheader "GameEngine_PCH.h"
+    pchsource "%{prj.name}/src/GameEngine_PCH.cpp"
 
     files
     {
+        "%{prj.name}/src/",
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
     }
@@ -50,14 +52,20 @@ project "HSIAGE"
     includedirs
     {
         "%{prj.name}/src/",
-        "%{prj.name}/3rdParty",
+        "%{prj.name}/3rdParty/",
         "%{IncludeDir.SDL}",
         "%{IncludeDir.GL}"
+    }
+
+    libdirs
+    {
+        "%{prj.name}/3rdParty/SDL/lib/"
     }
 
     links
     {
         "SDL2","SDL2main",
+        "GL3W"
 
 
     }
