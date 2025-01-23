@@ -3,6 +3,8 @@
 #include "GameEngine.h"
 
 #include "Core/EntryPoint.h"
+
+#include "Editor/EditorLayer.h"
 /*
 int main()
 {
@@ -28,7 +30,9 @@ namespace GameEngine
     class GameEngineApp : public App
     {
     public:
-        GameEngineApp() : App("Game Engine Editor") {}
+        GameEngineApp() : App("Game Engine Editor") {
+            pushLayer(new EditorLayer());
+        }
 
         ~GameEngineApp() {};
     };

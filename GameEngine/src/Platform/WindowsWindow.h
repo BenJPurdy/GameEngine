@@ -3,6 +3,9 @@
 #include "Core/Window.h"
 #include "SDL.h"
 
+#include "Renderer/GraphicsContext.h"
+
+
 namespace GameEngine
 {
 	class WindowsWindow : public Window
@@ -28,6 +31,7 @@ namespace GameEngine
 
 
 		SDL_Window* window;
+		GraphicsContext* context;
 		struct WindowData
 		{
 			std::string title;

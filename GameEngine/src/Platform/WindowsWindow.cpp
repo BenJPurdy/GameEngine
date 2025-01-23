@@ -1,6 +1,8 @@
 #include "GameEngine_PCH.h"
 #include "WindowsWindow.h"
 
+#include "GraphicsAPI/OpenGL/OpenGLContext.h"
+
 namespace GameEngine
 {
 	static uint8_t windowCount = 0;
@@ -40,11 +42,17 @@ namespace GameEngine
 			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 		windowCount++;
 
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+		if (SDL_GL_CreateContext(window) == NULL) std::cout << "FAILED TO CREATE GL CONTEXT: " << SDL_GetError() << std::endl;
+
+		context = new OpenGLContext(window);
+		context->init();
+
 		SDL_SetWindowData(window, "data", &data);
 		setVSync(true);
 
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+		
 		
 	}
 
@@ -62,6 +70,8 @@ namespace GameEngine
 	{
 		SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
 		SDL_PumpEvents();
+
+		context->swapBuffers();
 	}
 
 	void WindowsWindow::setVSync(bool enabled) { data.vSync = enabled; }

@@ -28,9 +28,27 @@ namespace GameEngine
 			Timestep timestep = time - lastFrameTime;
 			lastFrameTime = time;
 
+			for (auto* l : layerStack)
+			{
+				l->onUpdate(timestep);
+			}
+
 			window->onUpdate();
 		}
 	}
+
+	void App::pushLayer(Layer* l)
+	{
+		layerStack.push(l);
+		l->onAttach();
+	}
+
+	void App::pushOverlay(Layer* l)
+	{
+		layerStack.pushOverlay(l);
+		l->onAttach();
+	}
+	
 
 
 }

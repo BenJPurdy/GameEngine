@@ -1,8 +1,10 @@
 #pragma once
+#include "GameEngine_PCH.h"
 
 #include "Core.h"
+#include "LayerStack.h"
 
-#include "../GameEngine_PCH.h"
+
 
 #include "Window.h"
 #include "Core/Timestep.h"
@@ -21,10 +23,18 @@ namespace GameEngine
 		inline Window& getWindow() { return *window; }
 		void close();
 		static App& get() { return *instance; }
+
+		void pushLayer(Layer*);
+		
+
+		void pushOverlay(Layer*);
+		
+
 	private:
 		void run();
 
 		std::unique_ptr<Window> window;
+		LayerStack layerStack;
 		bool running = true;
 		bool minimized = false;
 		float lastFrameTime = 0.0f;
