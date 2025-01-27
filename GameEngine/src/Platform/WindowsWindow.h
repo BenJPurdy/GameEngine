@@ -42,6 +42,8 @@ namespace GameEngine
 			std::string title;
 			uint32_t width, height;
 			bool vSync;
+
+			EventCallbackFn eventCallback;
 		};
 
 		WindowData data;

@@ -137,7 +137,7 @@
     <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\Events.h" />
     <ClInclude Include="src\Events\KeyEvent.h" />
-    <ClInclude Include="src\Events\MouseEvent..h" />
+    <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine_PCH.h" />
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />

@@ -57,7 +57,7 @@
     <ClInclude Include="src\Events\KeyEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\MouseEvent..h">
+    <ClInclude Include="src\Events\MouseEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine.h" />
