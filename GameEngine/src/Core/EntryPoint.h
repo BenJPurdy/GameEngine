@@ -7,6 +7,9 @@ extern GameEngine::App* GameEngine::createApp();
 
 int main(int argc, char** argv)
 {
+
+	GameEngine::Logger::init();
+
 	printf("GameEngine\n");
 
 	auto app = GameEngine::createApp();

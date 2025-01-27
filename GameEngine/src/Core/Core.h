@@ -5,7 +5,7 @@
 
 #define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
-#define CORE_ASSERT(x, ...) {if (!(x)) { LOG_ERROR("CoreAsser failed {0}", __VA_ARGS__); __debugbreak();}}
+#define CORE_ASSERT(x, ...) {if (!(x)) { LOG_ERROR("CoreAssert failed {0}", __VA_ARGS__); __debugbreak();}}
 
 
 namespace GameEngine

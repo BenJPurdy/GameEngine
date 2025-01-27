@@ -16,7 +16,9 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "GameEngine/3rdParty/GLFW/include"
 IncludeDir["SDL"] = "GameEngine/3rdParty/SDL/include"
 IncludeDir["GL"] = "GameEngine/3rdParty/GL/include"
+IncludeDir["spdlog"] = "GameEngine/3rdParty/spdlog/include"
 
+--find the other premake files in these folders
 include "GameEngine/3rdParty/GLFW/"
 include "GameEngine/3rdParty/GL/"
 --include "GameEngine/3rdParty/SDL/"
@@ -55,7 +57,8 @@ project "GameEngine"
         "%{prj.name}/src/",
         "%{prj.name}/3rdParty/",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.GL}"
+        "%{IncludeDir.GL}",
+        "%{IncludeDir.spdlog}"
     }
 
     libdirs
@@ -74,6 +77,7 @@ project "GameEngine"
 
     filter "system:windows"
         systemversion "latest"
+        buildoptions { "/utf-8"}
         defines
         {
             --any windows system defines that are needed can go here

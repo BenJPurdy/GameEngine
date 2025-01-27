@@ -9,7 +9,7 @@ namespace GameEngine
 
 	static void WindowErrorCallback(int errorCode, const char* errorMessage)
 	{
-		std::cout << "GLFW_ERROR: [" << errorCode << "] - " << errorMessage << std::endl;
+		LOG_ERROR("GLFW Error: ({0}) - {1}", errorCode, errorMessage);
 		__debugbreak();
 	}
 
@@ -30,6 +30,8 @@ namespace GameEngine
 		data.title = p.title;
 		data.width = p.w;
 		data.height = p.h;
+
+		LOG_INFO("Create Window {0} ({1}, {2})", p.title, p.w, p.h);
 
 		if (windowCount == 0)
 		{

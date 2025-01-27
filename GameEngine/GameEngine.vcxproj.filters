@@ -16,6 +16,9 @@
     <Filter Include="GraphicsAPI\OpenGL">
       <UniqueIdentifier>{A42DBE00-9011-7F56-F971-79A9E57469D8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{AC6878E8-1848-F783-2160-825A8DBE5DE5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
@@ -65,12 +68,18 @@
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h">
       <Filter>GraphicsAPI\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Logging\Log.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\WindowsWindow.h">
       <Filter>Platform</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsContext.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\KeyCodes.h" />
+    <ClInclude Include="src\Core\MouseCodes.h" />
+    <ClInclude Include="src\Core\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -93,8 +102,12 @@
     <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp">
       <Filter>GraphicsAPI\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Logging\Log.cpp">
+      <Filter>Logging</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
