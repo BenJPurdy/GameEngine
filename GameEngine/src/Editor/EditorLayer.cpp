@@ -23,4 +23,9 @@ namespace GameEngine
 	{
 
 	}
+
+	void EditorLayer::onEvent(Event& e)
+	{
+
+	}
 }

@@ -25,6 +25,10 @@ namespace GameEngine
 		uint32_t getWidth() const override { return data.width; }
 		uint32_t getHeight() const override { return data.height; }
 
+		inline void setEventCallback(const EventCallbackFn& callback) override
+		{
+			data.eventCallback = callback;
+		}
 		void setVSync(bool) override;
 		bool isVSync() const override;
 

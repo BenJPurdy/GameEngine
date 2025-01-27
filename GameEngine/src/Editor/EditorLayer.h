@@ -12,5 +12,6 @@ namespace GameEngine
 		virtual void onAttach() override;
 		virtual void onDetatch() override;
 		void onUpdate(Timestep) override;
+		void onEvent(Event&) override;
 	};
 }

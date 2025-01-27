@@ -12,9 +12,6 @@
 #include "Events/Events.h"
 #include "Events/ApplicationEvents.h"
 
-//4.7
-
-
 
 int main(int argc, char** argv);
 
@@ -30,14 +27,16 @@ namespace GameEngine
 		void close();
 		static App& get() { return *instance; }
 
+		void onEvent(Event&);
 		void pushLayer(Layer*);
-		
-
 		void pushOverlay(Layer*);
 		
 
 	private:
 		void run();
+		bool onWindowClose(WindowCloseEvent&);
+		bool onWindowResize(WindowResizeEvent&);
+
 
 		std::unique_ptr<Window> window;
 		LayerStack layerStack;

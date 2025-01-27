@@ -69,17 +69,23 @@ namespace GameEngine
 				switch (a)
 				{
 				case GLFW_PRESS:
+				{
 					KeyPressedEvent e(k, 0);
 					data.eventCallback(e);
 					break;
+				}
 				case GLFW_RELEASE:
+				{
 					KeyReleasedEvent e(k);
 					data.eventCallback(e);
 					break;
+				}
 				case GLFW_REPEAT:
+				{
 					KeyPressedEvent e(k, 1);
 					data.eventCallback(e);
 					break;
+				}
 				}
 			});
 
@@ -96,13 +102,17 @@ namespace GameEngine
 				switch (a)
 				{
 				case GLFW_PRESS:
+				{
 					MouseButtonPressedEvent e(b);
 					d.eventCallback(e);
 					break;
+				}
 				case GLFW_RELEASE:
+				{
 					MouseButtonReleasedEvent e(b);
 					d.eventCallback(e);
 					break;
+				}
 				}
 			});
 

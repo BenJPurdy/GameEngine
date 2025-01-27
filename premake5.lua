@@ -1,6 +1,6 @@
 workspace "HSIAGE"
     architecture "x64"
-    startproject "HSIAGE"
+    startproject "GameEngine"
 
     configurations
     {

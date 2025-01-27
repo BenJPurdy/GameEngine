@@ -26,7 +26,7 @@ namespace GameEngine
 		virtual uint32_t getHeight() const = 0;
 
 		//window attributes
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+		virtual void setEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void setVSync(bool) = 0;
 		virtual bool isVSync() const = 0;
 

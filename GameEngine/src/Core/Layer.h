@@ -2,6 +2,7 @@
 
 #include "Core/Core.h"
 #include "Core/Timestep.h"
+#include "Events/Events.h"
 #include <string>
 
 namespace GameEngine
@@ -15,6 +16,7 @@ namespace GameEngine
 		virtual void onAttach() {};
 		virtual void onDetatch() {};
 		virtual void onUpdate(Timestep t) {};
+		virtual void onEvent(Event&) {}
 	private:
 		std::string name;
 	};

@@ -46,24 +46,24 @@ namespace GameEngine
 	class EventDispatcher
 	{
 	public:
-		EventDispatcher(Event& event) : event(event)
+		EventDispatcher(Event& event) : _event(event)
 		{
 
 		}
 
-		template<typename t, typename F>
+		template<typename T, typename F>
 		bool dispatch(const F& fn)
 		{
-			if (event.getEventType() == T::GetStaticType())
+			if (_event.getEventType() == T::getStaticType())
 			{
-				event.handled = func(static_cast<T&>(event));
+				_event.handled = fn(static_cast<T&>(_event));
 				return true;
 			}
 			return false;
 		}
 
 	private:
-		Event& event;
+		Event& _event;
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e) { return os << e.toString(); }

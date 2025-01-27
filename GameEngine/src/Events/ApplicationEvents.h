@@ -33,8 +33,8 @@ namespace GameEngine
 	{
 	public:
 		WindowCloseEvent() {}
-		static EventType getStaticEvent() { return EventType::WindowClose; }
-		EventType getEventType() const override { return getStaticEvent(); }
+		static EventType getStaticType() { return EventType::WindowClose; }
+		EventType getEventType() const override { return getStaticType(); }
 		const char* getName() const override { return "WindowClose"; }
 		int getCategoryFlags() const override { return EventCategoryApp; }
 	};
@@ -43,8 +43,8 @@ namespace GameEngine
 	{
 	public:
 		AppTickEvent() {};
-		static EventType getStaticEvent() { return EventType::AppTick; }
-		EventType getEventType() const override { return getStaticEvent(); }
+		static EventType getStaticType() { return EventType::AppTick; }
+		EventType getEventType() const override { return getStaticType(); }
 		const char* getName() const override { return "AppTick"; }
 		int getCategoryFlags() const override { return EventCategoryApp; }
 	};
@@ -52,8 +52,8 @@ namespace GameEngine
 	class AppUpdateEvent : public Event
 	{
 		AppUpdateEvent() {};
-		static EventType getStaticEvent() { return EventType::AppUpdate; }
-		EventType getEventType() const override { return getStaticEvent(); }
+		static EventType getStaticType() { return EventType::AppUpdate; }
+		EventType getEventType() const override { return getStaticType(); }
 		const char* getName() const override { return "AppUpdate"; }
 		int getCategoryFlags() const override { return EventCategoryApp; }
 	};
@@ -61,8 +61,8 @@ namespace GameEngine
 	class AppRenderEvent : public Event
 	{
 		AppRenderEvent() {};
-		static EventType getStaticEvent() { return EventType::AppRender; }
-		EventType getEventType() const override { return getStaticEvent(); }
+		static EventType getStaticType() { return EventType::AppRender; }
+		EventType getEventType() const override { return getStaticType(); }
 		const char* getName() const override { return "AppRender"; }
 		int getCategoryFlags() const override { return EventCategoryApp; }
 	};

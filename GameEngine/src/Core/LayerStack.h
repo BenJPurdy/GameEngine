@@ -31,6 +31,6 @@ namespace GameEngine
 
 	private:
 		std::vector<Layer*> layers;
-		uint32_t insertIndex;
+		uint32_t insertIndex = 0;
 	};
 }

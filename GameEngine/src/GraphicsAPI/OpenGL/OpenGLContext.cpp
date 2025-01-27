@@ -10,6 +10,7 @@ namespace GameEngine
 
 	void OpenGLContext::init()
 	{
+		glfwMakeContextCurrent(windowHandle);
 		int err;
 		err = gl3wInit();
 		if (err != GL3W_OK)

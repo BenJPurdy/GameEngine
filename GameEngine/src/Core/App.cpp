@@ -14,6 +14,7 @@ namespace GameEngine
 	{
 		instance = this;
 		window = Window::create(WindowProps(name));
+		window->setEventCallback(std::bind(&App::onEvent, this, std::placeholders::_1));
 	}
 
 	App::~App() {}
@@ -49,6 +50,36 @@ namespace GameEngine
 		l->onAttach();
 	}
 	
+	void App::onEvent(Event& e)
+	{
+		EventDispatcher d(e);
+		d.dispatch<WindowCloseEvent>(BIND_EVENT_FUNC(onWindowClose));
+		d.dispatch<WindowResizeEvent>(BIND_EVENT_FUNC(onWindowResize));
+
+		for (auto it = layerStack.rbegin(); it != layerStack.rend(); ++it)
+		{
+			if (e.handled) break;
+			(*it)->onEvent(e);
+		}
+	}
+
+	bool App::onWindowClose(WindowCloseEvent& e)
+	{
+		running = false;
+		return true;
+	}
+
+	bool App::onWindowResize(WindowResizeEvent& e)
+	{
+		if (e.getWidth() == 0 || e.getHeight() == 0)
+		{
+			minimized = true;
+			return false;
+		}
+		minimized = false;
+		return false;
+	}
+		
 
 
 }
