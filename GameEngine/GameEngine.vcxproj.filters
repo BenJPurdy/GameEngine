@@ -4,8 +4,23 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsAPI">
+      <UniqueIdentifier>{70A29E76-DC57-176C-654C-1143D1000E70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsAPI\OpenGL">
+      <UniqueIdentifier>{A42DBE00-9011-7F56-F971-79A9E57469D8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -18,24 +33,44 @@
     <ClInclude Include="src\Core\EntryPoint.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Layer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\LayerStack.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Editor\EditorLayer.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\ApplicationEvents.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Events.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\KeyEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\MouseEvent..h">
+      <Filter>Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine_PCH.h" />
+    <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h">
+      <Filter>GraphicsAPI\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\WindowsWindow.h">
       <Filter>Platform</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Core\Layer.h" />
-    <ClInclude Include="src\Core\LayerStack.h" />
-    <ClInclude Include="src\Editor\EditorLayer.h" />
-    <ClInclude Include="src\Events\Events.h" />
-    <ClInclude Include="src\Events\KeyEvent.h" />
+    <ClInclude Include="src\Renderer\GraphicsContext.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -44,14 +79,22 @@
     <ClCompile Include="src\Core\Core.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Layer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\LayerStack.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\EditorLayer.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameEngine_PCH.cpp" />
+    <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp">
+      <Filter>GraphicsAPI\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Core\Layer.cpp" />
-    <ClCompile Include="src\Core\LayerStack.cpp" />
-    <ClCompile Include="src\Editor\EditorLayer.cpp" />
   </ItemGroup>
 </Project>

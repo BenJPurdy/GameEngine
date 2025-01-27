@@ -1,6 +1,6 @@
 #include "GameEngine_PCH.h"
 #include "App.h"
-#include "SDL.h"
+#include "GLFW/glfw3.h"
 
 
 namespace GameEngine
@@ -24,7 +24,7 @@ namespace GameEngine
 	{
 		while (running)
 		{
-			auto time = SDL_GetTicks();
+			auto time = (float)glfwGetTime();
 			Timestep timestep = time - lastFrameTime;
 			lastFrameTime = time;
 

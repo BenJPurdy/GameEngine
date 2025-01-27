@@ -2,11 +2,11 @@
 #include "OpenGLContext.h"
 
 #include <gl3w.h>
-#include <SDL.h>
+#include <GLFW/glfw3.h>
 
 namespace GameEngine
 {
-	OpenGLContext::OpenGLContext(SDL_Window* handle) :windowHandle(handle) {}
+	OpenGLContext::OpenGLContext(GLFWwindow* handle) :windowHandle(handle) {}
 
 	void OpenGLContext::init()
 	{
@@ -21,6 +21,6 @@ namespace GameEngine
 
 	void OpenGLContext::swapBuffers()
 	{
-		SDL_GL_SwapWindow(windowHandle);
+		glfwSwapBuffers(windowHandle);
 	}
 }

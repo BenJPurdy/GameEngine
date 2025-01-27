@@ -2,19 +2,19 @@
 
 #include "Renderer/GraphicsContext.h"
 
-struct SDL_Window;
+struct GLFWwindow;
 
 namespace GameEngine
 {
 	class OpenGLContext : public GraphicsContext
 	{
 	public:
-		OpenGLContext(SDL_Window*);
+		OpenGLContext(GLFWwindow*);
 
 		virtual void init() override;
 		virtual void swapBuffers() override;
 
 	private:
-		SDL_Window* windowHandle;
+		GLFWwindow* windowHandle;
 	};
 }

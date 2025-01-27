@@ -13,7 +13,7 @@ namespace GameEngine
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
-		MousebuttonPrsesed, MousebuttonReleased, MouseMoved, mouseScrolled,
+		MouseButtonPrsesed, MouseButtonReleased, MouseMoved, MouseScrolled,
 		GamepadConnected, GamepadDisconnected, GamepadButtonPressed, GamepadButtonReleased,
 	};
 

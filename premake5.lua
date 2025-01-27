@@ -13,12 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 --Include directories
 IncludeDir = {}
+IncludeDir["GLFW"] = "GameEngine/3rdParty/GLFW/include"
 IncludeDir["SDL"] = "GameEngine/3rdParty/SDL/include"
 IncludeDir["GL"] = "GameEngine/3rdParty/GL/include"
 
-
+include "GameEngine/3rdParty/GLFW/"
 include "GameEngine/3rdParty/GL/"
-include "GameEngine/3rdParty/SDL/"
+--include "GameEngine/3rdParty/SDL/"
 
 
 
@@ -53,18 +54,19 @@ project "GameEngine"
     {
         "%{prj.name}/src/",
         "%{prj.name}/3rdParty/",
-        "%{IncludeDir.SDL}",
+        "%{IncludeDir.GLFW}",
         "%{IncludeDir.GL}"
     }
 
     libdirs
     {
-        "%{prj.name}/3rdParty/SDL/lib/"
+        "%{prj.name}/3rdParty/GLFW/lib/"
     }
 
     links
     {
-        "SDL2","SDL2main",
+        --"SDL2","SDL2main",
+        "GLFW",
         "GL3W"
 
 
@@ -76,5 +78,7 @@ project "GameEngine"
         {
             --any windows system defines that are needed can go here
             --such as IMGUI_DEFINE stuff
+
+            "GLFW_INCLUDE_NONE"
 
         }

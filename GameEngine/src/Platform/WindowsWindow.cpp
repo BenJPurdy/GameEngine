@@ -9,7 +9,7 @@ namespace GameEngine
 
 	static void WindowErrorCallback(int errorCode, const char* errorMessage)
 	{
-		std::cout << "SDL_ERROR: [" << errorCode << "] - " << errorMessage << std::endl;
+		std::cout << "GLFW_ERROR: [" << errorCode << "] - " << errorMessage << std::endl;
 		__debugbreak();
 	}
 
@@ -33,23 +33,21 @@ namespace GameEngine
 
 		if (windowCount == 0)
 		{
-			auto err = SDL_Init(SDL_INIT_VIDEO);
-			if (err != 0) { WindowErrorCallback(err, SDL_GetError()); }
+			auto err = glfwInit();
+			glfwSetErrorCallback(WindowErrorCallback);
 		}
 
-		window = SDL_CreateWindow("HSIAGE", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			data.width, data.height,
-			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		window = glfwCreateWindow((int)p.w, (int)p.h, data.title.c_str(), nullptr, nullptr);
 		windowCount++;
 
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
-		if (SDL_GL_CreateContext(window) == NULL) std::cout << "FAILED TO CREATE GL CONTEXT: " << SDL_GetError() << std::endl;
+		glfwSetWindowUserPointer(window, &data);
+
+		setVSync(true);
 
 		context = new OpenGLContext(window);
 		context->init();
 
-		SDL_SetWindowData(window, "data", &data);
+		
 		setVSync(true);
 
 		
@@ -58,18 +56,17 @@ namespace GameEngine
 
 	void WindowsWindow::shutdown()
 	{
-		SDL_DestroyWindow(window);
+		glfwDestroyWindow(window);
 		--windowCount;
 		if (windowCount == 0)
 		{
-			SDL_Quit();
+			glfwTerminate();
 		}
 	}
 
 	void WindowsWindow::onUpdate()
 	{
-		SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
-		SDL_PumpEvents();
+		glfwPollEvents();
 
 		context->swapBuffers();
 	}

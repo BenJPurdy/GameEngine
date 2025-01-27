@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Core/Window.h"
-#include "SDL.h"
 
+#include "GLFW/glfw3.h"
 #include "Renderer/GraphicsContext.h"
 
 
@@ -30,7 +30,7 @@ namespace GameEngine
 		void shutdown();
 
 
-		SDL_Window* window;
+		GLFWwindow* window;
 		GraphicsContext* context;
 		struct WindowData
 		{
