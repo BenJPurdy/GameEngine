@@ -5,6 +5,11 @@
 #include "GLFW/glfw3.h"
 #include "Renderer/GraphicsContext.h"
 
+//Events
+#include "Events/ApplicationEvents.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
+
 
 namespace GameEngine
 {

@@ -44,6 +44,75 @@ namespace GameEngine
 
 		setVSync(true);
 
+		glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int w, int h)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				data.width = w;
+				data.height = h;
+
+				WindowResizeEvent ev(w, h);
+
+				data.eventCallback(ev);
+			});
+
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowCloseEvent ev;
+				data.eventCallback(ev);
+			});
+		
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int k, int s, int a, int m)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				switch (a)
+				{
+				case GLFW_PRESS:
+					KeyPressedEvent e(k, 0);
+					data.eventCallback(e);
+					break;
+				case GLFW_RELEASE:
+					KeyReleasedEvent e(k);
+					data.eventCallback(e);
+					break;
+				case GLFW_REPEAT:
+					KeyPressedEvent e(k, 1);
+					data.eventCallback(e);
+					break;
+				}
+			});
+
+		glfwSetCharCallback(window, [](GLFWwindow* w, uint32_t k)
+			{
+				WindowData& d = *(WindowData*)glfwGetWindowUserPointer(w);
+				KeyTypedEvent e(k);
+				d.eventCallback(e);
+			});
+		
+		glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int b, int a, int m)
+			{
+				WindowData& d = *(WindowData*)glfwGetWindowUserPointer(w);
+				switch (a)
+				{
+				case GLFW_PRESS:
+					MouseButtonPressedEvent e(b);
+					d.eventCallback(e);
+					break;
+				case GLFW_RELEASE:
+					MouseButtonReleasedEvent e(b);
+					d.eventCallback(e);
+					break;
+				}
+			});
+
+		glfwSetScrollCallback(window, [](GLFWwindow* w, double x, double y)
+			{
+				WindowData& d = *(WindowData*)glfwGetWindowUserPointer(w);
+				MouseMovedEvent e((float)x, (float)y);
+				d.eventCallback(e);
+			});
+
 		context = new OpenGLContext(window);
 		context->init();
 
