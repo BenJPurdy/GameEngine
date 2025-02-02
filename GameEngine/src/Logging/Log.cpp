@@ -9,7 +9,7 @@ namespace GameEngine
 
 	void Logger::init()
 	{
-		spdlog::set_pattern("%^[T] %n: %v%$");
+		spdlog::set_pattern("%^[%T] %n: %v%$");
 		logger = spdlog::stdout_color_mt("GameEngine");
 		logger->set_level(spdlog::level::trace);
 	}

@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -98,7 +98,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -116,7 +116,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -149,6 +149,8 @@
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Logging\Log.h" />
     <ClInclude Include="src\Platform\WindowsWindow.h" />
+    <ClInclude Include="src\Renderer\Camera\Camera.h" />
+    <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,7 @@
     <ClCompile Include="src\Logging\Log.cpp" />
     <ClCompile Include="src\Platform\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
+    <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">

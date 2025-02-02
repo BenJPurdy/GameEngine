@@ -36,10 +36,19 @@
     <ClInclude Include="src\Core\EntryPoint.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Input.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\KeyCodes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Layer.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\LayerStack.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\MouseCodes.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
@@ -77,9 +86,8 @@
     <ClInclude Include="src\Renderer\GraphicsContext.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\KeyCodes.h" />
-    <ClInclude Include="src\Core\MouseCodes.h" />
-    <ClInclude Include="src\Core\Input.h" />
+    <ClInclude Include="src\Renderer\Camera\Camera.h" />
+    <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -105,9 +113,12 @@
     <ClCompile Include="src\Logging\Log.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\WindowsInput.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\WindowsInput.cpp" />
+    <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
   </ItemGroup>
 </Project>

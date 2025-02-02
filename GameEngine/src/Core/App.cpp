@@ -1,5 +1,6 @@
 #include "GameEngine_PCH.h"
 #include "App.h"
+#include "Input.h"
 #include "GLFW/glfw3.h"
 
 
@@ -15,6 +16,9 @@ namespace GameEngine
 		instance = this;
 		window = Window::create(WindowProps(name));
 		window->setEventCallback(std::bind(&App::onEvent, this, std::placeholders::_1));
+
+		Input::init();
+		Input::setCallback(BIND_EVENT_FUNC(App::onEvent));
 	}
 
 	App::~App() {}
@@ -33,6 +37,8 @@ namespace GameEngine
 			{
 				l->onUpdate(timestep);
 			}
+
+			Input::update();
 
 			window->onUpdate();
 		}
