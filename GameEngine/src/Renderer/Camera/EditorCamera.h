@@ -46,8 +46,8 @@ namespace GameEngine
 
 		glm::vec3 calculatePosition() const;
 		std::pair<float, float> panSpeed() const;
-		float rotationSpeed();
-		float zoomSpeed();
+		float rotationSpeed() const;
+		float zoomSpeed() const;
 
 		float fov = 45.0f, aspect = 1.778f, nearClip = 0.1f, farClip = 1000.0f;
 
