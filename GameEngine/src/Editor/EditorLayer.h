@@ -1,6 +1,6 @@
 #pragma once
 #include "GameEngine.h"
-#include "Renderer/Camera//EditorCamera.h"
+#include "Renderer/Camera/EditorCamera.h"
 
 
 namespace GameEngine
@@ -20,5 +20,6 @@ namespace GameEngine
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
 		Ref<Render3d> renderer3d;
+		Ref<ShaderLibrary> shaders;
 	};
 }

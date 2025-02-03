@@ -129,7 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\EntryPoint.h" />
@@ -155,10 +154,11 @@
     <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
     <ClInclude Include="src\Renderer\Data\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h" />
     <ClInclude Include="src\Utilities\FileManagement.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Core\App.cpp" />
     <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\Core\Layer.cpp" />
@@ -175,6 +175,8 @@
     <ClCompile Include="src\Renderer\3D\Render3D.cpp" />
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
     <ClCompile Include="src\Renderer\Data\Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
+    <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">

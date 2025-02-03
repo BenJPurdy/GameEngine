@@ -20,6 +20,8 @@ namespace GameEngine
 
 		renderer3d = createRef<Render3d>();
 		renderer3d->setupTriangle();
+		shaders = createRef<ShaderLibrary>();
+		shaders->load("FlatColour", "assets/shaders/FlatColour");
 	}
 
 	void EditorLayer::onDetatch()
@@ -32,6 +34,12 @@ namespace GameEngine
 		//framebuffer->bind();
 		renderer3d->preProcessing();
 		camera.onUpdate(ts);
+
+		auto shader = shaders->get("FlatColour");
+		shader->bind();
+		shader->setFloat4("colour", { 0.2f, 0.5f, 0.3f, 1.0f });
+		shader->setMat4("viewProjection", camera.getViewProjection());
+		shader->setMat4("transform", glm::mat4(1.0f));
 		renderer3d->renderTriangle();
 
 		//framebuffer->unbind();

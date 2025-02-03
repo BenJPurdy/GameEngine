@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 
 typedef unsigned int GLenum;
+typedef unsigned int GLuint;
+
 namespace GameEngine
 {
 
@@ -25,8 +27,12 @@ namespace GameEngine
 		void setFloat4(const std::string&, const glm::vec4&);
 		void setFloat3(const std::string&, const glm::vec3&);
 		void setFloat2(const std::string&, const glm::vec2&);
+		void setFloat(const std::string&, const float);
 
 		inline const std::string& getName() { return name; }
+
+		//why all these here when they don't seem to be doing anything
+		//to imporove the program and seem to just add bloat to the class???
 
 		void uniformInt(const std::string&, const int);
 		void unformIntArray(const std::string&, const int*, const uint32_t);

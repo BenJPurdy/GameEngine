@@ -37,6 +37,7 @@ namespace GameEngine
 			filePaths.size() > VALID_SHADER_FILE_MAX_COUNT)
 		{
 			LOG_ERROR("incorrect number of files in shader dir {0}", fp);
+			return;
 		}
 
 		std::string frag, vert;
@@ -54,6 +55,14 @@ namespace GameEngine
 		auto vertShader = compileShader(GL_VERTEX_SHADER, vertexCode);
 		auto fragShader = compileShader(GL_FRAGMENT_SHADER, fragmentCode);
 
+		glLinkProgram(id);
+
+		if (!compileStatus(id)) { id = 0; LOG_ERROR("Failed to link program"); return; };
+
+		glDeleteShader(vertShader);
+		glDeleteShader(fragShader);
+		glDetachShader(id, vertShader);
+		glDetachShader(id, fragShader);
 	}
 		
 	bool Program::compileStatus(GLuint shader)
@@ -103,6 +112,9 @@ namespace GameEngine
 		return shader;
 	}
 
+	void Program::bind() const { glUseProgram(id); }
+	void Program::unbind() const { glUseProgram(0); }
+
 
 	void Program::setFloat4(const std::string& name, const glm::vec4& value)
 	{
@@ -121,4 +133,31 @@ namespace GameEngine
 		GLuint uniformLocation = glGetUniformLocation(id, name.c_str());
 		glUniform1i(uniformLocation, (GLint)value);
 	}
+
+	void Program::setIntArray(const std::string& name, int* value, uint32_t count)
+	{
+		glUniform1iv(glGetUniformLocation(id, name.c_str()), count, value);
+	}
+
+	void Program::setFloat(const std::string& name, float value)
+	{
+		glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+	}
+
+	void Program::setFloat2(const std::string& name, const glm::vec2& value)
+	{
+		glUniform2f(glGetUniformLocation(id, name.c_str()), value.x, value.y);
+	}
+
+	void Program::setFloat3(const std::string& name, const glm::vec3& value)
+	{
+		glUniform3f(glGetUniformLocation(id, name.c_str()), value.x, value.y, value.z);
+	}
+
+	void Program::setFloat4(const std::string& name, const glm::vec4& value)
+	{
+		glUniform4f(glGetUniformLocation(id, name.c_str()),
+			value.x, value.y, value.z, value.w);
+	}
+
 }

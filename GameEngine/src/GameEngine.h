@@ -6,6 +6,7 @@
 #include "Core/Input.h"
 #include "Renderer/Data/Framebuffer.h"
 #include "Renderer/3D/Render3D.h"
+#include "Renderer/Shader/ShaderLibrary.h"
 
 
 
