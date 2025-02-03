@@ -25,6 +25,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Camera">
+      <UniqueIdentifier>{74BF48DA-E04A-B69E-E95B-39935566129F}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\App.h">
@@ -83,11 +86,19 @@
     <ClInclude Include="src\Platform\WindowsWindow.h">
       <Filter>Platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Camera\Camera.h">
+      <Filter>Renderer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Camera\EditorCamera.h">
+      <Filter>Renderer\Camera</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsContext.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Camera\Camera.h" />
-    <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
+    <ClInclude Include="src\Renderer\Data\Framebuffer.h" />
+    <ClInclude Include="src\Renderer\3D\Render3D.h" />
+    <ClInclude Include="src\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Utilities\FileManagement.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -119,6 +130,11 @@
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
+    <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp">
+      <Filter>Renderer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Data\Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\3D\Render3D.cpp" />
+    <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
   </ItemGroup>
 </Project>

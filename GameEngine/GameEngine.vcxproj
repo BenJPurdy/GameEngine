@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\EntryPoint.h" />
@@ -149,11 +150,15 @@
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Logging\Log.h" />
     <ClInclude Include="src\Platform\WindowsWindow.h" />
+    <ClInclude Include="src\Renderer\3D\Render3D.h" />
     <ClInclude Include="src\Renderer\Camera\Camera.h" />
     <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
+    <ClInclude Include="src\Renderer\Data\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Utilities\FileManagement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Core\App.cpp" />
     <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\Core\Layer.cpp" />
@@ -167,7 +172,9 @@
     <ClCompile Include="src\Logging\Log.cpp" />
     <ClCompile Include="src\Platform\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
+    <ClCompile Include="src\Renderer\3D\Render3D.cpp" />
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
+    <ClCompile Include="src\Renderer\Data\Framebuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">

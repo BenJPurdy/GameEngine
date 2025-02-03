@@ -1,5 +1,7 @@
 #pragma once
 #include "GameEngine.h"
+#include "Renderer/Camera//EditorCamera.h"
+
 
 namespace GameEngine
 {
@@ -13,5 +15,10 @@ namespace GameEngine
 		virtual void onDetatch() override;
 		void onUpdate(Timestep) override;
 		void onEvent(Event&) override;
+
+	private:
+		EditorCamera camera;
+		Ref<Framebuffer> framebuffer;
+		Ref<Render3d> renderer3d;
 	};
 }
