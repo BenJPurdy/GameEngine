@@ -40,11 +40,12 @@ namespace FileManagment
 		if (!file.is_open()) return false;
 		size_t fileSize = (size_t)file.tellg();
 		if (fileSize == 0) return false;
-		dst->resize(fileSize);
+		dst->resize(fileSize + 1);
 
 		file.seekg(std::ios::beg);
 		file.read(dst->data(), fileSize);
 		file.close();
+		(*dst)[fileSize] = '\0';
 
 		return true;
 	}

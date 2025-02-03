@@ -24,6 +24,8 @@ namespace GameEngine
 		return 0;
 	}
 
+	Program::~Program() { glDeleteProgram(id); }
+
 	Program::Program(const std::string& fp)
 	{
 		namespace FM = FileManagment;
@@ -55,6 +57,8 @@ namespace GameEngine
 		auto vertShader = compileShader(GL_VERTEX_SHADER, vertexCode);
 		auto fragShader = compileShader(GL_FRAGMENT_SHADER, fragmentCode);
 
+		glAttachShader(id, vertShader);
+		glAttachShader(id, fragShader);
 		glLinkProgram(id);
 
 		if (!compileStatus(id)) { id = 0; LOG_ERROR("Failed to link program"); return; };
@@ -77,7 +81,7 @@ namespace GameEngine
 
 		if (result == GL_FALSE)
 		{
-			if (type == GL_PROGRAM)
+			if (type != GL_PROGRAM)
 			{
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 				std::string shaderError((logLength > 1) ? logLength : 1, '\0');
@@ -118,7 +122,8 @@ namespace GameEngine
 
 	void Program::setFloat4(const std::string& name, const glm::vec4& value)
 	{
-		glUniform4fv(glGetUniformLocation(id, name.c_str()), 1,
+		GLuint loc = glGetUniformLocation(id, name.c_str());
+		glUniform4fv(loc, 1,
 			glm::value_ptr(value));
 	}
 
@@ -154,10 +159,6 @@ namespace GameEngine
 		glUniform3f(glGetUniformLocation(id, name.c_str()), value.x, value.y, value.z);
 	}
 
-	void Program::setFloat4(const std::string& name, const glm::vec4& value)
-	{
-		glUniform4f(glGetUniformLocation(id, name.c_str()),
-			value.x, value.y, value.z, value.w);
-	}
+	
 
 }

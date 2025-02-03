@@ -49,7 +49,7 @@ namespace GameEngine
 		float rotationSpeed() const;
 		float zoomSpeed() const;
 
-		float fov = 45.0f, aspect = 1.778f, nearClip = 0.1f, farClip = 1000.0f;
+		float fov = 45.0f, aspect = 1280.0f / 720.0f, nearClip = 0.1f, farClip = 1000.0f;
 
 		glm::mat4 viewMatrix;
 		glm::vec3 position = { 0.0f, 0.0f, 0.0f };

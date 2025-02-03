@@ -11,6 +11,7 @@ namespace GameEngine
 	class ShaderLibrary
 	{
 	public:
+
 		void add(const Ref<Program>&);
 		void add(const std::string&, const Ref<Program>&);
 

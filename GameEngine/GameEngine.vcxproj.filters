@@ -116,10 +116,12 @@
     <ClInclude Include="src\Renderer\Shader\Shader.h">
       <Filter>Renderer\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h">
+      <Filter>Renderer\Shader</Filter>
+    </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -163,6 +165,8 @@
     <ClCompile Include="src\Renderer\Shader\Shader.cpp">
       <Filter>Renderer\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
+      <Filter>Renderer\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
