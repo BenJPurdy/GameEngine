@@ -169,4 +169,7 @@
       <Filter>Renderer\Shader</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\glm.natvis" />
+  </ItemGroup>
 </Project>

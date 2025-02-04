@@ -22,7 +22,7 @@ namespace GameEngine
 		inline float getDistance() const { return distance; }
 		inline void setDistance(float d) { distance = d; }
 
-		inline void setViewportSize(float w, float h) { width = w; height = h; }
+		inline void setViewportSize(float w, float h) { width = w; height = h; updateProjection(); }
 		glm::mat4 getViewProjection() const { return projection * viewMatrix; }
 
 		glm::vec3 getUpdirection() const;
@@ -49,7 +49,7 @@ namespace GameEngine
 		float rotationSpeed() const;
 		float zoomSpeed() const;
 
-		float fov = 45.0f, aspect = 1280.0f / 720.0f, nearClip = 0.1f, farClip = 1000.0f;
+		float fov = 45.0f, aspect = 1.7778f, nearClip = 0.1f, farClip = 1000.0f;
 
 		glm::mat4 viewMatrix;
 		glm::vec3 position = { 0.0f, 0.0f, 0.0f };
@@ -57,7 +57,7 @@ namespace GameEngine
 
 		glm::vec2 initialMousePosition = { 0.0f, 0.0f };
 
-		float distance = 10.0f;
+		float distance = 5.0f;
 		float pitch = 0.0f, yaw = 0.0f;
 
 		float width = 1280, height = 720;

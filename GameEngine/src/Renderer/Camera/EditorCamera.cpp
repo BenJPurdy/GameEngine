@@ -12,7 +12,11 @@
 namespace GameEngine
 {
 	EditorCamera::EditorCamera(float fov, float ar, float nC, float fC) : 
-		fov(fov), aspect(ar), nearClip(nC), farClip(fC)  { updateView(); }
+		fov(fov), aspect(ar), nearClip(nC), farClip(fC),
+		Camera(glm::perspective(glm::radians(fov), aspect, nearClip, farClip))
+	{
+		 updateView();
+	}
 
 	void EditorCamera::onUpdate(Timestep t)
 	{
@@ -48,12 +52,18 @@ namespace GameEngine
 
 	glm::vec3 EditorCamera::getForwardDirection() const
 	{
-		return glm::rotate(getOrientation(), glm::vec3(0.0f, 0.0f, 1.0f));
+		return glm::rotate(getOrientation(), glm::vec3(0.0f, 0.0f, -1.0f));
 	}
 
 	glm::quat EditorCamera::getOrientation() const
 	{
 		return glm::quat(glm::vec3(-pitch, -yaw, 0.0f));
+	}
+
+	void EditorCamera::updateProjection()
+	{
+		aspect = width / height;
+		projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
 	}
 
 	void EditorCamera::updateView()
@@ -71,7 +81,7 @@ namespace GameEngine
 	bool EditorCamera::onMouseScroll(MouseScrolledEvent& e)
 	{
 		//RENAME e.getY to getOffsetY
-		float d = e.getY() * 0.1f;
+		float d = e.getOffsetY() * 0.1f;
 		mouseZoom(d);
 		updateView();
 		return false;
@@ -109,6 +119,8 @@ namespace GameEngine
 	std::pair<float, float> EditorCamera::panSpeed() const
 	{
 		//WHY ALL THESE NUMBERS
+
+		//polynomial for making panning feel not shit
 		float x = std::min(width / 1000.0f, 2.4f);
 		float xF = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
 
@@ -128,5 +140,7 @@ namespace GameEngine
 		speed = std::min(speed, 100.0f);
 		return speed;
 	}
+
+
 
 }

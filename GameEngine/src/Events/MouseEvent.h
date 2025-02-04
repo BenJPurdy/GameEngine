@@ -34,7 +34,7 @@ namespace GameEngine
 		MouseScrolledEvent(float x, float y) : offsetX(x), offsetY(y) {}
 
 		inline float getX() const { return offsetX; }
-		inline float getY() const { return offsetY; }
+		inline float getOffsetY() const { return offsetY; }
 
 		std::string toString() const override
 		{
