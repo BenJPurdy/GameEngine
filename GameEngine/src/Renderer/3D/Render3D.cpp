@@ -44,4 +44,9 @@ namespace GameEngine
 		glBindVertexArray(triVAO);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 	}
+
+	void Render3d::updateViewportSize(int w, int h)
+	{
+		glViewport(0, 0, w, h);
+	}
 }

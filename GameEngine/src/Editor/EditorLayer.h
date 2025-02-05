@@ -17,6 +17,9 @@ namespace GameEngine
 		void onEvent(Event&) override;
 
 	private:
+		bool onWindowResize(WindowResizeEvent&);
+
+
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
 		Ref<Render3d> renderer3d;

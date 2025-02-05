@@ -36,15 +36,15 @@ namespace FileManagment
 
 	bool readFile(const std::string& fileName, std::vector<char>* dst)
 	{
-		std::ifstream file(fileName, std::ios::ate | std::ios::binary);
-		if (!file.is_open()) return false;
-		size_t fileSize = (size_t)file.tellg();
+		std::ifstream FILE(fileName, std::ios::ate | std::ios::binary);
+		if (!FILE.is_open()) return false;
+		size_t fileSize = (size_t)FILE.tellg();
 		if (fileSize == 0) return false;
 		dst->resize(fileSize + 1);
 
-		file.seekg(std::ios::beg);
-		file.read(dst->data(), fileSize);
-		file.close();
+		FILE.seekg(std::ios::beg);
+		FILE.read(dst->data(), fileSize);
+		FILE.close();
 		(*dst)[fileSize] = '\0';
 
 		return true;

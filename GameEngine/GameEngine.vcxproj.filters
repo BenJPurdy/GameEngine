@@ -122,6 +122,15 @@
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Data\Buffer.h" />
+    <ClInclude Include="src\Renderer\Data\BufferLayout.h" />
+    <ClInclude Include="src\Renderer\Data\VertexBuffer.h" />
+    <ClInclude Include="src\Renderer\Data\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\Data\VertexArray.h" />
+    <ClInclude Include="src\Renderer\Data\UniformBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -168,6 +177,12 @@
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
       <Filter>Renderer\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Data\Buffer.cpp" />
+    <ClCompile Include="src\Renderer\Data\VertexArray.cpp" />
+    <ClCompile Include="src\Renderer\Data\UniformBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\glm.natvis" />

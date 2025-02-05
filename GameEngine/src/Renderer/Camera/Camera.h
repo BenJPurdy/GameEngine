@@ -9,13 +9,14 @@ namespace GameEngine
 	class Camera
 	{
 	public:
+
 		Camera() = default;
-		Camera(const glm::mat4& proj) : projection(proj) {}
+		Camera(const glm::mat4& projection_) : m_Projection(projection_) {}
 		virtual ~Camera() = default;
 
-		const glm::mat4& getProjection() const { return projection; }
+		const glm::mat4& GetProjection() const { return m_Projection; }
 
 	protected:
-		glm::mat4 projection = glm::mat4(1.0f);
+		glm::mat4 m_Projection = glm::mat4(1.0f);
 	};
 }

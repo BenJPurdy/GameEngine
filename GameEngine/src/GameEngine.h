@@ -8,6 +8,12 @@
 #include "Renderer/3D/Render3D.h"
 #include "Renderer/Shader/ShaderLibrary.h"
 
+#include "Renderer/Data/Buffer.h"
+#include "Renderer/Data/BufferLayout.h"
+#include "Renderer/Data/VertexBuffer.h"
+#include "Renderer/Data/IndexBuffer.h"
+#include "Renderer/Data/VertexArray.h"
+
 
 
 

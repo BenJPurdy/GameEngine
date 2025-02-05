@@ -148,11 +148,20 @@
     <ClInclude Include="src\GameEngine_PCH.h" />
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Logging\Log.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Platform\WindowsWindow.h" />
     <ClInclude Include="src\Renderer\3D\Render3D.h" />
     <ClInclude Include="src\Renderer\Camera\Camera.h" />
     <ClInclude Include="src\Renderer\Camera\EditorCamera.h" />
+    <ClInclude Include="src\Renderer\Data\Buffer.h" />
+    <ClInclude Include="src\Renderer\Data\BufferLayout.h" />
     <ClInclude Include="src\Renderer\Data\Framebuffer.h" />
+    <ClInclude Include="src\Renderer\Data\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\Data\UniformBuffer.h" />
+    <ClInclude Include="src\Renderer\Data\VertexArray.h" />
+    <ClInclude Include="src\Renderer\Data\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h" />
@@ -170,11 +179,17 @@
     </ClCompile>
     <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Logging\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
     <ClCompile Include="src\Renderer\3D\Render3D.cpp" />
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
+    <ClCompile Include="src\Renderer\Data\Buffer.cpp" />
     <ClCompile Include="src\Renderer\Data\Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\Data\UniformBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Data\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp" />
   </ItemGroup>

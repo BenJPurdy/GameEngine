@@ -1,146 +1,152 @@
 #include "GameEngine_PCH.h"
 #include "EditorCamera.h"
+
 #include "Core/Input.h"
 #include "Core/KeyCodes.h"
 #include "Core/MouseCodes.h"
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
 namespace GameEngine
 {
-	EditorCamera::EditorCamera(float fov, float ar, float nC, float fC) : 
-		fov(fov), aspect(ar), nearClip(nC), farClip(fC),
-		Camera(glm::perspective(glm::radians(fov), aspect, nearClip, farClip))
+
+	EditorCamera::EditorCamera(float fov, float aspectRatio, float nearClip, float farClip)
+		: m_FOV(fov), m_AspectRatio(aspectRatio), m_NearClip(nearClip), m_FarClip(farClip),
+		Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip))
 	{
-		 updateView();
+		UpdateView();
 	}
 
-	void EditorCamera::onUpdate(Timestep t)
+	void EditorCamera::onUpdate(Timestep ts)
 	{
 		if (Input::isKeyPressed(Key::LeftAlt))
 		{
-			const glm::vec2& mouse{Input::getMouseX(), Input::getMouseY()};
-			//what is the magic numebr doing???
-			glm::vec2 delta = (mouse - initialMousePosition) * 0.003f;
-			initialMousePosition = mouse;
+			const glm::vec2& mouse{ Input::getMouseX(), Input::getMouseY() };
+			glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
+			m_InitialMousePosition = mouse;
 
-			if (Input::isMouseButtonPressed(Mouse::ButtonMiddle)) mousePan(delta);
-			else if (Input::isMouseButtonPressed(Mouse::ButtonLeft)) mouseRotate(delta);
-			else if (Input::isMouseButtonPressed(Mouse::ButtonRight)) mouseZoom(delta.y);
+			if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
+				MousePan(delta);
+			else if (Input::isMouseButtonPressed(Mouse::ButtonLeft))
+				MouseRotate(delta);
+			else if (Input::isMouseButtonPressed(Mouse::ButtonRight))
+				MouseZoom(delta.y);
 		}
-		updateView();
+		UpdateView();
 	}
 
 	void EditorCamera::onEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.dispatch<MouseScrolledEvent>(BIND_EVENT_FN(EditorCamera::onMouseScroll));
+		dispatcher.dispatch<MouseScrolledEvent>(BIND_EVENT_FN(EditorCamera::OnMouseScroll));
 	}
 
-	glm::vec3 EditorCamera::getUpdirection() const
+	void EditorCamera::OnResize(float width, float height)
 	{
-		return glm::rotate(getOrientation(), glm::vec3(0.0f, 1.0f, 0.0f));
+		m_AspectRatio = width / height;
+		UpdateProjection();
+		UpdateView();
 	}
 
-	glm::vec3 EditorCamera::getRightDirection() const
+	glm::vec3 EditorCamera::GetUpDirection() const
 	{
-		return glm::rotate(getOrientation(), glm::vec3(1.0f, 0.0f, 0.0f));
+		return glm::rotate(GetOrientation(), glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
-	glm::vec3 EditorCamera::getForwardDirection() const
+	glm::vec3 EditorCamera::GetRightDirection() const
 	{
-		return glm::rotate(getOrientation(), glm::vec3(0.0f, 0.0f, -1.0f));
+		return glm::rotate(GetOrientation(), glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
-	glm::quat EditorCamera::getOrientation() const
+	glm::vec3 EditorCamera::GetForwardDirection() const
 	{
-		return glm::quat(glm::vec3(-pitch, -yaw, 0.0f));
+		return glm::rotate(GetOrientation(), glm::vec3(0.0f, 0.0f, -1.0f));
 	}
 
-	void EditorCamera::updateProjection()
+	glm::quat EditorCamera::GetOrientation() const
 	{
-		aspect = width / height;
-		projection = glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
+		return glm::quat(glm::vec3(-m_Pitch, -m_Yaw, 0.0f));
 	}
 
-	void EditorCamera::updateView()
+	void EditorCamera::UpdateProjection()
 	{
-		position = calculatePosition();
-
-		glm::quat o = getOrientation();
-		viewMatrix = glm::translate(glm::mat4(1.0f), position) * glm::toMat4(o);
-		// remove this later to do it in the shader maybe? seems expensive to do
-		// on the cpu every frame
-		// then again, less math is good math
-		viewMatrix = glm::inverse(viewMatrix);
+		m_AspectRatio = m_ViewportWidth / m_ViewportHeight;
+		m_Projection = glm::perspective(glm::radians(m_FOV), m_AspectRatio, m_NearClip, m_FarClip);
 	}
 
-	bool EditorCamera::onMouseScroll(MouseScrolledEvent& e)
+	void EditorCamera::UpdateView()
 	{
-		//RENAME e.getY to getOffsetY
-		float d = e.getOffsetY() * 0.1f;
-		mouseZoom(d);
-		updateView();
+		//m_Yaw = m_Pitch = 0.0f; //lock the camera's rotation
+		m_Position = CalculatePosition();
+
+		glm::quat orientation = GetOrientation();
+		m_ViewMatrix = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(orientation);
+		m_ViewMatrix = glm::inverse(m_ViewMatrix);
+	}
+
+	bool EditorCamera::OnMouseScroll(MouseScrolledEvent& e)
+	{
+		float delta = e.getOffsetY() * 0.1f;
+		MouseZoom(delta);
+		UpdateView();
 		return false;
 	}
 
-	void EditorCamera::mousePan(const glm::vec2& d)
+	void EditorCamera::MousePan(const glm::vec2& delta)
 	{
-		auto [xSpeed, ySpeed] = panSpeed();
-		focalPoint += -getRightDirection() * d.x * xSpeed * distance;
-		focalPoint += getUpdirection() * d.y * ySpeed * distance;
+		auto [xSpeed, ySpeed] = PanSpeed();
+		m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;
+		m_FocalPoint += GetUpDirection() * delta.y * ySpeed * m_Distance;
 	}
 
-	void EditorCamera::mouseRotate(const glm::vec2& d)
+	void EditorCamera::MouseRotate(const glm::vec2& delta)
 	{
-		float yawSign = getUpdirection().y < 0 ? -1.0f : 1.0f;
-		yaw += yawSign * d.x * rotationSpeed();
-		pitch += d.y * rotationSpeed();
+		float yawSign = GetUpDirection().y < 0 ? -1.0f : 1.0f;
+		m_Yaw += yawSign * delta.x * RotationSpeed();
+		m_Pitch += delta.y * RotationSpeed();
 	}
 
-	void EditorCamera::mouseZoom(float d)
+	void EditorCamera::MouseZoom(float delta)
 	{
-		distance -= d * zoomSpeed();
-		if (distance < 1.0f)
+		m_Distance -= delta * ZoomSpeed();
+		if (m_Distance < 1.0f)
 		{
-			focalPoint += getForwardDirection();
-			distance = 1.0f;
+			m_FocalPoint += GetForwardDirection();
+			m_Distance = 1.0f;
 		}
 	}
 
-	glm::vec3 EditorCamera::calculatePosition() const
+	glm::vec3 EditorCamera::CalculatePosition() const
 	{
-		return focalPoint - getForwardDirection() * distance;
+		return m_FocalPoint - GetForwardDirection() * m_Distance;
 	}
 
-	std::pair<float, float> EditorCamera::panSpeed() const
+	std::pair<float, float> EditorCamera::PanSpeed() const
 	{
-		//WHY ALL THESE NUMBERS
+		float x = std::min(m_ViewportWidth / 1000.0f, 2.4f); // max = 2.4f
+		float xFactor = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
 
-		//polynomial for making panning feel not shit
-		float x = std::min(width / 1000.0f, 2.4f);
-		float xF = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
+		float y = std::min(m_ViewportHeight / 1000.0f, 2.4f); // max = 2.4f
+		float yFactor = 0.0366f * (y * y) - 0.1778f * x + 0.3021f;
 
-		float y = std::min(height / 1000.0f, 2.4f);
-		float yF = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
-
-		return {xF, yF};
+		return { xFactor, yFactor };
 	}
 
-	float EditorCamera::rotationSpeed() const { return 0.8f; }
-
-	float EditorCamera::zoomSpeed() const
+	float EditorCamera::RotationSpeed() const
 	{
-		float d = distance * 0.2f;
-		d = std::max(distance, 0.0f);
-		float speed = d * d;
-		speed = std::min(speed, 100.0f);
+		return 0.8f;
+	}
+
+	float EditorCamera::ZoomSpeed() const
+	{
+		float distance = m_Distance * 0.2f;
+		distance = std::max(distance, 0.0f);
+		float speed = distance * distance;
+		speed = std::min(speed, 100.0f); //max speed = 100.0f
 		return speed;
 	}
-
-
 
 }

@@ -14,6 +14,7 @@ namespace GameEngine
 
 		void renderTriangle();
 		void setupTriangle();
+		void updateViewportSize(int, int);
 
 	private:
 		uint32_t triVAO, triVBO, triIBO;
