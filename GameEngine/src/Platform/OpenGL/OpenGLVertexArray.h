@@ -5,6 +5,7 @@ namespace GameEngine
 {
 	class OpenGLVertexArray : public VertexArray
 	{
+	public:
 		OpenGLVertexArray();
 		virtual ~OpenGLVertexArray();
 
@@ -14,8 +15,8 @@ namespace GameEngine
 		virtual void addVertexBuffer(const Ref<VertexBuffer>&) override;
 		virtual void setIndexBuffer(const Ref<IndexBuffer>&) override;
 
-		virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffers() const { return vertexBufers; }
-		virtual const Ref<IndexBuffer>& getIndexBuffer() const { return indexBuffer; }
+		virtual const std::vector<Ref<VertexBuffer>>& getVertexBuffers() const override { return vertexBuffers; }
+		virtual const Ref<IndexBuffer>& getIndexBuffer() const override { return indexBuffer; }
 
 	private:
 		uint32_t id;

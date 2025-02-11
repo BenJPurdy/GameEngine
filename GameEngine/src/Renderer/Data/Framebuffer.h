@@ -13,24 +13,20 @@ namespace GameEngine
 	class Framebuffer
 	{
 	public:
-		Framebuffer(const FramebufferSpecification&);
-		~Framebuffer();
+		virtual ~Framebuffer() = default;
 
-		void bind();
-		void unbind();
+		virtual void bind() = 0;
+		virtual void unbind() = 0;
 
-		void invalidate();
-		void cleanup();
+		virtual void invalidate() = 0;
+		virtual void cleanup() = 0;
+		
+		virtual void resize(uint32_t, uint32_t) = 0;
+		
+		virtual uint32_t getColorAttachmentID() const = 0;
+		virtual const FramebufferSpecification& getSpecification() const = 0;
 
-		void resize(uint32_t, uint32_t);
-
-		inline uint32_t getColorAttachmentID() const { return colourAttachment; }
-		inline const FramebufferSpecification& getSpecification() const { return spec; }
-
-	private:
-		uint32_t id;
-		uint32_t colourAttachment, depthAttachment;
-		FramebufferSpecification spec;
+		static Ref<Framebuffer> create(const FramebufferSpecification&);
 
 	};
 }

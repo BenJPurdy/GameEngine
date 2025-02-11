@@ -19,7 +19,7 @@ namespace GameEngine
 		FramebufferSpecification spec;
 		spec.w = 1280;
 		spec.h = 720;
-		framebuffer = createRef<Framebuffer>(spec);
+		framebuffer = Framebuffer::create(spec);
 
 		renderer3d = createRef<Render3d>();
 		renderer3d->setupTriangle();

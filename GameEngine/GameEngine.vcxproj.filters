@@ -131,6 +131,11 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
+    <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h" />
+    <ClInclude Include="src\Renderer\2D\Render2DData.h" />
+    <ClInclude Include="src\Renderer\2D\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -183,6 +188,8 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\glm.natvis" />
