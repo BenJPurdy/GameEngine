@@ -10,7 +10,7 @@ namespace GameEngine
 		{
 		}
 
-		BufferLayout(std::initializer_list<BufferElement> elements)
+		BufferLayout(std::initializer_list<BufferElement> _elements) : elements(_elements)
 		{
 			calculateOffsetAndStride();
 		}

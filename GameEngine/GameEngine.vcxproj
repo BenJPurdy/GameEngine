@@ -191,6 +191,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
+    <ClCompile Include="src\Renderer\2D\Renderer2D.cpp" />
     <ClCompile Include="src\Renderer\3D\Render3D.cpp" />
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp" />
     <ClCompile Include="src\Renderer\Data\Buffer.cpp" />
@@ -207,9 +208,6 @@
     <ProjectReference Include="3rdParty\GL\GL3W.vcxproj">
       <Project>{A248857C-8E7F-860D-376C-6C102382020F}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\glm.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

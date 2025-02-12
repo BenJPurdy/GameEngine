@@ -24,5 +24,6 @@ namespace GameEngine
 		Ref<Framebuffer> framebuffer;
 		Ref<Render3d> renderer3d;
 		Ref<ShaderLibrary> shaders;
+		Ref<Render2d> render2d;
 	};
 }

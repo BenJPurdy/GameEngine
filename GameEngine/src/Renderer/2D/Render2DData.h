@@ -13,24 +13,24 @@
 
 namespace GameEngine
 {
-	struct Render2DData
+	struct Render2dData
 	{
 		static const uint32_t maxQuads = 20000;
-		static const uint32_t maxVerts = maxQuads * 4;
-		static const uint32_t maxIndex = maxQuads * 6;
-		static const uint32_t maxTexture = 32;
+		static const uint32_t maxVertices = maxQuads * 4;
+		static const uint32_t maxIndices = maxQuads * 6;
+		static const uint32_t maxTextures = 32;
 
 		Ref<VertexArray> quadArray;
 		Ref<VertexBuffer> quadBuffer;
 		Ref<Program> quadShader;
 
-		uint32_t idxCount = 0;
+		uint32_t indexCount = 0;
 		QuadVertex* bufferBase = nullptr;
 		QuadVertex* bufferPtr = nullptr;
 
 		glm::vec4 vertexPositions[4];
 
-		Render2D::Statistics stats;
+		Render2d::Statistics stats;
 
 		struct CameraData
 		{

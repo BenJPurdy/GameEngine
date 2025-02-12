@@ -22,8 +22,14 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\2D">
+      <UniqueIdentifier>{A1DB7F02-0D91-F8F7-9685-F2CE023AEFFB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Renderer\3D">
       <UniqueIdentifier>{C2DB7F02-2E91-F8F7-B785-F2CE233AEFFB}</UniqueIdentifier>
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="Renderer\Data">
       <UniqueIdentifier>{65B1EFA1-D171-6BD8-9AAC-B455062CB0B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Data\Primatives">
+      <UniqueIdentifier>{18211FF9-0446-6E79-2D91-530919156D97}</UniqueIdentifier>
     </Filter>
     <Filter Include="Renderer\Shader">
       <UniqueIdentifier>{A25A1300-0EE6-80C4-17F7-03B98301DDC4}</UniqueIdentifier>
@@ -95,8 +104,29 @@
     <ClInclude Include="src\Logging\Log.h">
       <Filter>Logging</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\WindowsWindow.h">
       <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\2D\Render2DData.h">
+      <Filter>Renderer\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\2D\Renderer2D.h">
+      <Filter>Renderer\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\3D\Render3D.h">
       <Filter>Renderer\3D</Filter>
@@ -107,7 +137,28 @@
     <ClInclude Include="src\Renderer\Camera\EditorCamera.h">
       <Filter>Renderer\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Data\Buffer.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\BufferLayout.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\Data\Framebuffer.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\IndexBuffer.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h">
+      <Filter>Renderer\Data\Primatives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\UniformBuffer.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\VertexArray.h">
+      <Filter>Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Data\VertexBuffer.h">
       <Filter>Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsContext.h">
@@ -122,20 +173,6 @@
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Data\Buffer.h" />
-    <ClInclude Include="src\Renderer\Data\BufferLayout.h" />
-    <ClInclude Include="src\Renderer\Data\VertexBuffer.h" />
-    <ClInclude Include="src\Renderer\Data\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Data\VertexArray.h" />
-    <ClInclude Include="src\Renderer\Data\UniformBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
-    <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h" />
-    <ClInclude Include="src\Renderer\2D\Render2DData.h" />
-    <ClInclude Include="src\Renderer\2D\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -161,6 +198,21 @@
     <ClCompile Include="src\Logging\Log.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\WindowsInput.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
@@ -173,7 +225,16 @@
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp">
       <Filter>Renderer\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Data\Buffer.cpp">
+      <Filter>Renderer\Data</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\Data\Framebuffer.cpp">
+      <Filter>Renderer\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Data\UniformBuffer.cpp">
+      <Filter>Renderer\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Data\VertexArray.cpp">
       <Filter>Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader\Shader.cpp">
@@ -182,16 +243,6 @@
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
       <Filter>Renderer\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Data\Buffer.cpp" />
-    <ClCompile Include="src\Renderer\Data\VertexArray.cpp" />
-    <ClCompile Include="src\Renderer\Data\UniformBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\glm.natvis" />
+    <ClCompile Include="src\Renderer\2D\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

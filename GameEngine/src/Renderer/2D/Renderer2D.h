@@ -4,7 +4,7 @@
 
 namespace GameEngine
 {
-	class Renderer2D
+	class Render2d
 	{
 	public:
 		static void init();
@@ -23,7 +23,22 @@ namespace GameEngine
 		static void drawQuad(const glm::vec3&, const glm::vec2, const glm::vec4);
 		static void drawQuad(const glm::mat4&, const glm::vec4);
 
-		static drawRotatedQuad(const glm::vec2&, const glm::vec2, const float);
-		static drawRotatedQuad(const glm::vec3&, const glm::vec2, const float);
+		static void drawRotatedQuad(const glm::vec2&, const glm::vec2, const float, const glm::vec4);
+		static void drawRotatedQuad(const glm::vec3&, const glm::vec2, const float, const glm::vec4);
+	
+		struct Statistics
+		{
+			uint32_t drawCalls = 0;
+			uint32_t quadCount = 0;
+			uint32_t getTotalVertexCount() { return quadCount * 4; }
+			uint32_t getTotalIndexCount() { return quadCount * 6; }
+		};
+
+		static void resetStats(); 
+		static Statistics getStats();
+
+	private:
+		static void startBatch();
+		static void nextBatch();
 	};
 }
