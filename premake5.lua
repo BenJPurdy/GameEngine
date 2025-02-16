@@ -18,10 +18,13 @@ IncludeDir["SDL"] = "GameEngine/3rdParty/SDL/include"
 IncludeDir["GL"] = "GameEngine/3rdParty/GL/include"
 IncludeDir["spdlog"] = "GameEngine/3rdParty/spdlog/include"
 IncludeDir["glm"] = "GameEngine/3rdParty/glm"
+IncludeDir["imgui"] = "GameEngine/3rdParty/imgui"
+IncludeDir["entt"] = "GameEngine/3rdParty/entt/single_include"
 
 --find the other premake files in these folders
 include "GameEngine/3rdParty/GLFW/"
 include "GameEngine/3rdParty/GL/"
+include "GameEngine/3rdParty/imgui"
 --include "GameEngine/3rdParty/SDL/"
 
 
@@ -60,7 +63,9 @@ project "GameEngine"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GL}",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.imgui}",
+        "%{IncludeDir.entt}"
     }
 
     libdirs
@@ -72,7 +77,8 @@ project "GameEngine"
     {
         --"SDL2","SDL2main",
         "GLFW",
-        "GL3W"
+        "GL3W",
+        "imgui"
 
 
     }

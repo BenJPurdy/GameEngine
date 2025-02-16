@@ -17,6 +17,7 @@ namespace GameEngine
 		virtual void onDetatch() {};
 		virtual void onUpdate(Timestep t) {};
 		virtual void onEvent(Event&) {}
+		virtual void onImGuiRender() {};
 	private:
 		std::string name;
 	};

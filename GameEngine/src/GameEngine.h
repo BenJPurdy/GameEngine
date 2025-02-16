@@ -15,6 +15,10 @@
 #include "Renderer/Data/VertexArray.h"
 
 #include "Renderer/2D/Renderer2D.h"
+#include "Renderer/Camera/EditorCamera.h"
+
+#include "Scene/Components.h"
+
 
 
 

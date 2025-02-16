@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -98,7 +98,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -116,7 +116,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -138,6 +138,7 @@
     <ClInclude Include="src\Core\LayerStack.h" />
     <ClInclude Include="src\Core\MouseCodes.h" />
     <ClInclude Include="src\Core\Timestep.h" />
+    <ClInclude Include="src\Core\UUID.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Editor\EditorLayer.h" />
     <ClInclude Include="src\Events\ApplicationEvents.h" />
@@ -147,6 +148,8 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine_PCH.h" />
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\ImGui\ImGuiLib.h" />
     <ClInclude Include="src\Logging\Log.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
@@ -170,19 +173,27 @@
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h" />
+    <ClInclude Include="src\Scene\Components.h" />
+    <ClInclude Include="src\Scene\Entity.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\SceneCamera.h" />
     <ClInclude Include="src\Utilities\FileManagement.h" />
+    <ClInclude Include="src\Utilities\OpenGLError.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp" />
     <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\Core\Layer.cpp" />
     <ClCompile Include="src\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Editor\EditorLayer.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameEngine_PCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\ImGui\ImGuiBuild.cpp" />
+    <ClCompile Include="src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Logging\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
@@ -200,6 +211,9 @@
     <ClCompile Include="src\Renderer\Data\VertexArray.cpp" />
     <ClCompile Include="src\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Scene\Entity.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\SceneCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">
@@ -207,6 +221,9 @@
     </ProjectReference>
     <ProjectReference Include="3rdParty\GL\GL3W.vcxproj">
       <Project>{A248857C-8E7F-860D-376C-6C102382020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="3rdParty\imgui\imgui.vcxproj">
+      <Project>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

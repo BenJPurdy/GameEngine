@@ -3,6 +3,7 @@
 
 #include "Core.h"
 #include "LayerStack.h"
+#include "ImGui/ImGuiLayer.h"
 
 
 
@@ -30,6 +31,8 @@ namespace GameEngine
 		void onEvent(Event&);
 		void pushLayer(Layer*);
 		void pushOverlay(Layer*);
+
+		ImGuiLayer* getImguiLayer() { return imguiLayer; }
 		
 
 	private:
@@ -40,6 +43,7 @@ namespace GameEngine
 
 		std::unique_ptr<Window> window;
 		LayerStack layerStack;
+		ImGuiLayer* imguiLayer;
 		bool running = true;
 		bool minimized = false;
 		float lastFrameTime = 0.0f;

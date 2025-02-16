@@ -1,6 +1,8 @@
 #include "GameEngine_PCH.h"
 
 #include "EditorLayer.h"
+#include "ImGui/ImGuiLib.h"
+
 #include <glm/gtx/string_cast.hpp>
 
 namespace GameEngine
@@ -26,6 +28,7 @@ namespace GameEngine
 
 		render2d = createRef<Render2d>();
 		render2d->init();
+		render2d->setClearColour({ 0.2f, 0.2f, 0.2f, 1.0f });
 
 		shaders = createRef<ShaderLibrary>();
 		shaders->load("flatColour", "assets/shaders/flatColour");
@@ -36,13 +39,72 @@ namespace GameEngine
 
 	}
 
+	void EditorLayer::onImGuiRender()
+	{
+		static bool dockspaceOpen = true;
+		ImGuiLib::createDockspace(dockspaceOpen, "Dockspace");
+
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::MenuItem("File"))
+			{
+				if (ImGui::MenuItem("Exit"))
+				{
+					dockspaceOpen = false;
+					App::get().close();
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+		
+
+		ImGui::Begin("Data and stuff");
+		ImGui::Text("Scene hierarchy in here");
+		ImGui::End();
+
+		ImGui::Begin("Inspector");
+		ImGui::ColorEdit4("Quad Colour", glm::value_ptr(testColour));
+		ImGui::DragFloat2("Size", glm::value_ptr(testSize), 0.1f);
+		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Viewport");
+		viewportFocus = ImGui::IsWindowFocused();
+		viewportHover = ImGui::IsWindowHovered();
+		App::get().getImguiLayer()->blockEvents(!viewportFocus || viewportHover);
+
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
+
+		uint32_t textureID = framebuffer->getColorAttachmentID();
+		ImGui::Image((ImTextureID)textureID, ImVec2{viewportSize.x, viewportSize.y}, 
+			ImVec2{0, 1}, ImVec2{1, 0});
+		ImGui::End();
+		ImGui::PopStyleVar();
+
+		ImGui::End();
+
+	}
+
 	void EditorLayer::onUpdate(Timestep ts)
 	{
-		//framebuffer->bind();
 		
 		//renderer3d->preProcessing();
-
+		if (FramebufferSpecification spec = framebuffer->getSpecification();
+			viewportSize.x > 0.0f && viewportSize.y > 0.0f &&
+			(spec.w != viewportSize.x || spec.h != viewportSize.y))
+		{
+			framebuffer->resize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
+			camera.OnResize(viewportSize.x, viewportSize.y);
+			camera.SetViewportSize(viewportSize.x, viewportSize.y);
+		}
+		framebuffer->bind();
 		camera.onUpdate(ts);
+
+		
+		render2d->clear();
+		render2d->resetStats();
 
 		//LOG_TRACE(glm::to_string(camera.GetPosition()) + " " + glm::to_string(camera.GetRightDirection()));
 
@@ -66,37 +128,27 @@ namespace GameEngine
 		{
 			for (float r = -5; r < 5; r++)
 			{
-				render2d->drawQuad(glm::vec3(c, r, 0.0f), glm::vec2(0.5f, 0.5f), { 0.2f, 0.8f, 0.2f, 1.0f });
+				float red = (c + 5.0f) / 10.0f;
+				float green = (r + 5.0f) / 10.0f;
+				//render2d->drawQuad(glm::vec3(c, r, 0.0f), glm::vec2(0.5f, 0.5f), { red, green, red + green, 1.0f });
+				render2d->drawQuad(glm::vec3(c, r, 0.0f), testSize, testColour);
 			}
 		}
 		render2d->endScene();
-		auto stats = render2d->getStats();
-		auto error = glGetError();
-		if (error) { LOG_ERROR("GL Error: {0}", error); }
-		LOG_INFO("Draw Calls: {0}", stats.drawCalls);
-		//framebuffer->unbind();
+		framebuffer->unbind();
+		{
+			auto stats = render2d->getStats();
+			auto error = glGetError();
+			if (error) { LOG_ERROR("GL Error: {0}", error); }
+			LOG_INFO("Draw Calls: {0}", stats.drawCalls);
+			//framebuffer->unbind();
+		}
 	}
 
 	void EditorLayer::onEvent(Event& e)
 	{
 		camera.onEvent(e);
-
-		EventDispatcher dispatcher(e);
-		dispatcher.dispatch<WindowResizeEvent>(
-			std::bind(&EditorLayer::onWindowResize, this, std::placeholders::_1)
-		);
-	}
-
-	bool EditorLayer::onWindowResize(WindowResizeEvent& e)
-	{
-		if (e.getWidth() == 0 || e.getHeight() == 0)
-		{
-			return false;
-		}
 		
-		LOG_INFO("Window size: {0}, {1}", e.getWidth(), e.getHeight());
-		renderer3d->updateViewportSize(e.getWidth(), e.getHeight());
-
-		return false;
 	}
+
 }

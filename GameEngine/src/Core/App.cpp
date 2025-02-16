@@ -19,6 +19,9 @@ namespace GameEngine
 
 		Input::init();
 		Input::setCallback(BIND_EVENT_FUNC(App::onEvent));
+
+		imguiLayer = new ImGuiLayer();
+		pushLayer(imguiLayer);
 	}
 
 	App::~App() {}
@@ -32,15 +35,29 @@ namespace GameEngine
 			auto time = (float)glfwGetTime();
 			Timestep timestep = time - lastFrameTime;
 			lastFrameTime = time;
-
-			for (auto* l : layerStack)
+			if (!minimized)
 			{
-				l->onUpdate(timestep);
+				for (auto* l : layerStack)
+				{
+					l->onUpdate(timestep);
+				}
+
+				imguiLayer->begin();
+				{
+					for (auto* l : layerStack)
+					{
+						l->onImGuiRender();
+					}
+				}
+				imguiLayer->end();
+
+				Input::update();
+
+				
 			}
 
-			Input::update();
-
 			window->onUpdate();
+			
 		}
 	}
 

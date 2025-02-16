@@ -16,6 +16,9 @@
     <Filter Include="GraphicsAPI\OpenGL">
       <UniqueIdentifier>{A42DBE00-9011-7F56-F971-79A9E57469D8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{C0FF640D-2C14-8DBE-F595-301E616989EF}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Logging">
       <UniqueIdentifier>{AC6878E8-1848-F783-2160-825A8DBE5DE5}</UniqueIdentifier>
     </Filter>
@@ -45,6 +48,9 @@
     </Filter>
     <Filter Include="Renderer\Shader">
       <UniqueIdentifier>{A25A1300-0EE6-80C4-17F7-03B98301DDC4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{B3F7140E-1F0C-3DBF-E88D-E01E546139F0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utilities">
       <UniqueIdentifier>{010A8043-6D74-34BA-B6B2-E55F225C120F}</UniqueIdentifier>
@@ -78,6 +84,9 @@
     <ClInclude Include="src\Core\Timestep.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\UUID.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -100,6 +109,12 @@
     <ClInclude Include="src\GameEngine_PCH.h" />
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h">
       <Filter>GraphicsAPI\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGui\ImGuiLayer.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGui\ImGuiLib.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Logging\Log.h">
       <Filter>Logging</Filter>
@@ -170,9 +185,22 @@
     <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h">
       <Filter>Renderer\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Components.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Entity.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utilities\OpenGLError.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -187,6 +215,9 @@
     <ClCompile Include="src\Core\LayerStack.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\UUID.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Editor\EditorLayer.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
@@ -194,6 +225,12 @@
     <ClCompile Include="src\GameEngine_PCH.cpp" />
     <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp">
       <Filter>GraphicsAPI\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\ImGuiBuild.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGui\ImGuiLayer.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Logging\Log.cpp">
       <Filter>Logging</Filter>
@@ -219,6 +256,9 @@
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\2D\Renderer2D.cpp">
+      <Filter>Renderer\2D</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\3D\Render3D.cpp">
       <Filter>Renderer\3D</Filter>
     </ClCompile>
@@ -243,6 +283,12 @@
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
       <Filter>Renderer\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\2D\Renderer2D.cpp" />
+    <ClCompile Include="src\Scene\Entity.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>
