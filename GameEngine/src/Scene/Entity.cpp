@@ -4,6 +4,6 @@
 namespace GameEngine
 {
 	Entity::Entity(entt::entity _h, Scene* s) :
-		entity(_h), scene(s)
+		entityHandle(_h), scene(s)
 	{}
 }

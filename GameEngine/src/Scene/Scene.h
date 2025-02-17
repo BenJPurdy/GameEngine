@@ -15,7 +15,7 @@ namespace GameEngine
         ~Scene();
 
         Entity createEntity(const std::string& name = std::string());
-        Entity createEntityWithUUID(UUID, const std::string&);
+        Entity createEntityWithUUID(UUID, const std::string& = "");
 
         void onUpdate(Timestep);
 

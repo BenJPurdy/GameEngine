@@ -13,39 +13,53 @@ namespace GameEngine
 
         
 
-        template<typename T, typename ... Args>
-        T& addComponent(Args&& ... args)
+        //template <typename T, typename... Args>
+        //T& addComponent(Args&&... args)
+        //{
+        //    CORE_ASSERT(!hasComponent<T>(), "Entity has component");
+        //    return scene->registry.emplace<T>(entityHandle, std::forward<Args>(args)...);
+        //}
+
+        template<typename T>
+        T& addComponent(T&& arg)
         {
-            CORE_ASSERT(!hasComponent<T>(), "Component already exists");
-            return scene->registry.emplace<T>(entity, std::forward<Args>(args)...);
+            CORE_ASSERT(!hasComponent<T>(), "Entity has component");
+            return scene->registry.emplace<T>(entityHandle, arg);
         }
 
         template<typename T>
+        T& addComponent()
+        {
+            CORE_ASSERT(!hasComponent<T>(), "Entity has component");
+            return scene->registry.emplace<T>(entityHandle);
+        }
+
+        template <typename T>
         T& getComponent()
         {
-            CORE_ASSERT(hasComponent<T>(), "Component doesn't exist");
-            return scene->registry.get<T>(entity);
+            CORE_ASSERT(hasComponent<T>(), "Entity does not have component");
+            return scene->registry.get<T>(entityHandle);
         }
 
-        template<typename T>
+        template <typename T>
         bool hasComponent()
         {
-            return scene->registry.all_of<T>(entity);
+            return scene->registry.all_of<T>(entityHandle);
         }
 
-        template<typename T>
+        template <typename T>
         void removeComponent()
         {
-            CORE_ASSERT(hasComponent<T>(), "Component doesn't exist");
-            scene->registry.remove<T>(entity);
+            CORE_ASSERT(hasComponent<T>(), "Entity does not have component");
+            scene->registry.remove<T>(entityHandle);
         }
 
-        operator uint32_t() const { return (uint32_t)entity; }
-        operator entt::entity() const { return entity; }
-        operator bool() const { return entity != entt::null; }
+        operator uint32_t() const { return (uint32_t)entityHandle; }
+        operator entt::entity() const { return entityHandle; }
+        operator bool() const { return entityHandle != entt::null; }
 
     private:
-        entt::entity entity = entt::null;
+        entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;
     };
 }

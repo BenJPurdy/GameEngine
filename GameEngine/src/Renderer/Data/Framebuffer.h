@@ -5,7 +5,7 @@ namespace GameEngine
 {
 	struct FramebufferSpecification
 	{
-		uint32_t w, h;
+		uint32_t w = 0, h = 0;
 		uint32_t samples = 1;
 		bool swapChainTarget = false;
 	};

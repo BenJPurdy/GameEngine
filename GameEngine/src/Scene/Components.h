@@ -16,6 +16,8 @@ namespace GameEngine
     struct IDComponent
     {
         UUID id = 0;
+        IDComponent(UUID& comp) : id(comp) {}
+
         IDComponent() = default;
         IDComponent(const IDComponent&) = default;
     };
@@ -64,7 +66,7 @@ namespace GameEngine
 
     struct SpriteRenderComponent
     {
-        glm::vec4 colour {1.0};
+        glm::vec4 colour =  {1.0f, 1.0f, 0.0f, 1.0f};
 
         SpriteRenderComponent() = default;
         SpriteRenderComponent(const SpriteRenderComponent&) = default;

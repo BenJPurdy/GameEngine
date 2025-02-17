@@ -16,11 +16,11 @@ namespace GameEngine
 
 	UUID::UUID(uint64_t id) : uuid(id) {}
 
-	UUID::UUID(const UUID& other) : uuid(other) {}
+	UUID::UUID(const UUID& other) : uuid(other.uuid) {}
 
 	UUID32::UUID32() : uuid(dist(mt)) {}
 
 	UUID32::UUID32(uint32_t id) : uuid(id) {}
 
-	UUID32::UUID32(const UUID32& other) : uuid(other) {}
+	UUID32::UUID32(const UUID32& other) : uuid(other.uuid) {}
 }

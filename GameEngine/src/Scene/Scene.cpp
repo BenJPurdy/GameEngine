@@ -19,12 +19,12 @@ namespace GameEngine
         return createEntityWithUUID(UUID(), name);
     }
 
-    Entity Scene::createEntityWithUUID(UUID uuid, const std::string& name)
+    Entity Scene::createEntityWithUUID(UUID uid, const std::string& name)
     {
         auto e = Entity{ registry.create(), this };
         e.addComponent<TransformComponent>();
-        e.addComponent<IDComponent>(uuid);
-        auto& tag = e.getComponent<TagComponent>();
+        e.addComponent<IDComponent>(IDComponent(uid)); //FIGURE OUT ISSUE HERE
+        auto& tag = e.addComponent<TagComponent>();
         tag.tag = name.empty() ? "Entity" : name;
 
         return e;

@@ -43,15 +43,16 @@ namespace GameEngine
 		{
 			float l = -orthgraphicSize * 0.5 * aspect;
 			float r = orthgraphicSize * 0.5 * aspect;
-			float t = orthgraphicSize * 0.5;
 			float b = -orthgraphicSize * 0.5;
+			float t = orthgraphicSize * 0.5;
 
-			m_Projection = glm::ortho(l, r, b, t, orthgraphicNear, orthographicFar);
+			m_Projection = glm::ortho(l, r, b, t,
+				orthgraphicNear, orthographicFar);
 		}
-
 		else if (cameraType == ProjectionType::Perspective)
 		{
-			m_Projection = glm::perspective(perspectiveFOV, aspect, perspectiveNear, perspectiveFar);
+			m_Projection = glm::perspective(perspectiveFOV, aspect, 
+				perspectiveNear, perspectiveFar);
 		}
 	}
 }
