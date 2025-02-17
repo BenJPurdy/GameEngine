@@ -1,6 +1,9 @@
 #pragma once
 #include "GameEngine.h"
 
+#include "Scene/Scene.h"
+#include "Scene/Entity.h"
+
 
 namespace GameEngine
 {
@@ -20,14 +23,19 @@ namespace GameEngine
 		
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
-		Ref<Render3d> renderer3d;
 		Ref<ShaderLibrary> shaders;
-		Ref<Render2d> render2d;
+		//Ref<Render3d> renderer3d;
+		//Ref<Render2d> render2d;
+		Ref<Scene> activeScene;
 
 		bool viewportFocus = false;
 		bool viewportHover = false;
 		glm::vec2 viewportSize = { 0.0f, 0.0f };
 
+
+		Entity testEntity;
+		Entity testCamera;
+		glm::vec3 testPosition = { 0.0f, 0.0f, 0.0f };
 		glm::vec4 testColour = {0.3f, 0.4f, 0.9f, 1.0f};
 		glm::vec2 testSize = {0.5f, 0.5f};
 	};

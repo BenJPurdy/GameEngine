@@ -11,6 +11,8 @@ namespace GameEngine
         Entity(entt::entity, Scene*);
         Entity(const Entity&) = default;
 
+        
+
         template<typename T, typename ... Args>
         T& addComponent(Args&& ... args)
         {
@@ -21,7 +23,7 @@ namespace GameEngine
         template<typename T>
         T& getComponent()
         {
-            CORE_ASSERT(hasComnponent<T>(), "Component doesn't exist");
+            CORE_ASSERT(hasComponent<T>(), "Component doesn't exist");
             return scene->registry.get<T>(entity);
         }
 

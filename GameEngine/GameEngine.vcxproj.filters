@@ -194,13 +194,15 @@
     <ClInclude Include="src\Scene\Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\SceneCamera.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\OpenGLError.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -289,6 +291,8 @@
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Scene\SceneCamera.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

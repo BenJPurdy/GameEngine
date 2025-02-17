@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer/Camera/Camera.h"
 #include "Renderer/Camera/EditorCamera.h"
+#include "Scene/Components.h"
 
 namespace GameEngine
 {
@@ -26,6 +27,8 @@ namespace GameEngine
 		static void drawRotatedQuad(const glm::vec2&, const glm::vec2, const float, const glm::vec4);
 		static void drawRotatedQuad(const glm::vec3&, const glm::vec2, const float, const glm::vec4);
 	
+		static void drawSprite(const glm::mat4&, SpriteRenderComponent&);
+
 		struct Statistics
 		{
 			uint32_t drawCalls = 0;

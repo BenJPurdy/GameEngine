@@ -38,7 +38,7 @@ namespace GameEngine
 
 		ProjectionType cameraType = ProjectionType::Orthographic;
 
-		float aspect = 1280.0 / 720.0f;
+		float aspect = 1280.0f / 720.0f;
 
 		float orthgraphicSize = 10.0f;
 		float orthgraphicNear = -1.0f;

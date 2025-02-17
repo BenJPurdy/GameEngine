@@ -29,17 +29,20 @@ namespace GameEngine
 
     struct TransformComponent
     {
-        glm::mat4 transform{ 1.0f };
+        glm::vec3 transform = { 0.0f, 0.0f, 0.0f };
+        glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
+        glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
 
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
-        TransformComponent(const glm::mat4& t) : transform(t) {}
+        TransformComponent(const glm::vec3& t) : transform(t) {}
 
-        operator glm::mat4& () { return transform; }
-        operator const glm::mat4& () const { return transform; }
-
-        void translate(glm::vec3 v) { transform = glm::translate(transform, v); }
-        void scale(glm::vec3 s) { transform = glm::scale(transform, s); }
+        glm::mat4 getTransform() const
+        {
+            glm::mat4 rot = glm::toMat4(glm::quat(rotation));
+            return glm::translate(glm::mat4(1.0f), transform) * rot *
+                glm::scale(glm::mat4(1.0f), scale);
+        }
     };
 
     struct CameraComponent

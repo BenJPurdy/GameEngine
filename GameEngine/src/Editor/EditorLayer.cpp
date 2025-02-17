@@ -23,15 +23,23 @@ namespace GameEngine
 		spec.h = 720;
 		framebuffer = Framebuffer::create(spec);
 
-		renderer3d = createRef<Render3d>();
-		renderer3d->setupTriangle();
+		activeScene = createRef<Scene>();
 
-		render2d = createRef<Render2d>();
-		render2d->init();
-		render2d->setClearColour({ 0.2f, 0.2f, 0.2f, 1.0f });
+		//renderer3d = createRef<Render3d>();
+		//renderer3d->setupTriangle();
+		//
+		//render2d = createRef<Render2d>();
+		//render2d->init();
+		//render2d->setClearColour({ 0.2f, 0.2f, 0.2f, 1.0f });
 
 		shaders = createRef<ShaderLibrary>();
 		shaders->load("flatColour", "assets/shaders/flatColour");
+
+		testEntity = activeScene->createEntity("TestQuad");
+		testEntity.addComponent<SpriteRenderComponent>();
+
+		testCamera = activeScene->createEntity("TestCamera");
+		testCamera.addComponent<CameraComponent>();
 	}
 
 	void EditorLayer::onDetatch()
@@ -64,6 +72,7 @@ namespace GameEngine
 		ImGui::End();
 
 		ImGui::Begin("Inspector");
+		ImGui::DragFloat3("Camera Position", glm::value_ptr(testPosition));
 		ImGui::ColorEdit4("Quad Colour", glm::value_ptr(testColour));
 		ImGui::DragFloat2("Size", glm::value_ptr(testSize), 0.1f);
 		ImGui::End();
@@ -98,19 +107,34 @@ namespace GameEngine
 			framebuffer->resize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
 			camera.OnResize(viewportSize.x, viewportSize.y);
 			camera.SetViewportSize(viewportSize.x, viewportSize.y);
+			activeScene->onViewportResize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
 		}
+
+		Render2d::resetStats();
 		framebuffer->bind();
+
+		Render2d::setClearColour({ 0.2f, 0.2f, 0.2f, 1.0f });
+		Render2d::clear();
+
 		camera.onUpdate(ts);
 
+		testCamera.getComponent<TransformComponent>().transform = testPosition;
+		testEntity.getComponent<SpriteRenderComponent>().colour = testColour;
+		testEntity.getComponent<TransformComponent>().scale = { testSize.x, testSize.y, 1.0f };
+
+		activeScene->onUpdate(ts);
+
+		auto stat = Render2d::getStats();
+
 		
-		render2d->clear();
-		render2d->resetStats();
+		//render2d->clear();
+		//render2d->resetStats();
 
 		//LOG_TRACE(glm::to_string(camera.GetPosition()) + " " + glm::to_string(camera.GetRightDirection()));
 
 
 		//
-		render2d->beginScene(camera);
+		//render2d->beginScene(camera);
 
 		auto shader = shaders->get("flatColour");
 		//LOG_TRACE(shader->getName());
@@ -124,23 +148,23 @@ namespace GameEngine
 		}
 		//renderer3d->renderTriangle();
 
-		for (float c = -5; c < 5; c++)
-		{
-			for (float r = -5; r < 5; r++)
-			{
-				float red = (c + 5.0f) / 10.0f;
-				float green = (r + 5.0f) / 10.0f;
-				//render2d->drawQuad(glm::vec3(c, r, 0.0f), glm::vec2(0.5f, 0.5f), { red, green, red + green, 1.0f });
-				render2d->drawQuad(glm::vec3(c, r, 0.0f), testSize, testColour);
-			}
-		}
-		render2d->endScene();
+		//for (float c = -5; c < 5; c++)
+		//{
+		//	for (float r = -5; r < 5; r++)
+		//	{
+		//		float red = (c + 5.0f) / 10.0f;
+		//		float green = (r + 5.0f) / 10.0f;
+		//		//render2d->drawQuad(glm::vec3(c, r, 0.0f), glm::vec2(0.5f, 0.5f), { red, green, red + green, 1.0f });
+		//		//render2d->drawQuad(glm::vec3(c, r, 0.0f), testSize, testColour);
+		//	}
+		//}
+		//render2d->endScene();
 		framebuffer->unbind();
 		{
-			auto stats = render2d->getStats();
-			auto error = glGetError();
-			if (error) { LOG_ERROR("GL Error: {0}", error); }
-			LOG_INFO("Draw Calls: {0}", stats.drawCalls);
+			//auto stats = render2d->getStats();
+			//auto error = glGetError();
+			//if (error) { LOG_ERROR("GL Error: {0}", error); }
+			//LOG_INFO("Draw Calls: {0}", stats.drawCalls);
 			//framebuffer->unbind();
 		}
 	}

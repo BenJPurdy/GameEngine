@@ -187,6 +187,11 @@ namespace GameEngine
 		drawQuad(transform, c);
 	}
 
+	void Render2d::drawSprite(const glm::mat4& transform, SpriteRenderComponent& src)
+	{
+		drawQuad(transform, src.colour);
+	}
+
 	void Render2d::resetStats() { memset(&data.stats, 0, sizeof(Statistics)); }
 	Render2d::Statistics Render2d::getStats() { return data.stats; }
 
