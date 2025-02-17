@@ -5,6 +5,7 @@ namespace GameEngine
 {
 	class SceneCamera : public Camera
 	{
+	public:
 		SceneCamera();
 		virtual ~SceneCamera() = default;
 

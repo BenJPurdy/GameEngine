@@ -8,6 +8,7 @@
 #include <string>
 
 #include "Core/UUID.h"
+#include "SceneCamera.h"
 
 namespace GameEngine
 {
@@ -39,5 +40,31 @@ namespace GameEngine
 
         void translate(glm::vec3 v) { transform = glm::translate(transform, v); }
         void scale(glm::vec3 s) { transform = glm::scale(transform, s); }
+    };
+
+    struct CameraComponent
+    {
+        SceneCamera camera;
+        bool primary = true;
+        bool fixedAspect = false;
+
+        CameraComponent() = default;
+        CameraComponent(const CameraComponent&) = default;
+        CameraComponent(ProjectionType t)
+        {
+            camera.setProjectionType(t);
+        }
+
+        operator SceneCamera& () { return camera; }
+        operator const SceneCamera& () const { return camera; }
+    };
+
+    struct SpriteRenderComponent
+    {
+        glm::vec4 colour {1.0};
+
+        SpriteRenderComponent() = default;
+        SpriteRenderComponent(const SpriteRenderComponent&) = default;
+        SpriteRenderComponent(const glm::vec4& c) : colour(c) {}
     };
 }

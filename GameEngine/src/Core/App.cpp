@@ -1,8 +1,10 @@
 #include "GameEngine_PCH.h"
 #include "App.h"
-#include "Input.h"
+
 #include "GLFW/glfw3.h"
 
+#include "Input.h"
+#include "Renderer/2D/Renderer2D.h"
 
 namespace GameEngine
 {
@@ -19,6 +21,8 @@ namespace GameEngine
 
 		Input::init();
 		Input::setCallback(BIND_EVENT_FUNC(App::onEvent));
+
+		Render2d::init();
 
 		imguiLayer = new ImGuiLayer();
 		pushLayer(imguiLayer);
