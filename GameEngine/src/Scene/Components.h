@@ -16,7 +16,7 @@ namespace GameEngine
     struct IDComponent
     {
         UUID id = 0;
-        IDComponent(UUID& comp) : id(comp) {}
+        //IDComponent(UUID& comp) : id(comp) {}
 
         IDComponent() = default;
         IDComponent(const IDComponent&) = default;

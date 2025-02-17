@@ -23,7 +23,7 @@ namespace GameEngine
     {
         auto e = Entity{ registry.create(), this };
         e.addComponent<TransformComponent>();
-        e.addComponent<IDComponent>(IDComponent(uid)); //FIGURE OUT ISSUE HERE
+        e.addComponent<IDComponent>(uid); //FIGURE OUT ISSUE HERE
         auto& tag = e.addComponent<TagComponent>();
         tag.tag = name.empty() ? "Entity" : name;
 

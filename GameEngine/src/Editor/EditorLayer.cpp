@@ -35,11 +35,13 @@ namespace GameEngine
 		shaders = createRef<ShaderLibrary>();
 		shaders->load("flatColour", "assets/shaders/flatColour");
 
-		testEntity = activeScene->createEntity("TestQuad");
-		testEntity.addComponent<SpriteRenderComponent>();
+		
 
 		testCamera = activeScene->createEntity("TestCamera");
+		testEntity = activeScene->createEntity("TestQuad");
+
 		testCamera.addComponent<CameraComponent>();
+		testEntity.addComponent<SpriteRenderComponent>();
 	}
 
 	void EditorLayer::onDetatch()

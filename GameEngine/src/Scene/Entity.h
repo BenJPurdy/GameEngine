@@ -10,29 +10,28 @@ namespace GameEngine
         Entity() = default;
         Entity(entt::entity, Scene*);
         Entity(const Entity&) = default;
-
         
 
-        //template <typename T, typename... Args>
-        //T& addComponent(Args&&... args)
+        template <typename T, typename... Args>
+        T& addComponent(Args&&... args)
+        {
+            CORE_ASSERT(!hasComponent<T>(), "Entity has component");
+            return scene->registry.emplace<T>(entityHandle, std::forward<Args>(args)...);
+        }
+
+        //template<typename T>
+        //T& addComponent(T&& arg)
         //{
         //    CORE_ASSERT(!hasComponent<T>(), "Entity has component");
-        //    return scene->registry.emplace<T>(entityHandle, std::forward<Args>(args)...);
+        //    return scene->registry.emplace<T>(entityHandle, arg);
         //}
-
-        template<typename T>
-        T& addComponent(T&& arg)
-        {
-            CORE_ASSERT(!hasComponent<T>(), "Entity has component");
-            return scene->registry.emplace<T>(entityHandle, arg);
-        }
-
-        template<typename T>
-        T& addComponent()
-        {
-            CORE_ASSERT(!hasComponent<T>(), "Entity has component");
-            return scene->registry.emplace<T>(entityHandle);
-        }
+        //
+        //template<typename T>
+        //T& addComponent()
+        //{
+        //    CORE_ASSERT(!hasComponent<T>(), "Entity has component");
+        //    return scene->registry.emplace<T>(entityHandle);
+        //}
 
         template <typename T>
         T& getComponent()
