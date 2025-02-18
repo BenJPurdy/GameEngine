@@ -27,6 +27,8 @@ namespace GameEngine
         auto& tag = e.addComponent<TagComponent>();
         tag.tag = name.empty() ? "Entity" : name;
 
+        LOG_INFO("{0}, ID: {1}", tag.tag, (uint64_t)e.getComponent<IDComponent>().id);
+
         return e;
     }
 
