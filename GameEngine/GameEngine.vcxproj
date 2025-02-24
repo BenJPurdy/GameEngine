@@ -141,6 +141,7 @@
     <ClInclude Include="src\Core\UUID.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Editor\EditorLayer.h" />
+    <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\Events.h" />
     <ClInclude Include="src\Events\KeyEvent.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\UUID.cpp" />
     <ClCompile Include="src\Editor\EditorLayer.cpp" />
+    <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameEngine_PCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

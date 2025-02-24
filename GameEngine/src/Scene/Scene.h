@@ -17,6 +17,8 @@ namespace GameEngine
         Entity createEntity(const std::string& name = std::string());
         Entity createEntityWithUUID(UUID, const std::string& = "");
 
+        entt::registry& getRegistry() { return registry; }
+
         void onUpdate(Timestep);
 
         void destoryEntity(Entity);

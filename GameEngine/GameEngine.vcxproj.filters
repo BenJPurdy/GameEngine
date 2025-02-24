@@ -203,6 +203,7 @@
     <ClInclude Include="src\Utilities\OpenGLError.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -294,5 +295,6 @@
     <ClCompile Include="src\Scene\SceneCamera.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp" />
   </ItemGroup>
 </Project>

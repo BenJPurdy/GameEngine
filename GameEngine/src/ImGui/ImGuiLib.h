@@ -57,5 +57,14 @@ namespace GameEngine
 				ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 			}
 		}
+
+		template<typename UIFunction, typename... Args>
+		static void drawMenuItem(const std::string& l, UIFunction uiFn, Args&&... args)
+		{
+			if (ImGui::MenuItem(lable.c_str()))
+			{
+				uiFn(std::forward<Args>(args)...);
+			}
+		}
 	};
 }

@@ -24,6 +24,7 @@ namespace GameEngine
 		framebuffer = Framebuffer::create(spec);
 
 		activeScene = createRef<Scene>();
+		sceneHierarchy.setContext(activeScene);
 
 		//renderer3d = createRef<Render3d>();
 		//renderer3d->setupTriangle();
@@ -34,6 +35,8 @@ namespace GameEngine
 
 		shaders = createRef<ShaderLibrary>();
 		shaders->load("flatColour", "assets/shaders/flatColour");
+
+
 
 		
 
@@ -69,9 +72,11 @@ namespace GameEngine
 		}
 		
 
-		ImGui::Begin("Data and stuff");
-		ImGui::Text("Scene hierarchy in here");
-		ImGui::End();
+		//ImGui::Begin("Data and stuff");
+		//ImGui::Text("Scene hierarchy in here");
+		//ImGui::End();
+
+		sceneHierarchy.onImGuiRender();
 
 		ImGui::Begin("Inspector");
 		ImGui::DragFloat3("Camera Position", glm::value_ptr(testPosition));

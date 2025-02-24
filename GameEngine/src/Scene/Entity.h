@@ -57,6 +57,13 @@ namespace GameEngine
         operator entt::entity() const { return entityHandle; }
         operator bool() const { return entityHandle != entt::null; }
 
+        bool operator==(const Entity& other) const
+        {
+            return entityHandle == other.entityHandle && scene == other.scene);
+        }
+
+        bool operator!= (const Entity& other) const { return !(*this == other); }
+
     private:
         entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;

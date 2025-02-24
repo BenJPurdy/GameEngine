@@ -3,6 +3,7 @@
 
 #include "Scene/Scene.h"
 #include "Scene/Entity.h"
+#include "Editor/Panels/SceneHierarchyPanel.h"
 
 
 namespace GameEngine
@@ -32,6 +33,8 @@ namespace GameEngine
 		bool viewportHover = false;
 		glm::vec2 viewportSize = { 0.0f, 0.0f };
 
+		
+		SceneHierarchyPanel sceneHierarchy;
 
 		Entity testEntity;
 		Entity testCamera;
