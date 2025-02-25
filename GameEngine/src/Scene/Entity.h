@@ -59,7 +59,7 @@ namespace GameEngine
 
         bool operator==(const Entity& other) const
         {
-            return entityHandle == other.entityHandle && scene == other.scene);
+            return entityHandle == other.entityHandle && scene == other.scene;
         }
 
         bool operator!= (const Entity& other) const { return !(*this == other); }

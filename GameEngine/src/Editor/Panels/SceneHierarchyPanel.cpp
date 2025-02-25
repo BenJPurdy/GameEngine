@@ -57,10 +57,12 @@ namespace GameEngine
 	void SceneHierarchyPanel::drawEntityNode(Entity e)
 	{
 		auto& tag = e.getComponent<TagComponent>().tag;
-		ImGuiTreeNodeFlags flags = ((selectedContext == e) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenArrow;
+		ImGuiTreeNodeFlags flags = ((selectedContext == e) ? ImGuiTreeNodeFlags_Selected : 0) 
+			| ImGuiTreeNodeFlags_OpenOnArrow;
 		flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
 
-		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)e, flags, tag.c_str());
+		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)e,
+			flags, tag.c_str());
 
 		if (ImGui::IsItemClicked())
 		{
@@ -68,7 +70,7 @@ namespace GameEngine
 		}
 
 		bool deleted = false;
-		if (ImGui::BeginPopupContextItem("Delete Entity"))
+		if (ImGui::BeginPopupContextItem())
 		{
 			//could add extra menu items here maybe????
 			if (ImGui::MenuItem("Delete Entity"))
@@ -97,11 +99,15 @@ namespace GameEngine
 	{
 		if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems));
 		{
-			ImGuiLib::drawMenuItem("Create Entity", [](Ref<Scene> ctx) { ctx->createEntity("Empty"); }, context);
+			ImGuiLib::drawMenuItem("Create Entity", [](Ref<Scene> ctx) {
+				ctx->createEntity("Empty"); }, context);
 
-			ImGuiLib::drawMenuItem("Camera", );
+			ImGuiLib::drawMenuItem("Camera", [](Ref<Scene> ctx) {
+				Entity cam = ctx->createEntity("Entity");
+				cam.addComponent<CameraComponent>();
+				}, context);
 
-			ImGui::EndPopup();
+			//ImGui::EndPopup();
 		}
 	}
 }

@@ -59,7 +59,7 @@ namespace GameEngine
 
 		if (ImGui::BeginMenuBar())
 		{
-			if (ImGui::MenuItem("File"))
+			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("Exit"))
 				{
