@@ -7,6 +7,9 @@
     <Filter Include="Editor">
       <UniqueIdentifier>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor\Panels">
+      <UniqueIdentifier>{5E756613-CA35-E249-9370-2BC7FFEF2626}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Events">
       <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
     </Filter>
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="src\Editor\EditorLayer.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h">
+      <Filter>Editor\Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\ApplicationEvents.h">
       <Filter>Events</Filter>
@@ -203,7 +209,6 @@
     <ClInclude Include="src\Utilities\OpenGLError.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\App.cpp">
@@ -223,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="src\Editor\EditorLayer.cpp">
       <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp">
+      <Filter>Editor\Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\GameEngine_PCH.cpp" />
@@ -295,6 +303,5 @@
     <ClCompile Include="src\Scene\SceneCamera.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp" />
   </ItemGroup>
 </Project>
