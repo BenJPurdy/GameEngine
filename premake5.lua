@@ -20,6 +20,7 @@ IncludeDir["spdlog"] = "GameEngine/3rdParty/spdlog/include"
 IncludeDir["glm"] = "GameEngine/3rdParty/glm"
 IncludeDir["imgui"] = "GameEngine/3rdParty/imgui"
 IncludeDir["entt"] = "GameEngine/3rdParty/entt/single_include"
+IncludeDir["imguizmo"] = "GameEngine/3rdParty/ImGuizmo"
 
 --find the other premake files in these folders
 include "GameEngine/3rdParty/GLFW/"
@@ -48,7 +49,9 @@ project "GameEngine"
     {
         "%{prj.name}/src/",
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{IncludeDir.imguizmo}/**.h",
+        "%{IncludeDir.imguizmo}/**.cpp"
     }
 
     defines
@@ -65,7 +68,8 @@ project "GameEngine"
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.imgui}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.imguizmo}"
     }
 
     libdirs
@@ -82,6 +86,9 @@ project "GameEngine"
 
 
     }
+
+    filter "files:GameEngine/3rdParty/ImGuizmo/**.cpp"
+        flags{"NoPCH"}
 
     filter "system:windows"
         systemversion "latest"

@@ -1,313 +1,366 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    <Filter Include="3rdParty">
+      <UniqueIdentifier>{1E6D62C3-0A3A-BDCE-3353-AB761F7FF25C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor">
-      <UniqueIdentifier>{8C1A20B0-78BC-4A86-6177-5EDA4DB8D1D6}</UniqueIdentifier>
+    <Filter Include="3rdParty\ImGuizmo">
+      <UniqueIdentifier>{3E81F3E0-AA97-F176-F30E-7D985F64C2FE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Editor\Panels">
-      <UniqueIdentifier>{5E756613-CA35-E249-9370-2BC7FFEF2626}</UniqueIdentifier>
+    <Filter Include="3rdParty\ImGuizmo\ImGuizmo-master">
+      <UniqueIdentifier>{77919A63-E3FF-EFE2-2CE9-AAE29896E57E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Events">
-      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicsAPI">
-      <UniqueIdentifier>{70A29E76-DC57-176C-654C-1143D1000E70}</UniqueIdentifier>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{A5D31CCF-91A0-77DA-BAB9-6582A6E5AC68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicsAPI\OpenGL">
-      <UniqueIdentifier>{A42DBE00-9011-7F56-F971-79A9E57469D8}</UniqueIdentifier>
+    <Filter Include="src\Editor">
+      <UniqueIdentifier>{C3F37E0D-AFAB-C05A-18B3-99B6048A5B4B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{C0FF640D-2C14-8DBE-F595-301E616989EF}</UniqueIdentifier>
+    <Filter Include="src\Editor\Panels">
+      <UniqueIdentifier>{B5EA9B8A-2101-9A20-6A78-2542D6CD6AA8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Logging">
-      <UniqueIdentifier>{AC6878E8-1848-F783-2160-825A8DBE5DE5}</UniqueIdentifier>
+    <Filter Include="src\Events">
+      <UniqueIdentifier>{7162C20E-5D1A-045C-C621-DDB7B2F89E4C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    <Filter Include="src\GraphicsAPI">
+      <UniqueIdentifier>{07D6788E-7361-E652-7C72-6947E87C4253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform\OpenGL">
-      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    <Filter Include="src\GraphicsAPI\OpenGL">
+      <UniqueIdentifier>{5B9195F7-478B-BE49-30F8-545A1C9124B6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
+    <Filter Include="src\ImGui">
+      <UniqueIdentifier>{170E22B3-8378-D629-CCB6-87CF3860B47E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\2D">
-      <UniqueIdentifier>{A1DB7F02-0D91-F8F7-9685-F2CE023AEFFB}</UniqueIdentifier>
+    <Filter Include="src\Logging">
+      <UniqueIdentifier>{C368B2F1-2F1E-2BE7-B812-25BE24C721EB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\3D">
-      <UniqueIdentifier>{C2DB7F02-2E91-F8F7-B785-F2CE233AEFFB}</UniqueIdentifier>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Camera">
-      <UniqueIdentifier>{74BF48DA-E04A-B69E-E95B-39935566129F}</UniqueIdentifier>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Data">
-      <UniqueIdentifier>{65B1EFA1-D171-6BD8-9AAC-B455062CB0B4}</UniqueIdentifier>
+    <Filter Include="src\Renderer">
+      <UniqueIdentifier>{73D1DFBF-5F34-6F64-08BA-A71AF4FB3AE7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Data\Primatives">
-      <UniqueIdentifier>{18211FF9-0446-6E79-2D91-530919156D97}</UniqueIdentifier>
+    <Filter Include="src\Renderer\2D">
+      <UniqueIdentifier>{380F5A1A-A49A-C7DE-ADAB-4AD319B623DF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Shader">
-      <UniqueIdentifier>{A25A1300-0EE6-80C4-17F7-03B98301DDC4}</UniqueIdentifier>
+    <Filter Include="src\Renderer\3D">
+      <UniqueIdentifier>{590F5A1A-C59A-C7DE-CEAB-4AD33AB623DF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{B3F7140E-1F0C-3DBF-E88D-E01E546139F0}</UniqueIdentifier>
+    <Filter Include="src\Renderer\Camera">
+      <UniqueIdentifier>{8BE6B0F4-F747-8E02-80B5-D4B4EC15C5C1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utilities">
-      <UniqueIdentifier>{010A8043-6D74-34BA-B6B2-E55F225C120F}</UniqueIdentifier>
+    <Filter Include="src\Renderer\Data">
+      <UniqueIdentifier>{BC262519-283D-23AF-71B4-AED0DD09F436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Renderer\Data\Primatives">
+      <UniqueIdentifier>{0F329641-FBEC-85ED-A4A4-FE37903ED07D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Renderer\Shader">
+      <UniqueIdentifier>{B9817B1A-25E3-5828-AE50-9FDA1AB18FE7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{0A06D2B3-7670-862A-BFAE-37D02B58647F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utilities">
+      <UniqueIdentifier>{D86B3A83-442C-B6B9-0D67-FF3679E6FA95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImZoomSlider.h">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\App.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Core.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\EntryPoint.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Input.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\KeyCodes.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Layer.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\LayerStack.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\MouseCodes.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\UUID.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Window.h">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\EditorLayer.h">
-      <Filter>Editor</Filter>
+      <Filter>src\Editor</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\Panels\InspectorPanel.h">
-      <Filter>Editor\Panels</Filter>
+      <Filter>src\Editor\Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h">
-      <Filter>Editor\Panels</Filter>
+      <Filter>src\Editor\Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\ApplicationEvents.h">
-      <Filter>Events</Filter>
+      <Filter>src\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\Events.h">
-      <Filter>Events</Filter>
+      <Filter>src\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\KeyEvent.h">
-      <Filter>Events</Filter>
+      <Filter>src\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\MouseEvent.h">
-      <Filter>Events</Filter>
+      <Filter>src\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine.h" />
-    <ClInclude Include="src\GameEngine_PCH.h" />
+    <ClInclude Include="src\GameEngine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine_PCH.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\GraphicsAPI\OpenGL\OpenGLContext.h">
-      <Filter>GraphicsAPI\OpenGL</Filter>
+      <Filter>src\GraphicsAPI\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGui\ImGuiLayer.h">
-      <Filter>ImGui</Filter>
+      <Filter>src\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGui\ImGuiLib.h">
-      <Filter>ImGui</Filter>
+      <Filter>src\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Logging\Log.h">
-      <Filter>Logging</Filter>
+      <Filter>src\Logging</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\WindowsWindow.h">
-      <Filter>Platform</Filter>
+      <Filter>src\Platform</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\2D\Render2DData.h">
-      <Filter>Renderer\2D</Filter>
+      <Filter>src\Renderer\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\2D\Renderer2D.h">
-      <Filter>Renderer\2D</Filter>
+      <Filter>src\Renderer\2D</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\3D\Render3D.h">
-      <Filter>Renderer\3D</Filter>
+      <Filter>src\Renderer\3D</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Camera\Camera.h">
-      <Filter>Renderer\Camera</Filter>
+      <Filter>src\Renderer\Camera</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Camera\EditorCamera.h">
-      <Filter>Renderer\Camera</Filter>
+      <Filter>src\Renderer\Camera</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\Buffer.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\BufferLayout.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\Framebuffer.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\IndexBuffer.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h">
-      <Filter>Renderer\Data\Primatives</Filter>
+      <Filter>src\Renderer\Data\Primatives</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\UniformBuffer.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\VertexArray.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Data\VertexBuffer.h">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsContext.h">
-      <Filter>Renderer</Filter>
+      <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader\Shader.h">
-      <Filter>Renderer\Shader</Filter>
+      <Filter>src\Renderer\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h">
-      <Filter>Renderer\Shader</Filter>
+      <Filter>src\Renderer\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Components.h">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Entity.h">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Scene.h">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\SceneCamera.h">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
-      <Filter>Utilities</Filter>
+      <Filter>src\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\OpenGLError.h">
-      <Filter>Utilities</Filter>
+      <Filter>src\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.cpp">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.cpp">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.cpp">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.cpp">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.cpp">
+      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\App.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Core.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Layer.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\LayerStack.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\UUID.cpp">
-      <Filter>Core</Filter>
+      <Filter>src\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\EditorLayer.cpp">
-      <Filter>Editor</Filter>
+      <Filter>src\Editor</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\Panels\InspectorPanel.cpp">
-      <Filter>Editor\Panels</Filter>
+      <Filter>src\Editor\Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp">
-      <Filter>Editor\Panels</Filter>
+      <Filter>src\Editor\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine.cpp" />
-    <ClCompile Include="src\GameEngine_PCH.cpp" />
+    <ClCompile Include="src\GameEngine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine_PCH.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\GraphicsAPI\OpenGL\OpenGLContext.cpp">
-      <Filter>GraphicsAPI\OpenGL</Filter>
+      <Filter>src\GraphicsAPI\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGui\ImGuiBuild.cpp">
-      <Filter>ImGui</Filter>
+      <Filter>src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGui\ImGuiLayer.cpp">
-      <Filter>ImGui</Filter>
+      <Filter>src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Logging\Log.cpp">
-      <Filter>Logging</Filter>
+      <Filter>src\Logging</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp">
-      <Filter>Platform\OpenGL</Filter>
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\WindowsInput.cpp">
-      <Filter>Platform</Filter>
+      <Filter>src\Platform</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
-      <Filter>Platform</Filter>
+      <Filter>src\Platform</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\2D\Renderer2D.cpp">
-      <Filter>Renderer\2D</Filter>
+      <Filter>src\Renderer\2D</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\3D\Render3D.cpp">
-      <Filter>Renderer\3D</Filter>
+      <Filter>src\Renderer\3D</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Camera\EditorCamera.cpp">
-      <Filter>Renderer\Camera</Filter>
+      <Filter>src\Renderer\Camera</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Data\Buffer.cpp">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Data\Framebuffer.cpp">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Data\UniformBuffer.cpp">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Data\VertexArray.cpp">
-      <Filter>Renderer\Data</Filter>
+      <Filter>src\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader\Shader.cpp">
-      <Filter>Renderer\Shader</Filter>
+      <Filter>src\Renderer\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
-      <Filter>Renderer\Shader</Filter>
+      <Filter>src\Renderer\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Entity.cpp">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneCamera.cpp">
-      <Filter>Scene</Filter>
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
