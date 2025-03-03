@@ -9,7 +9,14 @@ namespace GameEngine
 {
     Scene::Scene()
     {
-
+        registerComponentHandler<CameraComponent>([](Entity e, CameraComponent& c)
+            {
+                LOG_INFO("Camera component added");
+                if (auto* scenePtr = e.getScene())
+                {
+                    c.camera.setViewportSize(scenePtr->getViewportWidth(), scenePtr->getViewpotHeight());
+                }
+            });
     }
 
     Scene::~Scene() {}

@@ -32,18 +32,30 @@ namespace GameEngine
         {
             componentHandlers[typeid(T)] = [handler](Entity e)
                 {
-                    handler(e, e.getComponent<T>());
+                    handler(e, e.template getComponent<T>());
                 };
         }
 
         template<typename T>
         void onComponentAdded(Entity e, T& c)
         {
-            
+            auto it = componentHandlers.find(typeid(T));
+            if (it != componentHandlers.end())
+            {
+                it->second(e);
+            }
+            else
+            {
+                LOG_INFO("Component of type {0} adddd to entity ID {1}", typeid(T).name(), (uint32_t)e);
+            }
         }
 
+        uint32_t getViewportWidth() { return viewportWidth; }
+        uint32_t getViewpotHeight() { return viewportHeight; }
 
     private:
+
+
         entt::registry registry;
         friend class Entity;
 

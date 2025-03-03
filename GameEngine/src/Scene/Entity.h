@@ -16,7 +16,10 @@ namespace GameEngine
         T& addComponent(Args&&... args)
         {
             CORE_ASSERT(!hasComponent<T>(), "Entity has component");
-            return scene->registry.emplace<T>(entityHandle, std::forward<Args>(args)...);
+            T& comp = scene->registry.emplace<T>(entityHandle, std::forward<Args>(args)...);
+            scene->onComponentAdded<T>(*this, comp);
+
+            return comp;
         }
 
         //template<typename T>
@@ -63,6 +66,8 @@ namespace GameEngine
         }
 
         bool operator!= (const Entity& other) const { return !(*this == other); }
+
+        Scene* getScene() { return scene; }
 
     private:
         entt::entity entityHandle = entt::null;
