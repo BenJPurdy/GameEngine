@@ -35,11 +35,5 @@ namespace GameEngine
 
 		
 		SceneHierarchyPanel sceneHierarchy;
-
-		Entity testEntity;
-		Entity testCamera;
-		glm::vec3 testPosition = { 0.0f, 0.0f, 0.0f };
-		glm::vec4 testColour = {0.3f, 0.4f, 0.9f, 1.0f};
-		glm::vec2 testSize = {0.5f, 0.5f};
 	};
 }

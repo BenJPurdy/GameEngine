@@ -111,11 +111,13 @@ namespace GameEngine
 				ImGui::SameLine(availRegion.x - lh * 0.5f);
 				if (ImGui::Button("+", ImVec2{ lh, lh }))
 				{
-					ImGui::OpenPopup("Component Setting");
+					//LOG_TRACE("We want to open popup");
+					ImGui::OpenPopup("Component Settings");
 				}
 				bool removeComponent = false;
 				if (ImGui::BeginPopup("Component Settings"))
 				{
+					//LOG_TRACE("Open popup");
 					if (ImGui::MenuItem("Remove Component"))
 					{
 						removeComponent = true;
@@ -137,7 +139,7 @@ namespace GameEngine
 		}
 
 		static void drawVec3Control(const std::string& l, glm::vec3& v,
-			float resetValue = 0.0f, float columnWidth = 100.0f)
+			float resetValue = 0.0f, float columnWidth = 400.0f)
 		{
 			ImGuiIO& io = ImGui::GetIO();
 			auto boldFont = io.Fonts->Fonts[0];
@@ -167,6 +169,7 @@ namespace GameEngine
 			ImGui::PopStyleColor(3);
 
 			ImGui::SameLine();
+			//ImGui::PushItemWidth(100);
 			ImGui::DragFloat("##X", &v.x, 0.1f, 0.0f, 0.0f, "%.2f");
 			ImGui::PopItemWidth();
 			ImGui::SameLine();

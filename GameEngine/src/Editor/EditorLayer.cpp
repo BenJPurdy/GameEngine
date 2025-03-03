@@ -36,15 +36,6 @@ namespace GameEngine
 		shaders = createRef<ShaderLibrary>();
 		shaders->load("flatColour", "assets/shaders/flatColour");
 
-
-
-		
-
-		testCamera = activeScene->createEntity("TestCamera");
-		testEntity = activeScene->createEntity("TestQuad");
-
-		testCamera.addComponent<CameraComponent>();
-		testEntity.addComponent<SpriteRenderComponent>();
 	}
 
 	void EditorLayer::onDetatch()
@@ -78,11 +69,6 @@ namespace GameEngine
 
 		sceneHierarchy.onImGuiRender();
 
-		ImGui::Begin("Inspector");
-		ImGui::DragFloat3("Camera Position", glm::value_ptr(testPosition));
-		ImGui::ColorEdit4("Quad Colour", glm::value_ptr(testColour));
-		ImGui::DragFloat2("Size", glm::value_ptr(testSize), 0.1f);
-		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
@@ -125,10 +111,7 @@ namespace GameEngine
 
 		camera.onUpdate(ts);
 
-		testCamera.getComponent<TransformComponent>().transform = testPosition;
-		testEntity.getComponent<SpriteRenderComponent>().colour = testColour;
-		testEntity.getComponent<TransformComponent>().scale = { testSize.x, testSize.y, 1.0f };
-
+	
 		activeScene->onUpdate(ts);
 
 		auto stat = Render2d::getStats();

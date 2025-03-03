@@ -13,10 +13,10 @@ namespace GameEngine
 		void setPerspective(float, float, float);
 		void setViewportSize(uint32_t, uint32_t);
 
-		float getOrthgraphicSize() const { return orthgraphicSize; }
-		void setOrthgraphicSize(float s) { orthgraphicSize = s; recalculateProjection(); }
-		float getOrthgraphicNear() const { return orthgraphicNear; }
-		void setOrthgraphicNear(float n) { orthgraphicNear = n; recalculateProjection(); }
+		float getOrthographicSize() const { return orthgraphicSize; }
+		void setOrthographicSize(float s) { orthgraphicSize = s; recalculateProjection(); }
+		float getOrthographicNear() const { return orthgraphicNear; }
+		void setOrthographicNear(float n) { orthgraphicNear = n; recalculateProjection(); }
 		float getOrthographicFar() const { return orthographicFar; }
 		void setOrthographicFar(float f) { orthographicFar = f; recalculateProjection(); }
 
@@ -32,6 +32,8 @@ namespace GameEngine
 			cameraType = t;
 			recalculateProjection();
 		}
+
+		ProjectionType getProjectionType() { return cameraType; }
 	
 	private:
 		void recalculateProjection();

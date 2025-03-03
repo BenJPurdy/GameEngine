@@ -3,6 +3,7 @@
 #include "Logging/Log.h"
 #include "Scene/Scene.h"
 #include "Scene/Entity.h"
+#include "InspectorPanel.h"
 
 namespace GameEngine
 {
@@ -23,5 +24,6 @@ namespace GameEngine
 
 		Ref<Scene> context;
 		Entity selectedContext;
+		Ref<InspectorPanel> inspectorPanel;
 	};
 }

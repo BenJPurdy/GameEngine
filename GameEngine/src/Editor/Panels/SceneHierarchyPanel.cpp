@@ -9,6 +9,7 @@ namespace GameEngine
 	SceneHierarchyPanel::SceneHierarchyPanel(Ref<Scene>& ctx)
 	{
 		setContext(ctx);
+		inspectorPanel = createRef<InspectorPanel>();
 	}
 
 	void SceneHierarchyPanel::setContext(const Ref<Scene>& ctx)
@@ -39,14 +40,24 @@ namespace GameEngine
 		}
 
 		ImGui::End();
-
+		bool enableDebugging = false;
 		ImGui::Begin("Inspector");
+		ImGui::Checkbox("Enable debugger", &enableDebugging);
 		if (selectedContext)
 		{
 			//TODO
+			inspectorPanel->drawComponents(selectedContext);
+			inspectorPanel->drawAddComponents(selectedContext);
 		}
 
 		ImGui::End();
+		
+		
+		if (enableDebugging)
+		{
+			ImGui::DebugStartItemPicker();
+		}
+		
 	}
 
 	void SceneHierarchyPanel::setSelectedEntity(Entity e)
