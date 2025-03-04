@@ -29,6 +29,8 @@ namespace GameEngine
 		//Ref<Render2d> render2d;
 		Ref<Scene> activeScene;
 
+		int guizmoType = -1;
+
 		bool viewportFocus = false;
 		bool viewportHover = false;
 		glm::vec2 viewportSize = { 0.0f, 0.0f };

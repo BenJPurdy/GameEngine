@@ -3,6 +3,9 @@
 #include "EditorLayer.h"
 #include "ImGui/ImGuiLib.h"
 
+#include "ImGuizmo.h"
+#include "Maths/Maths.h"
+
 #include <glm/gtx/string_cast.hpp>
 
 namespace GameEngine
@@ -72,9 +75,43 @@ namespace GameEngine
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
+
+		float toolbarHeight = 30.0f;
+
+		ImGui::BeginChild("Toolbar", ImVec2(ImGui::GetContentRegionAvail().x, toolbarHeight), true);
+		ImVec2 buttonSize = { 50, toolbarHeight };
+
+		if (ImGui::Button("Move", buttonSize))
+		{
+			if (!ImGuizmo::IsUsing())
+			{
+				gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			}
+		}
+		ImGui::SameLine();
+
+		if (ImGui::Button("Rotate", buttonSize))
+		{
+			if (!ImGuizmo::IsUsing())
+			{
+				gizmoType = ImGuizmo::OPERATION::ROTATE;
+			}
+		}
+		ImGui::SameLine();
+
+		if (ImGui::Button("Move", buttonSize))
+		{
+			if (!ImGuizmo::IsUsing())
+			{
+				gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			}
+		}
+		ImGui::EndChild();
+
 		viewportFocus = ImGui::IsWindowFocused();
 		viewportHover = ImGui::IsWindowHovered();
-		App::get().getImguiLayer()->blockEvents(!viewportFocus || viewportHover);
+		App::get().getImguiLayer()->blockEvents(!viewportFocus && !viewportHover);
+		
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
@@ -82,6 +119,45 @@ namespace GameEngine
 		uint32_t textureID = framebuffer->getColorAttachmentID();
 		ImGui::Image((ImTextureID)textureID, ImVec2{viewportSize.x, viewportSize.y}, 
 			ImVec2{0, 1}, ImVec2{1, 0});
+
+		Entity selected = sceneHierarchy.getSelectedEntity();
+		if (selected && gizmoType != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			const glm::mat4& proj = camera.GetProjection();
+			glm::mat4 view = camera.GetViewMatrix();
+
+			auto& entityTransform = selected.getComponent<TransformComponent>();
+			glm::mat4 transform = entityTransform.getTransform();
+			bool snap = Input::isKeyPressed(Key::LeftShift);
+			float snapValue = 0.5f;
+			if (gizmoType == ImGuizmo::OPERATION::ROTATE) snapValue = 45.0f;
+
+			float snapValues[3] = { snapValue, snapValue, snapValue };
+
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(proj), (ImGuizmo::OPERATION)gizmoType,
+				ImGuizmo::LOCAL, glm::value_ptr(transform), nullptr, snap ? snapValues : nullptr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				glm::vec3 pos, rot, scl;
+				Maths::decomposeTransform(transform, pos, rot, scl);
+
+				entityTransform.transform = pos;
+				entityTransform.scale = scl;
+
+				glm::vec3 dRot = rot - entityTransform.rotation;
+
+				entityTransform.rotation += dRot;
+			}
+			
+		}
 		ImGui::End();
 		ImGui::PopStyleVar();
 

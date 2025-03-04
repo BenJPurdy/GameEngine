@@ -10,6 +10,8 @@
 #include "GLFW/glfw3.h"
 #include <gl3w.h>
 
+#include "ImGuizmo/ImGuizmo.h"
+
 namespace GameEngine
 {
 	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
@@ -64,6 +66,8 @@ namespace GameEngine
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+
+		ImGuizmo::BeginFrame();
 	}
 
 	void ImGuiLayer::end()
