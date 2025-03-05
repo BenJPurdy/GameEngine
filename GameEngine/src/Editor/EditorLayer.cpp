@@ -22,11 +22,13 @@ namespace GameEngine
 		
 
 		FramebufferSpecification spec;
+		spec.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INT, FramebufferTextureFormat::Depth };
 		spec.w = 1280;
 		spec.h = 720;
 		framebuffer = Framebuffer::create(spec);
 
-		activeScene = createRef<Scene>();
+		editorScene = createRef<Scene>();
+		activeScene = editorScene;
 		sceneHierarchy.setContext(activeScene);
 
 		//renderer3d = createRef<Render3d>();
@@ -99,24 +101,42 @@ namespace GameEngine
 		}
 		ImGui::SameLine();
 
-		if (ImGui::Button("Move", buttonSize))
+		if (ImGui::Button("Scale", buttonSize))
 		{
 			if (!ImGuizmo::IsUsing())
 			{
 				gizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			}
 		}
+
+		ImGui::NextColumn();
+		ImGui::SameLine();
+		char* buttonName = (sceneState == SceneState::Edit) ? "Play" : "Stop";
+		if (ImGui::Button(buttonName, buttonSize))
+		{
+			if (sceneState == SceneState::Edit)
+			{
+				onScenePlay();
+			}
+			else if (sceneState == SceneState::Play)
+			{
+				onSceneStop();
+			}
+		}
 		ImGui::EndChild();
+
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		auto viewportOffset = ImGui::GetCursorScreenPos();
+		viewportBounds[0] = { viewportOffset.x, viewportOffset.y };
+		viewportBounds[1] = { viewportOffset.x + viewportPanelSize.x, viewportOffset.y + viewportPanelSize.y };
 
 		viewportFocus = ImGui::IsWindowFocused();
 		viewportHover = ImGui::IsWindowHovered();
 		App::get().getImguiLayer()->blockEvents(!viewportFocus && !viewportHover);
 		
-
-		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
 
-		uint32_t textureID = framebuffer->getColorAttachmentID();
+		uint32_t textureID = framebuffer->getColourAttachmentRendererID();
 		ImGui::Image((ImTextureID)textureID, ImVec2{viewportSize.x, viewportSize.y}, 
 			ImVec2{0, 1}, ImVec2{1, 0});
 
@@ -125,6 +145,8 @@ namespace GameEngine
 		{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
+
+			ImGuizmo::SetRect(viewportOffset.x, viewportOffset.y, viewportPanelSize.x, viewportPanelSize.y);
 
 			float windowWidth = (float)ImGui::GetWindowWidth();
 			float windowHeight = (float)ImGui::GetWindowHeight();
@@ -156,8 +178,8 @@ namespace GameEngine
 
 				entityTransform.rotation += dRot;
 			}
-			
 		}
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 
@@ -185,10 +207,36 @@ namespace GameEngine
 		Render2d::setClearColour({ 0.2f, 0.2f, 0.2f, 1.0f });
 		Render2d::clear();
 
-		camera.onUpdate(ts);
+		framebuffer->clearAttachment(1, -1);
 
-	
-		activeScene->onUpdate(ts);
+		switch (sceneState)
+		{
+		case SceneState::Edit:
+			camera.onUpdate(ts);
+			activeScene->onUpdateEditor(ts, camera);
+			break;
+		case SceneState::Play:
+			activeScene->onUpdateRuntime(ts);
+			break;
+		}
+
+		auto [mx, my] = ImGui::GetMousePos();
+		mx -= viewportBounds[0].x;
+		my -= viewportBounds[0].y;
+
+		glm::vec2 viewportWidth = viewportBounds[1] - viewportBounds[0];
+
+		my = viewportSize.y - my;
+
+		int mouseX = (int)mx;
+		int mouseY = (int)my;
+
+		if (mouseX >= 0 && mouseY >= 0 &&
+			mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+		{
+			int pxData = framebuffer->readPixel(1, mouseX, mouseY);
+			hoveredEntity = pxData == -1 ? Entity() : Entity((entt::entity)pxData, activeScene.get());
+		}
 
 		auto stat = Render2d::getStats();
 
@@ -238,7 +286,42 @@ namespace GameEngine
 	void EditorLayer::onEvent(Event& e)
 	{
 		camera.onEvent(e);
+
+		EventDispatcher disp(e);
+		disp.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(EditorLayer::onMouseButtonPressed));
 		
 	}
 
+	bool EditorLayer::onMouseButtonPressed(MouseButtonPressedEvent e)
+	{
+		if (e.getMouseButton() == Mouse::ButtonLeft)
+		{
+			if (viewportHover && !ImGuizmo::IsOver() && !Input::isKeyPressed(Key::LeftAlt))
+			{
+				sceneHierarchy.setSelectedEntity(hoveredEntity);
+			}
+		}
+		return false;
+	}
+
+	void EditorLayer::onScenePlay()
+	{
+		sceneState = SceneState::Play;
+		Scene::copyTo(editorScene, runtimeScene);
+
+		runtimeScene->onRuntimeStart();
+
+		activeScene = runtimeScene;
+		sceneHierarchy.setContext(activeScene);
+	}
+
+	void EditorLayer::onSceneStop()
+	{
+		sceneState = SceneState::Edit;
+
+		runtimeScene->onRuntimeStop();
+		runtimeScene = nullptr;
+		activeScene = editorScene;
+		sceneHierarchy.setContext(activeScene);
+	}
 }

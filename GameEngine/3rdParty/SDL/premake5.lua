@@ -1,7 +1,7 @@
 project "SDL"
     kind "ConsoleApp"
     language "C++"
-    cppdialect "C++20"
+    cppdialect "C++17"
     staticruntime "on"
 
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")

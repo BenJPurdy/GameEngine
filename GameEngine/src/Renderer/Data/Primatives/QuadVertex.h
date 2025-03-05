@@ -12,5 +12,8 @@ namespace GameEngine
 		glm::vec4 colour;
 		glm::vec2 texCoord;
 		glm::vec2 tiling;
+
+		//editor only
+		int entityID;
 	};
 }

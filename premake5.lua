@@ -36,7 +36,7 @@ project "GameEngine"
     kind "ConsoleApp"
     language "C++"
     staticruntime "on"
-    cppdialect "C++20"
+    cppdialect "C++17"
 
     targetdir("bin/" ..outputdir.. "/%{prj.name}")
     objdir("bin-int/" ..outputdir.."%{prj.name}")

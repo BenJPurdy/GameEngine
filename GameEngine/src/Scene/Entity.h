@@ -72,5 +72,7 @@ namespace GameEngine
     private:
         entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;
+
+        friend class Scene;
     };
 }

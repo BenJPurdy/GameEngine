@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -102,7 +102,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -120,7 +120,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -129,12 +129,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.h" />
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.h" />
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.h" />
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.h" />
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.h" />
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImZoomSlider.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\GraphEditor.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\ImSequencer.h" />
+    <ClInclude Include="3rdParty\ImGuizmo\ImZoomSlider.h" />
     <ClInclude Include="src\Core\App.h" />
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\EntryPoint.h" />
@@ -159,7 +159,9 @@
     <ClInclude Include="src\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\ImGui\ImGuiLib.h" />
     <ClInclude Include="src\Logging\Log.h" />
+    <ClInclude Include="src\Maths\Maths.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebufferUtils.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
@@ -189,19 +191,19 @@
     <ClInclude Include="src\Utilities\OpenGLError.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.cpp">
+    <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.cpp">
+    <ClCompile Include="3rdParty\ImGuizmo\ImCurveEdit.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.cpp">
+    <ClCompile Include="3rdParty\ImGuizmo\ImGradient.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.cpp">
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.cpp">
+    <ClCompile Include="3rdParty\ImGuizmo\ImSequencer.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Core\App.cpp" />
@@ -220,6 +222,7 @@
     <ClCompile Include="src\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Logging\Log.cpp" />
+    <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />

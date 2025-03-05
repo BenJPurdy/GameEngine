@@ -22,12 +22,12 @@ namespace GameEngine
 
 		static void drawQuad(const glm::vec2&, const glm::vec2, const glm::vec4);
 		static void drawQuad(const glm::vec3&, const glm::vec2, const glm::vec4);
-		static void drawQuad(const glm::mat4&, const glm::vec4);
+		static void drawQuad(const glm::mat4&, const glm::vec4, int entityID = -1);
 
 		static void drawRotatedQuad(const glm::vec2&, const glm::vec2, const float, const glm::vec4);
 		static void drawRotatedQuad(const glm::vec3&, const glm::vec2, const float, const glm::vec4);
 	
-		static void drawSprite(const glm::mat4&, SpriteRenderComponent&);
+		static void drawSprite(const glm::mat4&, SpriteRenderComponent&, int);
 
 		struct Statistics
 		{

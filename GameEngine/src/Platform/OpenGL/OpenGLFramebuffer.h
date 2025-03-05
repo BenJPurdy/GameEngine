@@ -23,8 +23,6 @@ namespace GameEngine
 			return colourAttachments[index];
 		}
 
-
-		//virtual uint32_t getColorAttachmentID() const override { return colour; }
 		virtual const FramebufferSpecification& getSpecification() const override { return spec; }
 
 	private:

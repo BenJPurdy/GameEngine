@@ -7,9 +7,6 @@
     <Filter Include="3rdParty\ImGuizmo">
       <UniqueIdentifier>{3E81F3E0-AA97-F176-F30E-7D985F64C2FE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3rdParty\ImGuizmo\ImGuizmo-master">
-      <UniqueIdentifier>{77919A63-E3FF-EFE2-2CE9-AAE29896E57E}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="src\Logging">
       <UniqueIdentifier>{C368B2F1-2F1E-2BE7-B812-25BE24C721EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Maths">
+      <UniqueIdentifier>{599964B3-C503-192A-0E42-CACF7AEBF67E}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -72,23 +72,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\GraphEditor.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\ImCurveEdit.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGradient.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\ImSequencer.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="3rdParty\ImGuizmo\ImGuizmo-master\ImZoomSlider.h">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClInclude Include="3rdParty\ImGuizmo\ImZoomSlider.h">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\App.h">
       <Filter>src\Core</Filter>
@@ -162,7 +162,13 @@
     <ClInclude Include="src\Logging\Log.h">
       <Filter>src\Logging</Filter>
     </ClInclude>
+    <ClInclude Include="src\Maths\Maths.h">
+      <Filter>src\Maths</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebufferUtils.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h">
@@ -248,20 +254,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\GraphEditor.cpp">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImCurveEdit.cpp">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClCompile Include="3rdParty\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGradient.cpp">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGradient.cpp">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImGuizmo.cpp">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo.cpp">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="3rdParty\ImGuizmo\ImGuizmo-master\ImSequencer.cpp">
-      <Filter>3rdParty\ImGuizmo\ImGuizmo-master</Filter>
+    <ClCompile Include="3rdParty\ImGuizmo\ImSequencer.cpp">
+      <Filter>3rdParty\ImGuizmo</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\App.cpp">
       <Filter>src\Core</Filter>
@@ -304,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="src\Logging\Log.cpp">
       <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Maths\Maths.cpp">
+      <Filter>src\Maths</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

@@ -108,17 +108,21 @@ namespace GameEngine
 
 	void SceneHierarchyPanel::rightClickMenu()
 	{
-		if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems));
+		if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems))
 		{
-			ImGuiLib::drawMenuItem("Create Entity", [](Ref<Scene> ctx) {
-				ctx->createEntity("Empty"); }, context);
-
-			ImGuiLib::drawMenuItem("Camera", [](Ref<Scene> ctx) {
-				Entity cam = ctx->createEntity("Entity");
-				cam.addComponent<CameraComponent>();
+			ImGuiLib::drawMenuItem("Create Entity", [](Ref<Scene> ctx) 
+				{
+				ctx->createEntity("Empty"); 
 				}, context);
 
-			//ImGui::EndPopup();
+			ImGuiLib::drawMenuItem("Camera", [](Ref<Scene> ctx) 
+				{
+				Entity cam = ctx->createEntity("Camera");
+				cam.addComponent<CameraComponent>();
+				}
+			, context);
+
+			ImGui::EndPopup();
 		}
 	}
 }

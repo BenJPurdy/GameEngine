@@ -6,7 +6,7 @@ namespace GameEngine
 	enum class FramebufferTextureFormat
 	{
 		None = 0,
-		RGB8,
+		RGBA8,
 		RED_INT,
 		DEPTH24STENCIL8,
 		Depth = DEPTH24STENCIL8
@@ -56,7 +56,6 @@ namespace GameEngine
 		virtual void clearAttachment(uint32_t, int) = 0;
 		virtual uint32_t getColourAttachmentRendererID(uint32_t index = 0) const = 0;
 		
-		virtual uint32_t getColorAttachmentID() const = 0;
 		virtual const FramebufferSpecification& getSpecification() const = 0;
 
 		static Ref<Framebuffer> create(const FramebufferSpecification&);

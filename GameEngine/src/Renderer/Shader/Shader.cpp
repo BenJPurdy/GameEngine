@@ -92,14 +92,14 @@ namespace GameEngine
 				glGetShaderSource(shader, srcLength, NULL, shaderSrc.data());
 
 				std::cout << shaderSrc << std::endl;
-				std::cout << (std::format("Error compiling shader: {}", shaderError));
+				std::cout << "Error compiling shader: " << shaderError << "\n";
 			}
 			else
 			{
 				glGetProgramiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 				std::string programError((logLength > 1) ? logLength : 1, '\0');
 				glGetProgramInfoLog(shader, logLength, NULL, programError.data());
-				std::cout << (std::format("Error linking program: {}", programError));
+				std::cout << "Error linking program: " << programError << "\n";
 			}
 			return false;
 		}

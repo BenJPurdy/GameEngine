@@ -22,20 +22,39 @@ namespace GameEngine
 
 	private:
 		
+		bool onMouseButtonPressed(MouseButtonPressedEvent);
+
+		void onScenePlay();
+		void onSceneStop();
+
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
 		Ref<ShaderLibrary> shaders;
 		//Ref<Render3d> renderer3d;
 		//Ref<Render2d> render2d;
 		Ref<Scene> activeScene;
+		Ref<Scene> editorScene, runtimeScene;
 
-		int guizmoType = -1;
+		int gizmoType = -1;
 
 		bool viewportFocus = false;
 		bool viewportHover = false;
 		glm::vec2 viewportSize = { 0.0f, 0.0f };
+		glm::vec2 viewportBounds[2];
+
+		Entity hoveredEntity;
 
 		
 		SceneHierarchyPanel sceneHierarchy;
+
+		enum class SceneState
+		{
+			Edit = 0,
+			Play = 1,
+			Pause = 2,
+			Simulate = 3
+		};
+
+		SceneState sceneState = SceneState::Edit;
 	};
 }

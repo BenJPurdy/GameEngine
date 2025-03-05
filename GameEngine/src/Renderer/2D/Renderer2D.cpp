@@ -25,6 +25,7 @@ namespace GameEngine
 			{ShaderDataType::Float4, "colour"},
 			{ShaderDataType::Float2, "texCoord"},
 			{ShaderDataType::Float2, "tilingFactor"},
+			{ShaderDataType::Int, "entityID"}
 			});
 
 		data.quadArray->addVertexBuffer(data.quadBuffer);
@@ -143,7 +144,7 @@ namespace GameEngine
 		drawQuad(transform, c);
 	}
 
-	void Render2d::drawQuad(const glm::mat4& t, const glm::vec4 c)
+	void Render2d::drawQuad(const glm::mat4& t, const glm::vec4 c, int id)
 	{
 		constexpr size_t  vertCount = 4;
 		constexpr glm::vec2 textureCoordinates[] =
@@ -166,6 +167,7 @@ namespace GameEngine
 			data.bufferPtr->colour = c;
 			data.bufferPtr->texCoord = textureCoordinates[i];
 			data.bufferPtr->tiling = tiling;
+			data.bufferPtr->entityID = id;
 			data.bufferPtr++;
 		}
 
@@ -187,9 +189,9 @@ namespace GameEngine
 		drawQuad(transform, c);
 	}
 
-	void Render2d::drawSprite(const glm::mat4& transform, SpriteRenderComponent& src)
+	void Render2d::drawSprite(const glm::mat4& transform, SpriteRenderComponent& src, int id)
 	{
-		drawQuad(transform, src.colour);
+		drawQuad(transform, src.colour, id);
 	}
 
 	void Render2d::resetStats() { memset(&data.stats, 0, sizeof(Statistics)); }
