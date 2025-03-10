@@ -6,6 +6,9 @@
 #include "ImGuizmo.h"
 #include "Maths/Maths.h"
 
+#include "Utilities/PlatformUtils.h"
+#include "Scene/Serialiser/SceneSerialiser.h"
+
 #include <glm/gtx/string_cast.hpp>
 
 namespace GameEngine
@@ -57,7 +60,25 @@ namespace GameEngine
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("Exit"))
+				if (ImGui::MenuItem("New", "Ctrl+N"))
+				{
+					newScene();
+				}
+				if (ImGui::MenuItem("Open..", "Ctrl+O"))
+				{
+					openScene();
+				}
+				if (ImGui::MenuItem("Save", "Ctrl+S"))
+				{
+					saveScene();
+				}
+				if (ImGui::MenuItem("Save As..", "Ctrl+Shift+S"))
+				{
+					saveSceneAs();
+				}
+				//maybe change this from ctrl+q since Q is a bind for everyday functionality
+				//with the gizmos
+				if (ImGui::MenuItem("Exit", "Ctrl+Q"))
 				{
 					dockspaceOpen = false;
 					App::get().close();
@@ -289,7 +310,7 @@ namespace GameEngine
 
 		EventDispatcher disp(e);
 		disp.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(EditorLayer::onMouseButtonPressed));
-		
+		disp.dispatch<KeyPressedEvent>(BIND_EVENT_FN(EditorLayer::onKeyPressed));
 	}
 
 	bool EditorLayer::onMouseButtonPressed(MouseButtonPressedEvent e)
@@ -303,6 +324,159 @@ namespace GameEngine
 		}
 		return false;
 	}
+
+	bool EditorLayer::onKeyPressed(KeyPressedEvent e)
+	{
+		if (e.getRepeatCount() > 0)
+			return false;
+		
+		bool control = Input::isKeyPressed(Key::LeftControl) || Input::isKeyPressed(Key::RightControl);
+		bool shift = Input::isKeyPressed(Key::LeftShift) || Input::isKeyPressed(Key::RightShift);
+		switch (e.getKeyCode())
+		{
+		case Key::N:
+		{
+			if (control)
+				newScene();
+			break;
+		}
+		case Key::D:
+		{
+			if (!control && shift)
+				onDuplicateEntity();
+			break;
+		}
+		case Key::Delete:
+		{
+			onDeleteEntity();
+			break;
+		}
+
+		//save/load stuff
+		case Key::O:
+		{
+			if (control)
+				openScene();
+			break;
+		}
+		case Key::S:
+		{
+			if (control && shift)
+				saveSceneAs();
+			if (control && !shift)
+				saveScene();
+			break;
+		}
+
+		//gizmo stuff
+		case Key::Q:
+		{
+			if (viewportHover)
+			{
+				gizmoType = -1;
+			}
+			break;
+		}
+		case Key::W:
+		{
+			if (!ImGuizmo::IsUsing() && viewportHover)
+			{
+				gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			}
+			break;
+		}
+		case Key::E:
+		{
+			if (!ImGuizmo::IsUsing() && viewportHover)
+			{
+				gizmoType = ImGuizmo::OPERATION::SCALE;
+			}
+			break;
+		}
+		case Key::R:
+		{
+			if (!ImGuizmo::IsUsing() && viewportHover)
+			{
+				gizmoType = ImGuizmo::OPERATION::ROTATE;
+			}
+			break;
+		}
+
+		}
+	}
+
+	void EditorLayer::newScene()
+	{
+		editorScene = createRef<Scene>();
+		activeScene = editorScene;
+		activeScene->onViewportResize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
+		sceneHierarchy.setContext(activeScene);
+		editorSceneFilePath.clear();
+	}
+
+	void EditorLayer::openScene()
+	{
+		std::string path = FileDialogs::openFile("GameEngine Scene (*.gameengine\0*.gameengine\0");
+		if (!path.empty())
+		{
+			openScene(path);
+		}
+	}
+
+	void EditorLayer::openScene(const std::filesystem::path& path)
+	{
+		if (sceneState != SceneState::Edit)
+		{
+			onSceneStop();
+		}
+
+		if (path.extension().string() != ".gameengine")
+		{
+			LOG_WARN("Could not load {0} - not a scene file", path.filename().string());
+			return;
+		}
+		editorSceneFilePath = path;
+
+		Ref<Scene> newScene = createRef<Scene>();
+		SceneSerialiser serialiser(newScene);
+		if (serialiser.deserialise(path.string()))
+		{
+			editorScene = newScene;
+			editorScene->onViewportResize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
+			sceneHierarchy.setContext(editorScene);
+
+			activeScene = editorScene;
+		}
+	}
+
+	void EditorLayer::saveScene()
+	{
+		if (!editorSceneFilePath.empty())
+		{
+			serialiseScene(editorScene, editorSceneFilePath);
+		}
+		else
+		{
+			saveSceneAs();
+		}
+	}
+
+	void EditorLayer::saveSceneAs()
+	{
+		std::string path = FileDialogs::saveFile("GameEngine Scene (*.gameengine)\0*.gameengine\0");
+		if (!path.empty())
+		{
+			serialiseScene(editorScene, path);
+		}
+		editorSceneFilePath = path;
+	}
+
+	void EditorLayer::serialiseScene(Ref<Scene> scene, const std::filesystem::path& path)
+	{
+		SceneSerialiser serialiser(scene);
+		serialiser.serialise(path.string());
+	}
+
 
 	void EditorLayer::onScenePlay()
 	{
@@ -323,5 +497,32 @@ namespace GameEngine
 		runtimeScene = nullptr;
 		activeScene = editorScene;
 		sceneHierarchy.setContext(activeScene);
+	}
+
+	void EditorLayer::onDuplicateEntity()
+	{
+		if (sceneState != SceneState::Edit)
+		{
+			LOG_WARN("Entity duplication can only be done in edit mode");
+			return;
+		}
+		if (sceneHierarchy.getSelectedEntity())
+		{
+			editorScene->duplicateEntity(sceneHierarchy.getSelectedEntity());
+		}
+	}
+
+	void EditorLayer::onDeleteEntity()
+	{
+		if (sceneState != SceneState::Edit)
+		{
+			LOG_WARN("Entity duplication can only be done in edit mode");
+			return;
+		}
+		if (sceneHierarchy.getSelectedEntity())
+		{
+			editorScene->destoryEntity(sceneHierarchy.getSelectedEntity());
+			sceneHierarchy.setSelectedEntity({});
+		}
 	}
 }

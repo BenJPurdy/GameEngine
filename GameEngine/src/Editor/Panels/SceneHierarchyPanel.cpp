@@ -83,6 +83,10 @@ namespace GameEngine
 		bool deleted = false;
 		if (ImGui::BeginPopupContextItem())
 		{
+			if (ImGui::MenuItem("Duplicate Entity"))
+			{
+				context->duplicateEntity(e);
+			}
 			//could add extra menu items here maybe????
 			if (ImGui::MenuItem("Delete Entity"))
 			{
@@ -116,10 +120,19 @@ namespace GameEngine
 				}, context);
 
 			ImGuiLib::drawMenuItem("Camera", [](Ref<Scene> ctx) 
+			{
+				auto cams = ctx->getAllEntitiesWith<CameraComponent>();
+				std::string name = "Main Camera";
+				bool primary = true;
+				if (cams.size() > 0)
 				{
-				Entity cam = ctx->createEntity("Camera");
-				cam.addComponent<CameraComponent>();
+					name = "Camera";
+					primary = false;
 				}
+				Entity cam = ctx->createEntity(name);
+				CameraComponent& c = cam.addComponent<CameraComponent>();
+				c.primary = primary;
+			}
 			, context);
 
 			ImGui::EndPopup();

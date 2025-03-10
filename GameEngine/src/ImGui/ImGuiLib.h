@@ -117,6 +117,18 @@ namespace GameEngine
 				bool removeComponent = false;
 				if (ImGui::BeginPopup("Component Settings"))
 				{
+					if (ImGui::MenuItem("Copy Component"))
+					{
+						e.getScene()->copyComponent<T>(e);
+					}
+
+					bool isDisabled = !e.getScene()->hasCopiedComponent();
+					ImGui::BeginDisabled(isDisabled);
+					if (ImGui::MenuItem("Paste Component"))
+					{
+						e.getScene()->pasteComponent(e);
+					}
+					ImGui::EndDisabled();
 					//LOG_TRACE("Open popup");
 					if (ImGui::MenuItem("Remove Component"))
 					{

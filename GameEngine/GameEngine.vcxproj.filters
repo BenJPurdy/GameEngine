@@ -252,6 +252,10 @@
     <ClInclude Include="src\Utilities\OpenGLError.h">
       <Filter>src\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Serialiser\SceneSerialiser.h" />
+    <ClInclude Include="src\Scene\Serialiser\yamlConverter.h" />
+    <ClInclude Include="src\Utilities\PlatformUtils.h" />
+    <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
@@ -371,5 +375,8 @@
     <ClCompile Include="src\Scene\SceneCamera.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp" />
+    <ClCompile Include="src\Utilities\PlatformUtils.cpp" />
+    <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp" />
   </ItemGroup>
 </Project>

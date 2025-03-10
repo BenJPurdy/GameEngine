@@ -21,11 +21,15 @@ IncludeDir["glm"] = "GameEngine/3rdParty/glm"
 IncludeDir["imgui"] = "GameEngine/3rdParty/imgui"
 IncludeDir["entt"] = "GameEngine/3rdParty/entt/single_include"
 IncludeDir["imguizmo"] = "GameEngine/3rdParty/ImGuizmo"
+IncludeDir["yamlcpp"] = "GameEngine/3rdParty/yamlcpp/include"
+
+
 
 --find the other premake files in these folders
 include "GameEngine/3rdParty/GLFW/"
 include "GameEngine/3rdParty/GL/"
 include "GameEngine/3rdParty/imgui"
+include "GameEngine/3rdParty/yamlcpp"
 --include "GameEngine/3rdParty/SDL/"
 
 
@@ -56,7 +60,8 @@ project "GameEngine"
 
     defines
     {
-        "_CRT_SECUURE_NO_WARNINGS"
+        "_CRT_SECUURE_NO_WARNINGS",
+        "YAML_CPP_STATIC_DEFINE"
     }
 
     includedirs
@@ -69,7 +74,8 @@ project "GameEngine"
         "%{IncludeDir.glm}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.imguizmo}"
+        "%{IncludeDir.imguizmo}",
+        "%{IncludeDir.yamlcpp}"
     }
 
     libdirs
@@ -82,7 +88,8 @@ project "GameEngine"
         --"SDL2","SDL2main",
         "GLFW",
         "GL3W",
-        "imgui"
+        "imgui",
+        "yaml-cpp"
 
 
     }
@@ -101,3 +108,18 @@ project "GameEngine"
             "GLFW_INCLUDE_NONE"
 
         }
+
+    filter "configurations:Debug"
+        staticruntime "off"
+        runtime "Debug"
+        symbols "On"
+    
+    filter "configurations:Release"
+        staticruntime "off"
+        runtime "Release"
+        optimize "on"
+    
+    filter "configurations:Dist"
+        runtime "Release"
+        optimize "on"
+        symbols "Off"

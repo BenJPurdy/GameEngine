@@ -14,6 +14,14 @@ namespace GameEngine
 {
     class Entity;
 
+    struct CopiedComponent
+    {
+        std::type_index type;
+        std::function<void(Entity&)> pasteFunction;
+
+        CopiedComponent() : type(typeid(void)) {}
+    };
+
     class Scene
     {
     public:
@@ -63,6 +71,12 @@ namespace GameEngine
             }
         }
 
+        template<typename... Components>
+        auto getAllEntitiesWith()
+        {
+            return registry.view<Components...>();
+        }
+
         const std::string& getName() { return name; }
         void setName(const std::string& n) { name = n; }
 
@@ -82,18 +96,52 @@ namespace GameEngine
             auto srcEntities = src.view<T>();
             for (auto e : srcEntities)
             {
-                entt::entity dstEnitity = enttMap.at(src.get<IDComponent>(src).id);
+                entt::entity dstEnitity = enttMap.at(src.get<IDComponent>(e).id);
                 auto& srcComp = src.get<T>(e);
                 auto dstComp = dst.emplace_or_replace<T>(dstEnitity, srcComp);
             }
+        }
+
+        template<typename T>
+        void copyComponent(Entity e)
+        {
+            if (!e.hasComponent<T>()) return;
+
+            auto& comp = e.getComponent<T>();
+            copiedComponent.type = typeid(T);
+            copiedComponent.pasteFunction = [comp](Entity& tgt) mutable
+                {
+                    if (!tgt.hasComponent<T>())
+                        tgt.addComponent<T>(comp);
+                    else
+                        tgt.getComponent<T>() = comp;
+                };
+        }
+
+        void pasteComponent(Entity& tgt)
+        {
+            if (copiedComponent.type != typeid(void) && copiedComponent.pasteFunction)
+            {
+                copiedComponent.pasteFunction(tgt);
+                copiedComponent.type = typeid(void);
+            }
+        }
+
+        bool hasCopiedComponent() const
+        {
+            return copiedComponent.type != typeid(void);
         }
 
 
         uint32_t getViewportWidth() { return viewportWidth; }
         uint32_t getViewpotHeight() { return viewportHeight; }
 
-    private:
+        void setSceneID(UUID id) { sceneID = id; }
+        UUID getSceneID() { return sceneID; }
 
+
+    private:
+        UUID sceneID;
 
         entt::registry registry;
         friend class Entity;
@@ -105,6 +153,7 @@ namespace GameEngine
 
         std::string name;
         bool isEditorScene = false;
+        CopiedComponent copiedComponent;
 
     };
 }

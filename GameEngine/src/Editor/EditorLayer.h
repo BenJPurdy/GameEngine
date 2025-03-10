@@ -5,6 +5,8 @@
 #include "Scene/Entity.h"
 #include "Editor/Panels/SceneHierarchyPanel.h"
 
+#include <filesystem>
+
 
 namespace GameEngine
 {
@@ -23,6 +25,17 @@ namespace GameEngine
 	private:
 		
 		bool onMouseButtonPressed(MouseButtonPressedEvent);
+		bool onKeyPressed(KeyPressedEvent e);
+
+		void newScene();
+		void openScene();
+		void openScene(const std::filesystem::path&);
+		void saveScene();
+		void saveSceneAs();
+		void serialiseScene(Ref<Scene>, const std::filesystem::path&);
+
+		void onDuplicateEntity();
+		void onDeleteEntity();
 
 		void onScenePlay();
 		void onSceneStop();
@@ -34,6 +47,7 @@ namespace GameEngine
 		//Ref<Render2d> render2d;
 		Ref<Scene> activeScene;
 		Ref<Scene> editorScene, runtimeScene;
+		std::filesystem::path editorSceneFilePath;
 
 		int gizmoType = -1;
 

@@ -44,10 +44,24 @@ namespace GameEngine
         }
 
         template <typename T>
+        T& getComponent() const
+        {
+            CORE_ASSERT(hasComponent<T>(), "Entity does not have component");
+            return scene->registry.get<T>(entityHandle);
+        }
+
+        template <typename T>
         bool hasComponent()
         {
             return scene->registry.all_of<T>(entityHandle);
         }
+
+        template <typename T>
+        bool hasComponent() const
+        {
+            return scene->registry.all_of<T>(entityHandle);
+        }
+
 
         template <typename T>
         void removeComponent()
@@ -69,10 +83,14 @@ namespace GameEngine
 
         Scene* getScene() { return scene; }
 
+        UUID getUUID() const { return getComponent<IDComponent>().id; }
+        UUID getSceneID() const { return scene->sceneID; }
+
     private:
         entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;
 
         friend class Scene;
+        friend class SceneSerialiser;
     };
 }
