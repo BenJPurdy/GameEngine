@@ -67,8 +67,14 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{0A06D2B3-7670-862A-BFAE-37D02B58647F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene\Serialiser">
+      <UniqueIdentifier>{0CD3E47C-F861-6E46-A180-82418DEE7EEC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Utilities">
       <UniqueIdentifier>{D86B3A83-442C-B6B9-0D67-FF3679E6FA95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utilities\Windows">
+      <UniqueIdentifier>{126E82EF-7EDA-3DEA-47CE-D547B3F95F52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,16 +252,24 @@
     <ClInclude Include="src\Scene\SceneCamera.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\Serialiser\SceneSerialiser.h">
+      <Filter>src\Scene\Serialiser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Serialiser\yamlConverter.h">
+      <Filter>src\Scene\Serialiser</Filter>
+    </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>src\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\OpenGLError.h">
       <Filter>src\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene\Serialiser\SceneSerialiser.h" />
-    <ClInclude Include="src\Scene\Serialiser\yamlConverter.h" />
-    <ClInclude Include="src\Utilities\PlatformUtils.h" />
-    <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h" />
+    <ClInclude Include="src\Utilities\PlatformUtils.h">
+      <Filter>src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
+      <Filter>src\Utilities\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
@@ -375,8 +389,14 @@
     <ClCompile Include="src\Scene\SceneCamera.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp" />
-    <ClCompile Include="src\Utilities\PlatformUtils.cpp" />
-    <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp" />
+    <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp">
+      <Filter>src\Scene\Serialiser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\PlatformUtils.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
+      <Filter>src\Utilities\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

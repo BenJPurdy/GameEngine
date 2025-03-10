@@ -7,6 +7,8 @@
 #include <yaml-cpp/yaml.h>
 #include <fstream>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace GameEngine
 {
 	SceneSerialiser::SceneSerialiser(const Ref<Scene>& s) : scene(s) {}
@@ -171,7 +173,8 @@ namespace GameEngine
 				if (SRC)
 				{
 					auto& src = deserialised.addComponent<SpriteRenderComponent>();
-					src.colour = SRC["Colour"].as<glm::vec4>();
+					src.colour = glm::make_vec4(SRC["Colour"].as<std::vector<float>>().data());
+					std::cout << "test\n";
 				}
 
 				//add more components as they are added to the engine
