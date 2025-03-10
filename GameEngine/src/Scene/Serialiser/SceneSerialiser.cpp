@@ -58,8 +58,8 @@ namespace GameEngine
 			out << YAML::Key << "OrthographicNear" << YAML::Value << cam.getOrthographicNear();
 			out << YAML::Key << "OrthographicFar" << YAML::Value << cam.getOrthographicFar();
 			out << YAML::EndMap;
-			out << YAML::Key << "Primary" << YAML::Value << camComp.primary;
-			out << YAML::Key << "FixedAspect" << YAML::Value << camComp.fixedAspect;
+			out << YAML::Key << "Primary" << YAML::Value << (int)camComp.primary;
+			out << YAML::Key << "FixedAspect" << YAML::Value << (int)camComp.fixedAspect;
 
 			out << YAML::EndMap;
 		}
@@ -71,6 +71,15 @@ namespace GameEngine
 
 			auto& SRC = e.getComponent<SpriteRenderComponent>();
 			out << YAML::Key << "Colour" << YAML::Value << SRC.colour;
+			out << YAML::EndMap;
+		}
+
+		if (e.hasComponent<ScriptComponent>())
+		{
+			out << YAML::Key << "ScriptComponent";
+			out << YAML::BeginMap;
+			auto& sciptComp = e.getComponent<ScriptComponent>();
+			out << YAML::Key << "Script" << YAML::Value << sciptComp.functionName;
 			out << YAML::EndMap;
 		}
 
@@ -152,6 +161,7 @@ namespace GameEngine
 				auto camComp = e["CameraComponent"];
 				if (camComp)
 				{
+					LOG_TRACE("Loading Camera Component");
 					auto& cc = deserialised.addComponent<CameraComponent>();
 
 					auto& camProps = camComp["Camera"];
@@ -165,8 +175,8 @@ namespace GameEngine
 					cc.camera.setOrthographicNear(camProps["OrthographicNear"].as<float>());
 					cc.camera.setOrthographicFar(camProps["OrthographicFar"].as<float>());
 
-					cc.primary = camProps["Primary"].as<bool>();
-					cc.fixedAspect = camProps["FixedAspect"].as<bool>();
+					cc.primary = (bool)camComp["Primary"].as<int>();
+					cc.fixedAspect = (bool)camComp["FixedAspect"].as<int>();
 				}
 
 				auto SRC = e["SpriteRenderComponent"];
@@ -174,7 +184,12 @@ namespace GameEngine
 				{
 					auto& src = deserialised.addComponent<SpriteRenderComponent>();
 					src.colour = glm::make_vec4(SRC["Colour"].as<std::vector<float>>().data());
-					std::cout << "test\n";
+				}
+
+				auto scriptComp = e["ScriptComponent"];
+				if (scriptComp)
+				{
+
 				}
 
 				//add more components as they are added to the engine

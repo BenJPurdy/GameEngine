@@ -7,6 +7,9 @@
     <Filter Include="3rdParty\ImGuizmo">
       <UniqueIdentifier>{3E81F3E0-AA97-F176-F30E-7D985F64C2FE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Visualization">
+      <UniqueIdentifier>{F72D7571-63EE-F0A7-2C29-3A2598A83584}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
@@ -398,5 +401,46 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="natvis\config.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\container.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\core.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\entity.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\glm.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\graph.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\locator.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\meta.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\poly.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\process.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\resource.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\signal.natvis">
+      <Filter>Visualization</Filter>
+    </None>
+    <None Include="natvis\yaml-cpp.natvis">
+      <Filter>Visualization</Filter>
+    </None>
   </ItemGroup>
 </Project>

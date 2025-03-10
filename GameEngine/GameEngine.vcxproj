@@ -267,6 +267,21 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="natvis\config.natvis" />
+    <None Include="natvis\container.natvis" />
+    <None Include="natvis\core.natvis" />
+    <None Include="natvis\entity.natvis" />
+    <None Include="natvis\glm.natvis" />
+    <None Include="natvis\graph.natvis" />
+    <None Include="natvis\locator.natvis" />
+    <None Include="natvis\meta.natvis" />
+    <None Include="natvis\poly.natvis" />
+    <None Include="natvis\process.natvis" />
+    <None Include="natvis\resource.natvis" />
+    <None Include="natvis\signal.natvis" />
+    <None Include="natvis\yaml-cpp.natvis" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="3rdParty\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
     </ProjectReference>

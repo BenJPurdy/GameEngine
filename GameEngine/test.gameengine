@@ -1,15 +1,24 @@
 Scene: Untitled Scene
 Entities:
-  - Entity: 15935671422242273002
+  - Entity: 7671670231349293754
     TagComponent:
       Tag: Empty
     TransformComponent:
-      Translation: [-1.6, 0, 0]
+      Translation: [1.6, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRenderComponent:
+      Colour: [0.85294104, 0, 1, 1]
+  - Entity: 2929411662706886475
+    TagComponent:
+      Tag: Empty
+    TransformComponent:
+      Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     SpriteRenderComponent:
       Colour: [1, 1, 0, 1]
-  - Entity: 7442407708245370558
+  - Entity: 14511594619267202537
     TagComponent:
       Tag: Main Camera
     TransformComponent:
@@ -25,14 +34,5 @@ Entities:
         OrthographicSize: 10
         OrthographicNear: -1
         OrthographicFar: 1
-      Primary: true
-      FixedAspect: false
-  - Entity: 13547364768288585075
-    TagComponent:
-      Tag: thing
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    SpriteRenderComponent:
-      Colour: [0.08693753, 0.04411764, 0.5294118, 1]
+      Primary: 1
+      FixedAspect: 0

@@ -72,4 +72,14 @@ namespace GameEngine
         SpriteRenderComponent(const SpriteRenderComponent&) = default;
         SpriteRenderComponent(const glm::vec4& c) : colour(c) {}
     };
+
+    struct ScriptComponent
+    {
+        std::string functionName = "";
+        void* fnPtr = nullptr;
+        
+        ScriptComponent() = default;
+        ScriptComponent(const ScriptComponent&) = default;
+        ScriptComponent(const std::string s) : functionName(s) {}
+    };
 }

@@ -19,6 +19,8 @@ namespace GameEngine
 		{
 			drawAddComponentMenuItem<SpriteRenderComponent>(e, "Sprite Renderer");
 			drawAddComponentMenuItem<CameraComponent>(e, "Camera");
+			drawAddComponentMenuItem<ScriptComponent>(e, "Script Component");
+			//add components here
 
 			ImGui::EndPopup();
 		}
@@ -33,6 +35,10 @@ namespace GameEngine
 			{
 				e.addComponent<T>();
 				ImGui::CloseCurrentPopup();
+			}
+			if (label == "ScriptableComponent")
+			{
+				//generate scriptable compontent file with attached function				
 			}
 		}
 	}
@@ -50,6 +56,11 @@ namespace GameEngine
 				t = std::string(buff);
 			}
 		}
+
+		//ImGuiLib::drawComponent<ScriptComponent>("Script", e, [](auto& comp)
+		//	{
+		//		
+		//	};
 
 		ImGuiLib::drawComponent<TransformComponent>("Transform", e, [](auto& component)
 			{

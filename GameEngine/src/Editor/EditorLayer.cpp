@@ -144,6 +144,13 @@ namespace GameEngine
 				onSceneStop();
 			}
 		}
+		if (ImGui::Button("compile"))
+		{
+			// do system call
+			// auto lib = LoadLibraryA(built lib)
+			// functions are defined as extern "C" to stop c++ name mangling at compile time
+			// populate map of fnptr with names + lib using GetProcAddress(lib, "fnName");
+		}
 		ImGui::EndChild();
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();

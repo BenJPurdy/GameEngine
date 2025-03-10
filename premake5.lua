@@ -55,7 +55,8 @@ project "GameEngine"
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
         "%{IncludeDir.imguizmo}/**.h",
-        "%{IncludeDir.imguizmo}/**.cpp"
+        "%{IncludeDir.imguizmo}/**.cpp",
+        "%{prj.name}/natvis/**.natvis"
     }
 
     defines
@@ -94,6 +95,13 @@ project "GameEngine"
 
     }
 
+
+    filter {"action:vs*"}
+        vpaths{["Visualization"] = {"**.natvis"}}
+
+    filter {"files:**.natvis"}
+        removeflags{"ExcludeFromBuild"}
+        buildaction "None"
     filter "files:GameEngine/3rdParty/ImGuizmo/**.cpp"
         flags{"NoPCH"}
 
