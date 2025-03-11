@@ -56,6 +56,7 @@ namespace GameEngine
         copyComponent<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<SpriteRenderComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<CircleRenderComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         //add more here as and when more componenets are added
         //or make a list of types idk
 
@@ -95,7 +96,7 @@ namespace GameEngine
         copyComponentIfExists<TransformComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<CameraComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<SpriteRenderComponent>(newEntity.entityHandle, registry, e);
-
+        copyComponentIfExists<CircleRenderComponent>(newEntity.entityHandle, registry, e);
         return newEntity;
     }
 
@@ -151,9 +152,17 @@ namespace GameEngine
                 auto [transform, sprite] = group.get<TransformComponent, SpriteRenderComponent>(entity);
                 Render2d::drawSprite(transform.getTransform(), sprite, (int)entity);
             }
-
-            Render2d::endScene();
         }
+
+        {
+            auto view = registry.view<TransformComponent, CircleRenderComponent>();
+            for (auto e : view)
+            {
+                auto [transform, circle] = view.get<TransformComponent, CircleRenderComponent>(e);
+                Render2d::drawCircle(transform.getTransform(), circle.colour, circle.thickness, circle.fade, (int)e);
+            }
+        }
+        Render2d::endScene();
     }
 
     void Scene::onUpdateRuntime(Timestep ts)
@@ -186,6 +195,16 @@ namespace GameEngine
                     Render2d::drawSprite(transform.getTransform(), sprite, (int)e);
                 }
             }
+            
+            {
+                auto view = registry.view<TransformComponent, CircleRenderComponent>();
+                for (auto e : view)
+                {
+                    auto [transform, circle] = view.get<TransformComponent, CircleRenderComponent>(e);
+                    Render2d::drawCircle(transform.getTransform(), circle.colour, circle.thickness, circle.fade, (int)e);
+                }
+            }
+
             Render2d::endScene();
         }
     }

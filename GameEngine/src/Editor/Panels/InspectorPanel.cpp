@@ -20,6 +20,7 @@ namespace GameEngine
 			drawAddComponentMenuItem<SpriteRenderComponent>(e, "Sprite Renderer");
 			drawAddComponentMenuItem<CameraComponent>(e, "Camera");
 			drawAddComponentMenuItem<ScriptComponent>(e, "Script Component");
+			drawAddComponentMenuItem<CircleRenderComponent>(e, "Circle Renderer");
 			//add components here
 
 			ImGui::EndPopup();
@@ -144,6 +145,14 @@ namespace GameEngine
 			{
 				//TODO Texturing and tiling fields
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.colour));
+			});
+
+		ImGuiLib::drawComponent<CircleRenderComponent>("Circle Renderer", e,
+			[](auto& c)
+			{
+				ImGui::ColorEdit4("Colour", glm::value_ptr(c.colour));
+				ImGui::DragFloat("Thickness", &c.thickness, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Fade", &c.fade, 0.0025f, 0.0f, 1.0f);
 			});
 
 	}

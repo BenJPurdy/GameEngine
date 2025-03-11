@@ -7,6 +7,7 @@
 #include "Renderer/Data/UniformBuffer.h"
 
 #include "Renderer/Data/Primatives/QuadVertex.h"
+#include "Renderer/Data/Primatives/CircleVertex.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -24,11 +25,21 @@ namespace GameEngine
 		Ref<VertexBuffer> quadBuffer;
 		Ref<Program> quadShader;
 
-		uint32_t indexCount = 0;
-		QuadVertex* bufferBase = nullptr;
-		QuadVertex* bufferPtr = nullptr;
+		uint32_t quadIndexCount = 0;
+		QuadVertex* quadBufferBase = nullptr;
+		QuadVertex* quadBufferPtr = nullptr;
 
 		glm::vec4 vertexPositions[4];
+
+
+		Ref<VertexArray> circleArray;
+		Ref<VertexBuffer> circleBuffer;
+		Ref<Program> circleShader;
+
+		uint32_t circleIndexCount;
+		CircleVertex* circleBufferBase = nullptr;
+		CircleVertex* circleBufferPtr = nullptr;
+
 
 		Render2d::Statistics stats;
 

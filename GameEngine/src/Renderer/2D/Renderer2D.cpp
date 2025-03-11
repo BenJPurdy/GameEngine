@@ -30,7 +30,7 @@ namespace GameEngine
 
 		data.quadArray->addVertexBuffer(data.quadBuffer);
 
-		data.bufferBase = new QuadVertex[data.maxVertices];
+		data.quadBufferBase = new QuadVertex[data.maxVertices];
 
 		uint32_t* quadIndices = new uint32_t[data.maxIndices];
 		uint32_t offset = 0;
@@ -50,7 +50,24 @@ namespace GameEngine
 		data.quadArray->setIndexBuffer(quadIB);
 		delete[] quadIndices;
 
+		data.circleArray = VertexArray::create();
+
+		data.circleBuffer = VertexBuffer::create(data.maxVertices * sizeof(CircleVertex));
+		data.circleBuffer->setLayout({
+			{ShaderDataType::Float3, "worldPos"},
+			{ShaderDataType::Float3, "localPos"},
+			{ShaderDataType::Float4, "colour"},
+			{ShaderDataType::Float, "thickness"},
+			{ShaderDataType::Float, "fade"},
+			{ShaderDataType::Int, "id"},
+			});
+
+		data.circleArray->addVertexBuffer(data.circleBuffer);
+		data.circleArray->setIndexBuffer(quadIB);
+		data.circleBufferBase = new CircleVertex[data.maxVertices];
+
 		data.quadShader = createRef<Program>("assets/shaders/quad2d");
+		data.circleShader = createRef<Program>("assets/shaders/circle2d");
 
 		
 		data.vertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
@@ -65,7 +82,7 @@ namespace GameEngine
 
 	void Render2d::shutdown()
 	{
-		delete[] data.bufferBase;
+		delete[] data.quadBufferBase;
 	}
 
 	void Render2d::clear()
@@ -101,27 +118,45 @@ namespace GameEngine
 
 	void Render2d::startBatch()
 	{
-		data.indexCount = 0;
-		data.bufferPtr = data.bufferBase;
+		data.quadIndexCount = 0;
+		data.quadBufferPtr = data.quadBufferBase;
+		//needs highlight on the github page for circle render component
+		data.circleIndexCount = 0;
+		data.circleBufferPtr = data.circleBufferBase;
 	}
 
 	void Render2d::flush()
 	{
-		if (data.indexCount)
+		if (data.quadIndexCount)
 		{
-			uint32_t dataSize = (uint32_t)((uint8_t*)data.bufferPtr - (uint8_t*)data.bufferBase);
-			data.quadBuffer->setData(data.bufferBase, dataSize);
+			uint32_t dataSize = (uint32_t)((uint8_t*)data.quadBufferPtr - (uint8_t*)data.quadBufferBase);
+			data.quadBuffer->setData(data.quadBufferBase, dataSize);
 
 			data.quadShader->bind();
 
 			data.quadArray->bind();
 
-			uint32_t count = data.indexCount ? data.indexCount :
+			uint32_t count = data.quadIndexCount ? data.quadIndexCount :
 				data.quadArray->getIndexBuffer()->getCount();
 			glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 
 			data.stats.drawCalls++;
-		
+		}
+
+		if (data.circleIndexCount)
+		{
+			uint32_t dataSize = (uint32_t)((uint8_t*)data.circleBufferPtr - 
+				(uint8_t*)data.circleBufferBase);
+			data.circleBuffer->setData(data.circleBufferBase, dataSize);
+
+			data.circleShader->bind();
+
+			data.circleArray->bind();
+			uint32_t count = data.circleIndexCount ? data.circleIndexCount : 
+				data.circleArray->getIndexBuffer()->getCount();
+			glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+			
+			data.stats.drawCalls++;
 		}
 	}
 
@@ -156,22 +191,22 @@ namespace GameEngine
 		};
 		constexpr glm::vec2 tiling = { 1.0f, 1.0f };
 
-		if (data.indexCount >= Render2dData::maxIndices)
+		if (data.quadIndexCount >= Render2dData::maxIndices)
 		{
 			nextBatch();
 		}
 
 		for (size_t i = 0; i < vertCount; i++)
 		{
-			data.bufferPtr->pos = t * data.vertexPositions[i];
-			data.bufferPtr->colour = c;
-			data.bufferPtr->texCoord = textureCoordinates[i];
-			data.bufferPtr->tiling = tiling;
-			data.bufferPtr->entityID = id;
-			data.bufferPtr++;
+			data.quadBufferPtr->pos = t * data.vertexPositions[i];
+			data.quadBufferPtr->colour = c;
+			data.quadBufferPtr->texCoord = textureCoordinates[i];
+			data.quadBufferPtr->tiling = tiling;
+			data.quadBufferPtr->entityID = id;
+			data.quadBufferPtr++;
 		}
 
-		data.indexCount += 6;
+		data.quadIndexCount += 6;
 		data.stats.quadCount++;
 	}
 
@@ -187,6 +222,27 @@ namespace GameEngine
 			* glm::scale(glm::mat4(1.0f), { s.x, s.y, 1.0f });
 
 		drawQuad(transform, c);
+	}
+
+	void Render2d::drawCircle(const glm::mat4& transform, const glm::vec4 colour, float thickness, float fade, int entityID)
+	{
+		if (data.circleIndexCount >= Render2dData::maxIndices)
+		{
+			nextBatch();
+		}
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			data.circleBufferPtr->worldPos = transform * data.vertexPositions[i];
+			data.circleBufferPtr->localPos = data.vertexPositions[i] * 2.0f;
+			data.circleBufferPtr->colour = colour;
+			data.circleBufferPtr->thickness = thickness;
+			data.circleBufferPtr->fade = fade;
+			data.circleBufferPtr->eID = entityID;
+			data.circleBufferPtr++;
+		}
+		data.circleIndexCount += 6;
+		data.stats.quadCount++;
 	}
 
 	void Render2d::drawSprite(const glm::mat4& transform, SpriteRenderComponent& src, int id)

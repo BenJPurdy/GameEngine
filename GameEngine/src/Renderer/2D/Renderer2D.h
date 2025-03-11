@@ -27,7 +27,11 @@ namespace GameEngine
 		static void drawRotatedQuad(const glm::vec2&, const glm::vec2, const float, const glm::vec4);
 		static void drawRotatedQuad(const glm::vec3&, const glm::vec2, const float, const glm::vec4);
 	
+		static void drawCircle(const glm::mat4&, const glm::vec4, float thickness = 1.0f, float fade = 0.05f, int entityID = -1);
+
+
 		static void drawSprite(const glm::mat4&, SpriteRenderComponent&, int);
+
 
 		struct Statistics
 		{

@@ -82,4 +82,16 @@ namespace GameEngine
         ScriptComponent(const ScriptComponent&) = default;
         ScriptComponent(const std::string s) : functionName(s) {}
     };
+
+    struct CircleRenderComponent
+    {
+        glm::vec4 colour{ 1.0f };
+        float radius = 0.5f;
+        float thickness = 1.0f;
+        float fade = 0.005f;
+
+        CircleRenderComponent() = default;
+        CircleRenderComponent(const CircleRenderComponent&) = default;
+        CircleRenderComponent(const glm::vec4 & c) : colour(c) {}
+    };
 }

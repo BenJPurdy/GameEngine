@@ -192,6 +192,7 @@
     <ClInclude Include="src\Renderer\Data\BufferLayout.h" />
     <ClInclude Include="src\Renderer\Data\Framebuffer.h" />
     <ClInclude Include="src\Renderer\Data\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\Data\Primatives\CircleVertex.h" />
     <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h" />
     <ClInclude Include="src\Renderer\Data\UniformBuffer.h" />
     <ClInclude Include="src\Renderer\Data\VertexArray.h" />
