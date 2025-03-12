@@ -138,10 +138,12 @@ namespace GameEngine
 			if (sceneState == SceneState::Edit)
 			{
 				onScenePlay();
+				
 			}
 			else if (sceneState == SceneState::Play)
 			{
 				onSceneStop();
+				
 			}
 		}
 		if (ImGui::Button("compile"))
@@ -488,6 +490,7 @@ namespace GameEngine
 	void EditorLayer::onScenePlay()
 	{
 		sceneState = SceneState::Play;
+		runtimeScene = createRef<Scene>();
 		Scene::copyTo(editorScene, runtimeScene);
 
 		runtimeScene->onRuntimeStart();
