@@ -22,6 +22,7 @@ IncludeDir["imgui"] = "GameEngine/3rdParty/imgui"
 IncludeDir["entt"] = "GameEngine/3rdParty/entt/single_include"
 IncludeDir["imguizmo"] = "GameEngine/3rdParty/ImGuizmo"
 IncludeDir["yamlcpp"] = "GameEngine/3rdParty/yamlcpp/include"
+IncludeDir["box2d"] = "GameEngine/3rdParty/box2d/include"
 
 
 
@@ -30,6 +31,7 @@ include "GameEngine/3rdParty/GLFW/"
 include "GameEngine/3rdParty/GL/"
 include "GameEngine/3rdParty/imgui"
 include "GameEngine/3rdParty/yamlcpp"
+include "GameEngine/3rdParty/box2d"
 --include "GameEngine/3rdParty/SDL/"
 
 
@@ -76,7 +78,8 @@ project "GameEngine"
         "%{IncludeDir.imgui}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.imguizmo}",
-        "%{IncludeDir.yamlcpp}"
+        "%{IncludeDir.yamlcpp}",
+        "%{IncludeDir.box2d}"
     }
 
     libdirs
@@ -90,8 +93,8 @@ project "GameEngine"
         "GLFW",
         "GL3W",
         "imgui",
-        "yaml-cpp"
-
+        "yaml-cpp",
+        "box2d"
 
     }
 

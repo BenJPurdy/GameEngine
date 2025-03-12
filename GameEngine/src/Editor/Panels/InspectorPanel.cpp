@@ -19,12 +19,33 @@ namespace GameEngine
 		{
 			drawAddComponentMenuItem<SpriteRenderComponent>(e, "Sprite Renderer");
 			drawAddComponentMenuItem<CameraComponent>(e, "Camera");
-			drawAddComponentMenuItem<ScriptComponent>(e, "Script Component");
 			drawAddComponentMenuItem<CircleRenderComponent>(e, "Circle Renderer");
 			//add components here
+			drawAddComponentMenuItem<ScriptComponent>(e, "Script Component");
+			drawAddComponentMenuItem<Rigidbody2dComponent>(e, "Rigidbody Component");
+			drawAddComponentMenuItem<BoxCollider2dComponent>(e, "Box Collider Component");
+			drawAddComponentMenuItem<CircleCollider2dComponent>(e, "Circle Collider Component");
+
 
 			ImGui::EndPopup();
 		}
+	}
+
+	void drawPhysicsComponentProperties()
+	{
+		//ImGui::DragFloat2("Offset", )
+	}
+
+	std::string rigidbodyType(Entity e)
+	{
+		if (!e.hasComponent<Rigidbody2dComponent>()) return "None";
+		auto props = e.getComponent<Rigidbody2dComponent>().properties;
+		if ((props & PhysicsProperties::PhysProps_Static) == PhysicsProperties::PhysProps_Static) 
+			return "Static";
+		else if ((props & PhysicsProperties::PhysProps_Dynamic) == PhysicsProperties::PhysProps_Dynamic) 
+			return "Dynamic";
+		else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic) 
+			return "Kinematic";
 	}
 
 	template<typename T>
@@ -155,7 +176,95 @@ namespace GameEngine
 				ImGui::DragFloat("Fade", &c.fade, 0.0025f, 0.0f, 1.0f);
 			});
 
+		
+		ImGuiLib::drawComponent<BoxCollider2dComponent>("Box Collider", e, [](auto& comp)
+			{
+				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution", &comp.restitution, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat2("Bounds", glm::value_ptr(comp.extents), 0.05f, 0.0f, 1.0f);
+			});
+
+		ImGuiLib::drawComponent<CircleCollider2dComponent>("Circle Collider", e, [](auto& comp)
+			{
+				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution", &comp.restitution, 0.05f, 0.0f, 1.0f);
+				ImGui::DragFloat("Radius", &comp.radius, 0.05f, 0.0f, 1.0f);
+			});
+
+		ImGuiLib::drawComponent<Rigidbody2dComponent>("Rigidbody", e, [](auto& comp)
+			{
+				std::string rbType = "None";
+				auto props = comp.properties;
+				if ((props & PhysicsProperties::PhysProps_Static) == PhysicsProperties::PhysProps_Static)
+					rbType = "Static";
+				else if ((props & PhysicsProperties::PhysProps_Dynamic) == PhysicsProperties::PhysProps_Dynamic)
+					rbType = "Dynamic";
+				else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic)
+					rbType = "Kinematic";
+				ImGui::PushItemWidth(100.0f);
+				if (ImGui::BeginCombo("Type", rbType.c_str()))
+				{
+					bool selected = false;
+					if (ImGui::Selectable("Static", &selected))
+					{
+						comp.properties &= 0xF8; //zero out all body type bits (0xF8 = 0b11111000)
+						comp.properties |= PhysicsProperties::PhysProps_Static;
+					}
+
+					if (ImGui::Selectable("Dynamic", &selected))
+					{
+						comp.properties &= 0xF8;
+						comp.properties |= PhysicsProperties::PhysProps_Dynamic;
+					}
+
+					if (ImGui::Selectable("Kinematic", &selected))
+					{
+						comp.properties &= 0xF8;
+						comp.properties |= PhysicsProperties::PhysProps_Kinematic;
+					}
+
+					ImGui::EndCombo();
+				}
+
+				
+
+				ImGui::PopItemWidth();
+
+				ImGui::SameLine();
+				bool fixedRot = ((props & PhysicsProperties::PhysProps_FixedRotation) == PhysicsProperties::PhysProps_FixedRotation);
+				bool tickboxRot = fixedRot; //this variable holds the state to allow ImGui to draw the tickbox correctly
+				if (ImGui::Checkbox("Fixed Rotation", &tickboxRot))
+				{
+					if (fixedRot)
+					{
+						comp.properties &= ~PhysicsProperties::PhysProps_FixedRotation;
+					}
+					else
+					{
+						comp.properties |= PhysicsProperties::PhysProps_FixedRotation;
+					}
+				}
+
+				
+				ImGui::NewLine();
+				ImGui::DragFloat("Mass", &comp.body.mass, 0.05f, 0.0f, 1.0f);
+			});
+
+		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [](auto& comp)
+			{
+				ImGui::Text("Function Name:");
+				char buffer[512];
+				strncpy_s(buffer, comp.functionName.c_str(), sizeof(buffer));
+				if (ImGui::InputText("##Function Name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+				{
+					comp.functionName = buffer;
+				}
+				
+			});
+
 	}
-
-
 }

@@ -42,7 +42,7 @@ namespace GameEngine
 		ImGui::End();
 		bool enableDebugging = false;
 		ImGui::Begin("Inspector");
-		ImGui::Checkbox("Enable debugger", &enableDebugging);
+		ImGui::Checkbox("Enable ImGui debugger", &enableDebugging);
 		if (selectedContext)
 		{
 			//TODO

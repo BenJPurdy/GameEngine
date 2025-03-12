@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -124,7 +124,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -294,6 +294,9 @@
     </ProjectReference>
     <ProjectReference Include="3rdParty\yamlcpp\YAML-CPP.vcxproj">
       <Project>{A80C36E3-94D9-90EE-BDF2-7E96A91EC67C}</Project>
+    </ProjectReference>
+    <ProjectReference Include="3rdParty\box2d\box2d.vcxproj">
+      <Project>{E4442B0F-5059-53C0-19DB-F61F85AE4FF1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -222,6 +222,9 @@
     <ClInclude Include="src\Renderer\Data\IndexBuffer.h">
       <Filter>src\Renderer\Data</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Data\Primatives\CircleVertex.h">
+      <Filter>src\Renderer\Data\Primatives</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\Data\Primatives\QuadVertex.h">
       <Filter>src\Renderer\Data\Primatives</Filter>
     </ClInclude>
@@ -273,7 +276,6 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Data\Primatives\CircleVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">

@@ -17,5 +17,7 @@ namespace GameEngine
 	private:
 		template<typename T>
 		void drawAddComponentMenuItem(Entity, const char*);
+
+		std::string rigidbodyType(Entity);
 	};
 }

@@ -10,6 +10,8 @@
 #include "Core/UUID.h"
 #include "SceneCamera.h"
 
+#include "box2d/box2d.h"
+
 namespace GameEngine
 {
 
@@ -75,7 +77,7 @@ namespace GameEngine
 
     struct ScriptComponent
     {
-        std::string functionName = "";
+        std::string functionName = (512, "");
         void* fnPtr = nullptr;
         
         ScriptComponent() = default;
@@ -93,5 +95,48 @@ namespace GameEngine
         CircleRenderComponent() = default;
         CircleRenderComponent(const CircleRenderComponent&) = default;
         CircleRenderComponent(const glm::vec4 & c) : colour(c) {}
+    };
+
+    enum PhysicsProperties : uint16_t
+    {
+        PhysProps_None = 0,
+        PhysProps_Static = 0x1,         //BIT(1)
+        PhysProps_Dynamic = 0x2,        //BIT(2)
+        PhysProps_Kinematic = 0x4,      //BIT(3)
+        PhysProps_FixedRotation = 0x8   //BIT(4)
+    };
+
+    struct Body
+    {
+        float mass = 1.0f;
+
+    };
+
+    
+
+    struct Rigidbody2dComponent
+    {
+        b2BodyId id = b2_nullBodyId;
+        uint16_t properties = PhysicsProperties::PhysProps_None;
+        Body body;
+    };
+
+    struct Collider2d
+    {
+        b2ShapeId id = b2_nullShapeId;
+        glm::vec2 offset = { 0.0f, 0.0f };
+        float density = 1.0f;
+        float friction = 0.5f;
+        float restitution = 0.5f;
+    };
+
+    struct BoxCollider2dComponent : Collider2d
+    {
+        glm::vec2 extents = { 1.0f, 1.0f };
+    };
+
+    struct CircleCollider2dComponent : Collider2d
+    {
+        float radius = 1.0f;
     };
 }
