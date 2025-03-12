@@ -276,6 +276,7 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsBody.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">

@@ -176,6 +176,7 @@
     <ClInclude Include="src\ImGui\ImGuiLib.h" />
     <ClInclude Include="src\Logging\Log.h" />
     <ClInclude Include="src\Maths\Maths.h" />
+    <ClInclude Include="src\Physics\PhysicsBody.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebufferUtils.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
