@@ -177,8 +177,14 @@ namespace GameEngine
 			});
 
 		
-		ImGuiLib::drawComponent<BoxCollider2dComponent>("Box Collider", e, [](auto& comp)
+		ImGuiLib::drawComponent<BoxCollider2dComponent>("Box Collider", e, [&](auto& comp)
 			{
+				if (!e.hasComponent<Rigidbody2dComponent>())
+				{
+					LOG_ERROR("Must have rigidbody to add collider");
+					e.removeComponent<BoxCollider2dComponent>();
+					return;
+				}
 				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
@@ -186,8 +192,14 @@ namespace GameEngine
 				ImGui::DragFloat2("Bounds", glm::value_ptr(comp.extents), 0.05f, 0.0f, 1.0f);
 			});
 
-		ImGuiLib::drawComponent<CircleCollider2dComponent>("Circle Collider", e, [](auto& comp)
+		ImGuiLib::drawComponent<CircleCollider2dComponent>("Circle Collider", e, [&](auto& comp)
 			{
+				if (!e.hasComponent<Rigidbody2dComponent>())
+				{
+					LOG_ERROR("Must have rigidbody to add collider");
+					e.removeComponent<CircleCollider2dComponent>();
+					return;
+				}
 				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);

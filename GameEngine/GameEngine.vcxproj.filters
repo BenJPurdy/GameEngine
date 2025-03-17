@@ -40,6 +40,9 @@
     <Filter Include="src\Maths">
       <UniqueIdentifier>{599964B3-C503-192A-0E42-CACF7AEBF67E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Physics">
+      <UniqueIdentifier>{9F8B9316-0B41-0C0C-9435-06E300EA0210}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -174,6 +177,9 @@
     <ClInclude Include="src\Maths\Maths.h">
       <Filter>src\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physics\PhysicsBody.h">
+      <Filter>src\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -276,7 +282,6 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physics\PhysicsBody.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">

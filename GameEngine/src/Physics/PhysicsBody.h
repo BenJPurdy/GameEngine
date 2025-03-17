@@ -32,20 +32,24 @@ namespace GameEngine
 
 		void addBox(PhysicsWorld w, Entity e, BoxCollider2dComponent& c)
 		{
+			if (!e.hasComponent<Rigidbody2dComponent>()) return;
 			auto& rb = e.getComponent<Rigidbody2dComponent>();
-			
-			
-			b2BodyDef bodyDef;
+			b2Polygon poly = b2MakeBox(c.extents.x, c.extents.y);
+			b2ShapeDef shape = b2DefaultShapeDef();
 
-			bodyDef.type = (b2BodyType)rb.properties;
-
-			b2BodyId body = b2CreateBody(w.id, &bodyDef);
+			b2CreatePolygonShape(rb.id, &shape, &poly);
+			
 			
 		}
 
-		void addRigedBody(IDComponent id, Rigidbody2dComponent& c)
+		void addRigedBody(PhysicsWorld w, IDComponent id, Rigidbody2dComponent& c)
 		{
-
+			b2BodyId null = b2_nullBodyId;
+			
+			b2BodyDef def = b2DefaultBodyDef();
+			def.type = (b2BodyType)(c.properties & 0b00000111);
+			def.userData = (void*)(uint64_t)id.id;
+			c.id = b2CreateBody(w.id, &def);
 		}
 
 
