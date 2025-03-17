@@ -3,6 +3,7 @@
 #include <Scene/Components.h>
 #include <unordered_map>
 #include "Scene/Components.h"
+#include "Scene/Entity.h"
 #include "Core/UUID.h"
 
 namespace GameEngine
@@ -13,21 +14,32 @@ namespace GameEngine
 		{
 		public:
 			b2WorldId id{ 0 };
+			//map of dynamic objects to UUID's
 			std::unordered_map<uint64_t, b2BodyId> rigidBodies;
-		}physicsWorld;
+
+			bool create()
+			{
+				//notes, world uses +y for up
+				//we're using defaults for now
+				b2WorldDef wd = b2DefaultWorldDef();
+				id = b2CreateWorld(&wd);
+				return true;
+			}
+		};
 
 
-		bool createWorld()
+		
+
+		void addBox(PhysicsWorld w, Entity e, BoxCollider2dComponent& c)
 		{
-			//notes, world uses +y for up
-			//we're using defaults for now
-			b2WorldDef wd = b2DefaultWorldDef();
-			physicsWorld.id = b2CreateWorld(&wd);
-			return true;
-		}
+			auto& rb = e.getComponent<Rigidbody2dComponent>();
+			
+			
+			b2BodyDef bodyDef;
 
-		void addBox(IDComponent id, BoxCollider2dComponent& c)
-		{
+			bodyDef.type = (b2BodyType)rb.properties;
+
+			b2BodyId body = b2CreateBody(w.id, &bodyDef);
 			
 		}
 

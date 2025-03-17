@@ -116,14 +116,14 @@ namespace GameEngine
 
     struct Rigidbody2dComponent
     {
-        b2BodyId id = b2_nullBodyId;
+        b2BodyId id = b2_nullBodyId; //it will move
         uint16_t properties = PhysicsProperties::PhysProps_None;
         Body body;
     };
 
     struct Collider2d
     {
-        b2ShapeId id = b2_nullShapeId;
+        b2ShapeId id = b2_nullShapeId; //it won't move
         glm::vec2 offset = { 0.0f, 0.0f };
         float density = 1.0f;
         float friction = 0.5f;

@@ -211,7 +211,7 @@ namespace GameEngine
 					bool selected = false;
 					if (ImGui::Selectable("Static", &selected))
 					{
-						comp.properties &= 0xF8; //zero out all body type bits (0xF8 = 0b11111000)
+						comp.properties &= 0xF8; //zero out all body type bits (0xF8 = 0b1111000)
 						comp.properties |= PhysicsProperties::PhysProps_Static;
 					}
 
