@@ -29,12 +29,12 @@ namespace GameEngine
 				return true;
 			}
 
-			//As you will no doubt be aware, the plans for development of the outlying regions of the [DRAM] 
-			//	require the building of a hyperspatial express route through your [Game Engine]
+			//As you will no doubt be aware, the plans for development of the outlying regions of the [memory] 
+			//	require the building of a [new gpu partition] through your [Game Engine]
 			//And regrettably, your [b2World] is one of those scheduled for demolition.
 			void destory()
 			{
-				
+				//we don't need to invalidate the id's as they get regenerated blindly
 				b2DestroyWorld(id);
 			}
 		};

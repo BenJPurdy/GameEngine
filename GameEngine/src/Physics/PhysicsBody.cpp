@@ -1,6 +1,7 @@
 #include "GameEngine_PCH.h"
 #include "PhysicsBody.h"
 #include "Scene/Entity.h"
+#include "Core/Timestep.h"
 
 namespace GameEngine
 {
@@ -84,5 +85,12 @@ namespace GameEngine
 		s.friction = c.friction;
 		s.restitution = c.restitution;
 		return s;
+	}
+
+	void Physics::simulateWorld(PhysicsWorld w)
+	{
+		//pos = 3x float
+		//rot = 4x float
+		b2World_Step(w.id, 0.01667f, 4);
 	}
 }
