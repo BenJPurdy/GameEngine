@@ -39,12 +39,12 @@ namespace GameEngine
 	std::string rigidbodyType(Entity e)
 	{
 		if (!e.hasComponent<Rigidbody2dComponent>()) return "None";
-		auto props = e.getComponent<Rigidbody2dComponent>().properties;
-		if ((props & PhysicsProperties::PhysProps_Static) == PhysicsProperties::PhysProps_Static) 
+		auto rb = e.getComponent<Rigidbody2dComponent>();
+		if (rb.has(PhysicsProperties::PhysProps_Static))
 			return "Static";
-		else if ((props & PhysicsProperties::PhysProps_Dynamic) == PhysicsProperties::PhysProps_Dynamic) 
+		else if (rb.has(PhysicsProperties::PhysProps_Dynamic)) 
 			return "Dynamic";
-		else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic) 
+		else if (rb.has(PhysicsProperties::PhysProps_Kinematic)) 
 			return "Kinematic";
 	}
 
@@ -181,10 +181,10 @@ namespace GameEngine
 			{
 				if (!e.hasComponent<Rigidbody2dComponent>())
 				{
-					LOG_ERROR("Must have rigidbody to add collider");
-					e.removeComponent<BoxCollider2dComponent>();
-					return;
+					LOG_WARN("Adding rigidbody to object");
+					e.addComponent<Rigidbody2dComponent>();
 				}
+				if (ImGui::Button("Reset to default values")) comp.setDefaults();
 				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
@@ -196,10 +196,10 @@ namespace GameEngine
 			{
 				if (!e.hasComponent<Rigidbody2dComponent>())
 				{
-					LOG_ERROR("Must have rigidbody to add collider");
-					e.removeComponent<CircleCollider2dComponent>();
-					return;
+					LOG_WARN("Adding rigidbody to object");
+					e.addComponent<Rigidbody2dComponent>();
 				}
+				if (ImGui::Button("Reset to default values")) comp.setDefaults();
 				ImGui::DragFloat2("Offset", glm::value_ptr(comp.offset), 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Density", &comp.density, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);

@@ -36,6 +36,7 @@ namespace GameEngine
         glm::vec3 transform = { 0.0f, 0.0f, 0.0f };
         glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
         glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
+        bool mod = false;
 
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
@@ -47,6 +48,7 @@ namespace GameEngine
             return glm::translate(glm::mat4(1.0f), transform) * rot *
                 glm::scale(glm::mat4(1.0f), scale);
         }
+        //getters/setters and set mod to true
     };
 
     struct CameraComponent
@@ -119,6 +121,8 @@ namespace GameEngine
         b2BodyId id = b2_nullBodyId; //it will move
         uint16_t properties = PhysicsProperties::PhysProps_None;
         Body body;
+        bool has(uint16_t c) { return (properties & c) == c; };
+        uint16_t getBodyType() { return properties & 0b00000111; }
     };
 
     struct Collider2d
@@ -128,15 +132,32 @@ namespace GameEngine
         float density = 1.0f;
         float friction = 0.5f;
         float restitution = 0.5f;
+        void setDefaults()
+        {
+            this->offset = { 0.0f, 0.0f };
+            this->density = 1.0f;
+            this->friction = 0.5f;
+            this->restitution = 0.5f;
+        }
     };
 
     struct BoxCollider2dComponent : Collider2d
     {
         glm::vec2 extents = { 1.0f, 1.0f };
+        void setDefaults()
+        {
+            Collider2d::setDefaults();
+            this->extents = { 1.0f, 1.0f };
+        }
     };
 
     struct CircleCollider2dComponent : Collider2d
     {
         float radius = 1.0f;
+        void setDefaults()
+        {
+            Collider2d::setDefaults();
+            this->radius = 1.0f;
+        }
     };
 }

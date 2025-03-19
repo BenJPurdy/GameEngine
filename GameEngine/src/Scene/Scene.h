@@ -9,6 +9,8 @@
 
 #include "Renderer/Camera/EditorCamera.h"
 
+#include "Physics/PhysicsBody.h"
+
 
 namespace GameEngine
 {
@@ -144,6 +146,7 @@ namespace GameEngine
         UUID sceneID;
 
         entt::registry registry;
+        Physics::PhysicsWorld world;
         friend class Entity;
         //friend class SceneHierarchyPanel;
 

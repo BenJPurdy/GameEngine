@@ -410,6 +410,7 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="natvis\config.natvis">

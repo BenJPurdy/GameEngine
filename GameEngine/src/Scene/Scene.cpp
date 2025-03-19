@@ -5,6 +5,8 @@
 
 #include "Renderer/2D/Renderer2D.h"
 
+#include "Physics/PhysicsBody.h"
+
 namespace GameEngine
 {
     Scene::Scene(const std::string& _name, bool _isEditorScene)
@@ -228,6 +230,32 @@ namespace GameEngine
     void Scene::onRuntimeStart()
     {
         //contains pysworld setup and all that good stuff
+        world.create();
+        {
+            auto& view = registry.view<IDComponent, Rigidbody2dComponent>();
+            for (auto& e : view)
+            {
+                auto [id, rb] = view.get<IDComponent, Rigidbody2dComponent>(e);
+                Physics::addRigedBody(world, id, rb);
+            }
+        }
+        {
+            auto& view = registry.view<Rigidbody2dComponent, BoxCollider2dComponent>();
+            for (auto& e : view)
+            {
+                auto [id, rb] = view.get<Rigidbody2dComponent, BoxCollider2dComponent>(e);
+                Physics::addBox(world, Entity(e, this));
+            }
+        }
+        {
+            auto& view = registry.view<Rigidbody2dComponent, CircleCollider2dComponent>();
+            for (auto& e : view)
+            {
+                auto [id, rb] = view.get<Rigidbody2dComponent, CircleCollider2dComponent>(e);
+                Physics::addCircle(world, Entity(e, this));
+            }
+        }
+        
     }
 
     void Scene::onRuntimeStop()

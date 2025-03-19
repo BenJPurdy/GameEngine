@@ -3,11 +3,12 @@
 #include <Scene/Components.h>
 #include <unordered_map>
 #include "Scene/Components.h"
-#include "Scene/Entity.h"
 #include "Core/UUID.h"
+#include <entt/entt.hpp>
 
 namespace GameEngine
 {
+	class Entity;
 	namespace Physics
 	{
 		class PhysicsWorld
@@ -17,6 +18,8 @@ namespace GameEngine
 			//map of dynamic objects to UUID's
 			std::unordered_map<uint64_t, b2BodyId> rigidBodies;
 
+			//In the beginning the [b2World] was created.
+			//This has made a lot of people very angry and been widely regarded as a bad move.
 			bool create()
 			{
 				//notes, world uses +y for up
@@ -25,33 +28,36 @@ namespace GameEngine
 				id = b2CreateWorld(&wd);
 				return true;
 			}
+
+			//As you will no doubt be aware, the plans for development of the outlying regions of the [DRAM] 
+			//	require the building of a hyperspatial express route through your [Game Engine]
+			//And regrettably, your [b2World] is one of those scheduled for demolition.
+			void destory()
+			{
+				
+				b2DestroyWorld(id);
+			}
 		};
 
+		void simulateWorld(PhysicsWorld w);
 
+		//all [shapes] are made up
+		b2ShapeDef setShapeDefs(Collider2d&);
 		
 
-		void addBox(PhysicsWorld w, Entity e, BoxCollider2dComponent& c)
-		{
-			if (!e.hasComponent<Rigidbody2dComponent>()) return;
-			auto& rb = e.getComponent<Rigidbody2dComponent>();
-			b2Polygon poly = b2MakeBox(c.extents.x, c.extents.y);
-			b2ShapeDef shape = b2DefaultShapeDef();
+		void syncToWorld(PhysicsWorld, entt::registry);
 
-			b2CreatePolygonShape(rb.id, &shape, &poly);
-			
-			
-		}
+		void syncToRender(PhysicsWorld, entt::registry);
 
-		void addRigedBody(PhysicsWorld w, IDComponent id, Rigidbody2dComponent& c)
-		{
-			b2BodyId null = b2_nullBodyId;
-			
-			b2BodyDef def = b2DefaultBodyDef();
-			def.type = (b2BodyType)(c.properties & 0b00000111);
-			def.userData = (void*)(uint64_t)id.id;
-			c.id = b2CreateBody(w.id, &def);
-		}
+		//In the begining there was nothing, which exploded
+		void addCircle(PhysicsWorld, Entity);
 
+		
+		//!!
+		void addBox(PhysicsWorld, Entity);
+
+		//A rigidbody [The box2d documentation] says, is about the most massively useful thing a [physics engine] can have.
+		void addRigedBody(PhysicsWorld, IDComponent, Rigidbody2dComponent&);
 
 	}
 }
