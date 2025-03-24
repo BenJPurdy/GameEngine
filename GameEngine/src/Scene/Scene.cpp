@@ -7,6 +7,8 @@
 
 #include "Physics/PhysicsBody.h"
 
+#include "Scripting/Scripting.h"
+
 namespace GameEngine
 {
     Scene::Scene(const std::string& _name, bool _isEditorScene)
@@ -59,6 +61,12 @@ namespace GameEngine
         copyComponent<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<SpriteRenderComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<CircleRenderComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<Rigidbody2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<BoxCollider2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<CircleCollider2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<ScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+
+        //for (auto& i : componentTypes)
         //add more here as and when more componenets are added
         //or make a list of types idk
 
@@ -99,6 +107,10 @@ namespace GameEngine
         copyComponentIfExists<CameraComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<SpriteRenderComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<CircleRenderComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<Rigidbody2dComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<BoxCollider2dComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<CircleCollider2dComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<ScriptComponent>(newEntity.entityHandle, registry, e);
         return newEntity;
     }
 
@@ -185,6 +197,9 @@ namespace GameEngine
                 }
             }
         }
+        
+        Physics::simulateWorld(world, registry);
+        
 
         if (mainCamera)
         {

@@ -22,7 +22,7 @@ namespace GameEngine
 			drawAddComponentMenuItem<CircleRenderComponent>(e, "Circle Renderer");
 			//add components here
 			drawAddComponentMenuItem<ScriptComponent>(e, "Script Component");
-			drawAddComponentMenuItem<Rigidbody2dComponent>(e, "Rigidbody Component");
+			//drawAddComponentMenuItem<Rigidbody2dComponent>(e, "Rigidbody Component");
 			drawAddComponentMenuItem<BoxCollider2dComponent>(e, "Box Collider Component");
 			drawAddComponentMenuItem<CircleCollider2dComponent>(e, "Circle Collider Component");
 
@@ -58,7 +58,7 @@ namespace GameEngine
 				e.addComponent<T>();
 				ImGui::CloseCurrentPopup();
 			}
-			if (label == "ScriptableComponent")
+			if (label == "Script Component")
 			{
 				//generate scriptable compontent file with attached function				
 			}
@@ -96,7 +96,6 @@ namespace GameEngine
 		ImGuiLib::drawComponent<CameraComponent>("Camera", e, [](auto& component)
 			{
 				auto& cam = component.camera;
-
 				const char* projectionTypes[] = { "Orthographic", "Perspective" };
 				const char* currProjection = projectionTypes[(int)cam.getProjectionType()];
 				if (ImGui::BeginCombo("Camera Type", currProjection))
@@ -190,6 +189,7 @@ namespace GameEngine
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution", &comp.restitution, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat2("Bounds", glm::value_ptr(comp.extents), 0.05f, 0.0f, 1.0f);
+				if (ImGui::Checkbox("Is Sensor", &comp.isSensor)) {}
 			});
 
 		ImGuiLib::drawComponent<CircleCollider2dComponent>("Circle Collider", e, [&](auto& comp)
@@ -205,10 +205,17 @@ namespace GameEngine
 				ImGui::DragFloat("Friction", &comp.friction, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution", &comp.restitution, 0.05f, 0.0f, 1.0f);
 				ImGui::DragFloat("Radius", &comp.radius, 0.05f, 0.0f, 1.0f);
+				if (ImGui::Checkbox("Is Sensor", &comp.isSensor)) {}
 			});
 
-		ImGuiLib::drawComponent<Rigidbody2dComponent>("Rigidbody", e, [](auto& comp)
+		ImGuiLib::drawComponent<Rigidbody2dComponent>("Rigidbody", e, [&](auto& comp)
 			{
+				if (!e.hasComponent<BoxCollider2dComponent>() && !e.hasComponent<CircleCollider2dComponent>())
+				{
+					LOG_WARN("Cannot have a rigidbody component without a collider component");
+					e.removeComponent<Rigidbody2dComponent>();
+					return;
+				}
 				std::string rbType = "None";
 				auto props = comp.properties;
 				if ((props & PhysicsProperties::PhysProps_Static) == PhysicsProperties::PhysProps_Static)
@@ -217,7 +224,7 @@ namespace GameEngine
 					rbType = "Dynamic";
 				else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic)
 					rbType = "Kinematic";
-				ImGui::PushItemWidth(100.0f);
+				ImGui::PushItemWidth(50.0f);
 				if (ImGui::BeginCombo("Type", rbType.c_str()))
 				{
 					bool selected = false;
@@ -240,9 +247,7 @@ namespace GameEngine
 					}
 
 					ImGui::EndCombo();
-				}
-
-				
+				}				
 
 				ImGui::PopItemWidth();
 
@@ -260,7 +265,6 @@ namespace GameEngine
 						comp.properties |= PhysicsProperties::PhysProps_FixedRotation;
 					}
 				}
-
 				
 				ImGui::NewLine();
 				ImGui::DragFloat("Mass", &comp.body.mass, 0.05f, 0.0f, 1.0f);

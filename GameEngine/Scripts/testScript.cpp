@@ -1,0 +1,1 @@
+void functionName(Entity e);

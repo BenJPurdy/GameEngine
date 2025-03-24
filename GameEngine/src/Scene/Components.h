@@ -139,6 +139,7 @@ namespace GameEngine
             this->friction = 0.5f;
             this->restitution = 0.5f;
         }
+        bool isSensor = false;
     };
 
     struct BoxCollider2dComponent : Collider2d

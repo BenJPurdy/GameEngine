@@ -207,6 +207,8 @@
     <ClInclude Include="src\Scene\SceneCamera.h" />
     <ClInclude Include="src\Scene\Serialiser\SceneSerialiser.h" />
     <ClInclude Include="src\Scene\Serialiser\yamlConverter.h" />
+    <ClInclude Include="src\Scripting\ScriptHeader\ScriptHeader.h" />
+    <ClInclude Include="src\Scripting\Scripting.h" />
     <ClInclude Include="src\Utilities\FileManagement.h" />
     <ClInclude Include="src\Utilities\OpenGLError.h" />
     <ClInclude Include="src\Utilities\PlatformUtils.h" />

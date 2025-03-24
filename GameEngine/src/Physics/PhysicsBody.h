@@ -30,7 +30,7 @@ namespace GameEngine
 			}
 
 			//As you will no doubt be aware, the plans for development of the outlying regions of the [memory] 
-			//	require the building of a [new gpu partition] through your [Game Engine]
+			//	require the building of a [new shared memory block] through your [Game Engine]
 			//And regrettably, your [b2World] is one of those scheduled for demolition.
 			void destory()
 			{
@@ -39,25 +39,26 @@ namespace GameEngine
 			}
 		};
 
-		void simulateWorld(PhysicsWorld w);
+
+		void simulateWorld(PhysicsWorld& w, entt::registry& r);
 
 		//all [shapes] are made up
 		b2ShapeDef setShapeDefs(Collider2d&);
 		
 
-		void syncToWorld(PhysicsWorld, entt::registry);
+		void syncToWorld(PhysicsWorld&, entt::registry&);
 
-		void syncToRender(PhysicsWorld, entt::registry);
+		void syncToRender(PhysicsWorld&, entt::registry&);
 
-		//In the begining there was nothing, which exploded
-		void addCircle(PhysicsWorld, Entity);
+		//In the begining there was nothing, which exploded (needs work)
+		void addCircle(PhysicsWorld&, Entity);
 
 		
 		//!!
-		void addBox(PhysicsWorld, Entity);
+		void addBox(PhysicsWorld&, Entity);
 
 		//A rigidbody [The box2d documentation] says, is about the most massively useful thing a [physics engine] can have.
-		void addRigedBody(PhysicsWorld, IDComponent, Rigidbody2dComponent&);
+		void addRigedBody(PhysicsWorld&, IDComponent, Rigidbody2dComponent&);
 
 	}
 }
