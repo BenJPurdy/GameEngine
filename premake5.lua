@@ -121,6 +121,10 @@ project "GameEngine"
         }
 
     filter "configurations:Debug"
+        debugenvs {
+            "PATH=3rdParty\\w64devkit\\bin"
+        }
+        defines {"DEBUG"}
         staticruntime "off"
         runtime "Debug"
         symbols "On"

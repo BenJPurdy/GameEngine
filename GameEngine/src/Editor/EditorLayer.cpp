@@ -473,6 +473,10 @@ namespace GameEngine
 	void EditorLayer::saveSceneAs()
 	{
 		std::string path = FileDialogs::saveFile("GameEngine Scene (*.gameengine)\0*.gameengine\0");
+		if (path.find(".gameengine") == std::string::npos)
+		{
+			path += ".gameengine";
+		}
 		if (!path.empty())
 		{
 			serialiseScene(editorScene, path);

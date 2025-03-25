@@ -36,7 +36,7 @@ namespace GameEngine
         glm::vec3 transform = { 0.0f, 0.0f, 0.0f };
         glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
         glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
-        bool mod = false;
+        bool mod = true;
 
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
@@ -122,6 +122,7 @@ namespace GameEngine
         uint16_t properties = PhysicsProperties::PhysProps_None;
         Body body;
         bool has(uint16_t c) { return (properties & c) == c; };
+        void set(uint16_t c) { properties |= c; }
         uint16_t getBodyType() { return properties & 0b00000111; }
     };
 

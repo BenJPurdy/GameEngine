@@ -74,12 +74,61 @@ namespace GameEngine
 			out << YAML::EndMap;
 		}
 
+		if (e.hasComponent<CircleRenderComponent>())
+		{
+			out << YAML::Key << "CircleRenderComponent";
+			out << YAML::BeginMap;
+			auto& CRC = e.getComponent<CircleRenderComponent>();
+			out << YAML::Key << "Colour" << YAML::Value << CRC.colour;
+			out << YAML::Key << "Thickness" << YAML::Value<< CRC.thickness;
+			out << YAML::Key << "Fade" << YAML::Value << CRC.fade;
+			out << YAML::EndMap;
+		}
+
 		if (e.hasComponent<ScriptComponent>())
 		{
 			out << YAML::Key << "ScriptComponent";
 			out << YAML::BeginMap;
 			auto& sciptComp = e.getComponent<ScriptComponent>();
 			out << YAML::Key << "Script" << YAML::Value << sciptComp.functionName;
+			out << YAML::EndMap;
+		}
+
+		if (e.hasComponent<Rigidbody2dComponent>())
+		{
+			out << YAML::Key << "Rigidbody2dComponent";
+			out << YAML::BeginMap;
+			auto& rbc = e.getComponent<Rigidbody2dComponent>();
+			out << YAML::Key << "Properties" << YAML::Value << rbc.properties;
+			out << YAML::Key << "Mass" << YAML::Value << rbc.body.mass;
+			out << YAML::EndMap;
+		}
+
+		if (e.hasComponent<CircleCollider2dComponent>())
+		{
+			out << YAML::Key << "CircleCollider2dComponent";
+			out << YAML::BeginMap;
+			auto& ccc = e.getComponent<CircleCollider2dComponent>();
+			out << YAML::Key << "Radius" << YAML::Value << ccc.radius;
+			out << YAML::Key << "Density" << YAML::Value << ccc.density;
+			out << YAML::Key << "Friction" << YAML::Value << ccc.friction;
+			out << YAML::Key << "Restitution" << YAML::Value << ccc.restitution;
+			out << YAML::Key << "IsSensor" << YAML::Value << (int)ccc.isSensor;
+			out << YAML::Key << "Offset" << YAML::Value << ccc.offset;
+			out << YAML::EndMap;
+		}
+
+		if (e.hasComponent<BoxCollider2dComponent>())
+		{
+			out << YAML::Key << "BoxCollider2dComponent";
+			out << YAML::BeginMap;
+			auto& bcc = e.getComponent<BoxCollider2dComponent>();
+			out << YAML::Key << "Extents" << YAML::Value << bcc.extents;
+			out << YAML::Key << "Density" << YAML::Value << bcc.density;
+			out << YAML::Key << "Friction" << YAML::Value << bcc.friction;
+			out << YAML::Key << "Restitution" << YAML::Value << bcc.restitution;
+			out << YAML::Key << "IsSensor" << YAML::Value << (int)bcc.isSensor;
+			out << YAML::Key << "Offset" << YAML::Value << bcc.offset;
 			out << YAML::EndMap;
 		}
 
@@ -184,6 +233,45 @@ namespace GameEngine
 				{
 					auto& src = deserialised.addComponent<SpriteRenderComponent>();
 					src.colour = glm::make_vec4(SRC["Colour"].as<std::vector<float>>().data());
+				}
+
+				auto CRC = e["CircleRenderComponent"];
+				if (CRC)
+				{
+					auto& crc = deserialised.addComponent<CircleRenderComponent>();
+					crc.colour = glm::make_vec4(CRC["Colour"].as<std::vector<float>>().data());
+					crc.thickness = CRC["Thickness"].as<float>();
+					crc.fade = CRC["Fade"].as<float>();
+				}
+
+				auto RBC = e["Rigidbody2dComponent"];
+				if (RBC)
+				{
+					auto& rbc = deserialised.addComponent<Rigidbody2dComponent>();
+					rbc.set(RBC["Properties"].as<uint16_t>());
+					rbc.body.mass = RBC["Mass"].as<float>();
+				}
+
+				auto CCC = e["CircleCollider2dComponent"];
+				if (CCC)
+				{
+					auto& ccc = deserialised.addComponent<CircleCollider2dComponent>();
+					ccc.radius = CCC["Radius"].as<float>();
+					ccc.density = CCC["Density"].as<float>();
+					ccc.friction = CCC["Friction"].as<float>();
+					ccc.restitution = CCC["Restitution"].as<float>();
+					ccc.offset = glm::make_vec2(CCC["Offset"].as<std::vector<float>>().data());
+				}
+
+				auto BCC = e["BoxCollider2dComponent"];
+				if (BCC)
+				{
+					auto& bcc = deserialised.addComponent<BoxCollider2dComponent>();
+					bcc.extents = glm::make_vec2(BCC["Extents"].as<std::vector<float>>().data());
+					bcc.density = BCC["Density"].as<float>();
+					bcc.friction = BCC["Friction"].as<float>();
+					bcc.restitution = BCC["Restitution"].as<float>();
+					bcc.offset = glm::make_vec2(BCC["Offset"].as<std::vector<float>>().data());
 				}
 
 				auto scriptComp = e["ScriptComponent"];

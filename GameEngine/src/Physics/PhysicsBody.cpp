@@ -15,11 +15,16 @@ namespace GameEngine
 			//{
 			//	continue;
 			//}
-			//if (!transform.mod) continue;
+			if (!transform.mod) continue;
+			else
+			{
+				b2Vec2 p{ transform.transform.x, transform.transform.y };
+				b2Rot r = b2MakeRot(transform.rotation.z);
+				b2Body_SetTransform(rb.id, p, r);
+				transform.mod = false;
+			}
 
-			b2Vec2 p{ transform.transform.x, transform.transform.y };
-			b2Rot r = b2MakeRot(transform.rotation.z);
-			b2Body_SetTransform(rb.id, p, r);
+			
 		}
 	}
 

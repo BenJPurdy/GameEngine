@@ -197,6 +197,16 @@ namespace GameEngine
                 }
             }
         }
+
+        {
+            auto view = registry.view<ScriptComponent>();
+            for (auto& e : view)
+            {
+                
+                auto& SC = view.get<ScriptComponent>(e);
+                //SC.fnPtr(ts);
+            }
+        }
         
         Physics::simulateWorld(world, registry);
         
@@ -244,7 +254,16 @@ namespace GameEngine
 
     void Scene::onRuntimeStart()
     {
-        //contains pysworld setup and all that good stuff
+        scripting.currentScene = this;
+        if (!scripting.compileScripts())
+        {
+            LOG_FATAL("Failed to compile scripts into dll");
+        }
+        else
+        {
+            std::cout << "\x1b[44m \x1b[37mFINISHED COMPILING SCRIPTS\x1b[0m\n";
+        }
+        scripting.loadLib();
         world.create();
         {
             auto& view = registry.view<IDComponent, Rigidbody2dComponent>();
@@ -275,6 +294,15 @@ namespace GameEngine
 
     void Scene::onRuntimeStop()
     {
-        //cleanup all that good stuff
+        world.destory();
+        //setting mod to true to make sure that all entities are loaded into the physics next runtime
+        //:)
+        auto& view = registry.view<TransformComponent>();
+        for (auto& e : view)
+        {
+            view.get<TransformComponent>(e).mod = true;
+        }
+        scripting.unloadLib();
+        scripting.currentScene = nullptr;
     }
 }

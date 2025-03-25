@@ -11,9 +11,12 @@
 
 #include "Physics/PhysicsBody.h"
 
+#include "Scripting/Scripting.h"
+
 
 namespace GameEngine
 {
+    
     class Entity;
 
     struct CopiedComponent
@@ -147,6 +150,7 @@ namespace GameEngine
 
         entt::registry registry;
         Physics::PhysicsWorld world;
+        Scripting::Script scripting;
         friend class Entity;
         //friend class SceneHierarchyPanel;
 

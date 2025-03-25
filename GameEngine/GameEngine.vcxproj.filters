@@ -76,6 +76,12 @@
     <Filter Include="src\Scene\Serialiser">
       <UniqueIdentifier>{0CD3E47C-F861-6E46-A180-82418DEE7EEC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scripting">
+      <UniqueIdentifier>{6FBC2D98-DB7C-A9CE-A4B7-F24B1037EEAA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scripting\ScriptHeader">
+      <UniqueIdentifier>{DCF9E919-C809-96EA-31C3-FA081DF28483}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Utilities">
       <UniqueIdentifier>{D86B3A83-442C-B6B9-0D67-FF3679E6FA95}</UniqueIdentifier>
     </Filter>
@@ -270,6 +276,12 @@
     <ClInclude Include="src\Scene\Serialiser\yamlConverter.h">
       <Filter>src\Scene\Serialiser</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripting\ScriptHeader\ScriptHeader.h">
+      <Filter>src\Scripting\ScriptHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scripting\Scripting.h">
+      <Filter>src\Scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
       <Filter>src\Utilities</Filter>
     </ClInclude>
@@ -282,8 +294,6 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripting\Scripting.h" />
-    <ClInclude Include="src\Scripting\ScriptHeader\ScriptHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
@@ -346,6 +356,9 @@
     <ClCompile Include="src\Maths\Maths.cpp">
       <Filter>src\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physics\PhysicsBody.cpp">
+      <Filter>src\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -406,13 +419,18 @@
     <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp">
       <Filter>src\Scene\Serialiser</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scripting\Scripting.cpp">
+      <Filter>src\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\FileManagement.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
     <ClCompile Include="src\Utilities\PlatformUtils.cpp">
       <Filter>src\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Physics\PhysicsBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="natvis\config.natvis">

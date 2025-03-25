@@ -4,6 +4,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include "Windows.h"
 #include <string>
+#include <glm/glm.hpp>
 
 #include "Scene/Entity.h"
 #include "Scene/Components.h"
@@ -13,7 +14,7 @@ using namespace GameEngine;
 
 HMODULE getEngineHandle()
 {
-	HMODULE exe = nullptr;
+	static HMODULE exe = nullptr;
 	if (!exe) GetModuleHandle(nullptr);
 	return exe;
 }
@@ -23,13 +24,19 @@ FARPROC getFunction(std::string name)
 	return GetProcAddress(getEngineHandle(), name.c_str());
 }
 //interface script -> engine (would be in the scripting side)		
-TransformComponent getTransform(Entity e)
+glm::vec3 getTransformPosition(Entity e)
 {
 	//get handle to engine EXE
 	//get ptr to engine->script func
 	//return the component
 	void* func = getFunction("scriptGetTransform");
-	return ((TransformComponent(*)(Entity))func)(e);
+	return ((glm::vec3(*)(Entity))func)(e);
+}
+
+glm::vec3 getTransformRotation(Entity e)
+{
+	void* f = getFunction("scriptGetTransformRotation");
+	return ((glm::vec3(*)(Entity))f)(e);
 }
 
 template <typename T>

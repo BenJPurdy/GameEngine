@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -268,6 +268,8 @@
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp" />
+    <ClCompile Include="src\Scripting\Scripting.cpp" />
+    <ClCompile Include="src\Utilities\FileManagement.cpp" />
     <ClCompile Include="src\Utilities\PlatformUtils.cpp" />
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp" />
   </ItemGroup>
