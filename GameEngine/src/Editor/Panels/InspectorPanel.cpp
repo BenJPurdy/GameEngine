@@ -2,6 +2,7 @@
 #include "InspectorPanel.h"
 
 #include "ImGui/ImGuiLib.h"
+//#include "imgui/imgui_stdlib.h"
 
 #include <ImGui/imgui.h>
 #include "Scene/Components.h"
@@ -273,8 +274,11 @@ namespace GameEngine
 		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [](auto& comp)
 			{
 				ImGui::Text("Function Name:");
-				char buffer[512];
-				strncpy_s(buffer, comp.functionName.c_str(), sizeof(buffer));
+				char buffer[512] = { "" };
+				if (comp.functionName.size() > 0)
+				{
+					strncpy_s(buffer, comp.functionName.c_str(), sizeof(buffer));
+				}
 				if (ImGui::InputText("##Function Name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 				{
 					comp.functionName = buffer;

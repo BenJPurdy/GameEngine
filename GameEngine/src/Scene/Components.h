@@ -80,7 +80,7 @@ namespace GameEngine
     struct ScriptComponent
     {
         std::string functionName = (512, "");
-        void* fnPtr = nullptr;
+        void* onUpdatePtr = nullptr;
         
         ScriptComponent() = default;
         ScriptComponent(const ScriptComponent&) = default;

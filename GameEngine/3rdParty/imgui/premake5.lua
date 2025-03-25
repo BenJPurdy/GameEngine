@@ -27,3 +27,5 @@ project "imgui"
 
     filter {"system:windows", "configurations:Release"}
         buildoptions "/MT"
+    filter{"system:windows", "configurations:Debug"}
+        buildoptions "/MT"

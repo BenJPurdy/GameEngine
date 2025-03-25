@@ -58,6 +58,8 @@ project "GameEngine"
         "%{prj.name}/src/**.cpp",
         "%{IncludeDir.imguizmo}/**.h",
         "%{IncludeDir.imguizmo}/**.cpp",
+        "%{IncludeDir.imgui}/imgui_stdlib.h",
+        "%{IncludeDir.imgui}/imgui_stdlib.cpp",
         "%{prj.name}/natvis/**.natvis"
     }
 

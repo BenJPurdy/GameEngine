@@ -2,24 +2,27 @@
 #include "Scripting.h"
 #include "Utilities/FileManagement.h"
 #include "Scene/Entity.h"
+#include "Scene/Scene.h"
 
 typedef void (*function)();
 
 namespace GameEngine
 {
-	Scripting::Script scripting;
+	
 namespace Scripting
 {
+	Scripting::Script scripting;
+	//SCRIPTAPI Transform getTransform(uint32_t id)
+	//{
+	//	TransformComponent TRC = make(id).getComponent<TransformComponent>();
+	//	Transform t(TRC);
+	//	return t;
+	//}
 
-	SCRIPTAPI TransformComponent scriptGetTransform(Entity e) { return e.getComponent<TransformComponent>(); }
-	SCRIPTAPI CameraComponent scriptGetCamera(Entity e) { return e.getComponent<CameraComponent>(); }
-	SCRIPTAPI Transform getTransform(uint32_t id)
+	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
-		TransformComponent TRC = make(id).getComponent<TransformComponent>();
-		Transform t(TRC);
-		return t;
+		return Transform(e.getComponent<TransformComponent>());
 	}
-
 	SCRIPTAPI void scriptSetTransform(Entity e, Transform t)
 	{
 		auto& tr = e.getComponent<TransformComponent>();
@@ -27,14 +30,33 @@ namespace Scripting
 		tr.rotation= t.rotation;
 		tr.scale = t.scale;
 		tr.mod = true;
-
-
 	}
-	SCRIPTAPI glm::vec3 scriptGetTransformPosition(uint32_t id) 
+	SCRIPTAPI glm::vec3 scriptGetTransformPosition(Entity e) 
 	{
-		return make(id).getComponent<TransformComponent>().transform;
+		return e.getComponent<TransformComponent>().transform;
+	}
+	SCRIPTAPI glm::vec3 scriptGetTransformRotation(Entity e)
+	{
+		return e.getComponent<TransformComponent>().rotation;
+	}
+	SCRIPTAPI glm::vec3 scriptGetTransformScale(Entity e)
+	{
+		return e.getComponent<TransformComponent>().scale;
+	}
+	SCRIPTAPI void scriptSetTransformPosition(Entity e, glm::vec3 v)
+	{
+		e.getComponent<TransformComponent>().transform = v;
+	}
+	SCRIPTAPI void scriptSetTransformRotation(Entity e, glm::vec3 v)
+	{
+		e.getComponent<TransformComponent>().rotation = v;
+	}
+	SCRIPTAPI void scriptSetTransformScale(Entity e, glm::vec3 v)
+	{
+		e.getComponent<TransformComponent>().scale = v;
 	}
 
+	//test function
 	SCRIPTAPI void sayHello() { LOG_TRACE("Hello from the script from the engine"); }
 	
 	bool Script::compileScripts()
@@ -61,12 +83,12 @@ namespace Scripting
 				cmd += " ";
 			}
 
-			cmd += "-I ";
+			//cmd += "-I ";
 
 #ifdef DEBUG
-			cmd += "-shared -O3 -g -o JFAaB.dll";
+			cmd += "-shared -O3 -g -lmingw32 -o JFAaB.dll";
 #else
-			cmd += "-shared -O3 -o JFAaB.dll";
+			cmd += "-shared -O3 -lmingw32 -o JFAaB.dll";
 #endif
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
@@ -96,6 +118,11 @@ namespace Scripting
 	void Script::unloadLib()
 	{
 		FreeLibrary(dllHandle);
+	}
+
+	Entity make(uint32_t id)
+	{
+		return Entity((entt::entity)id, scripting.currentScene);
 	}
 }
 }

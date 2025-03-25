@@ -119,42 +119,6 @@ namespace GameEngine
         registry.destroy(e);
     }
 
-    //void Scene::onUpdate(Timestep t)
-    //{
-    //    Camera* mainCamera = nullptr;
-    //    glm::mat4 cameraTransform;
-    //    {
-    //        auto view = registry.view<TransformComponent, CameraComponent>();
-    //
-    //        for (auto e : view)
-    //        {
-    //            auto [transform, camera] = view.get<TransformComponent, CameraComponent>(e);
-    //
-    //            if (camera.primary)
-    //            {
-    //                mainCamera = &camera.camera;
-    //                cameraTransform = transform.getTransform();
-    //                break;
-    //            }
-    //        }
-    //    }
-    //
-    //    if (mainCamera)
-    //    {
-    //        Render2d::beginScene(mainCamera->GetProjection(), cameraTransform);
-    //        
-    //        {
-    //            auto group = registry.group<TransformComponent>(entt::get<SpriteRenderComponent>);
-    //            for (auto e : group)
-    //            {
-    //                auto [transform, sprite] = group.get<TransformComponent, SpriteRenderComponent>(e);
-    //                Render2d::drawSprite(transform.getTransform(), sprite, (int)e);
-    //            }
-    //        }
-    //        Render2d::endScene();
-    //    }
-    //}
-
     void Scene::onUpdateEditor(Timestep ts, EditorCamera& camera)
     {
         Render2d::beginScene(camera);
@@ -289,6 +253,8 @@ namespace GameEngine
                 Physics::addCircle(world, Entity(e, this));
             }
         }
+#
+        //make a bunch of function pointers by looping over entities
         
     }
 
