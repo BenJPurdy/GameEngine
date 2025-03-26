@@ -221,7 +221,7 @@ namespace GameEngine
         scripting.currentScene = this;
         if (!scripting.compileScripts())
         {
-            LOG_FATAL("Failed to compile scripts into dll");
+            LOG_FATAL("Failed to compile scripts into dll, using previous version");
         }
         else
         {

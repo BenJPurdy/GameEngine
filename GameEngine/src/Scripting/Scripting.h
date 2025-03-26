@@ -4,7 +4,6 @@
 
 
 #define SCRIPTAPI extern "C" __declspec(dllexport)
-#define ENGINEAPI extern "C"
 
 
 namespace GameEngine
