@@ -42,7 +42,7 @@ ACCESSPOINT void testFunction()
 {
     FARPROC fn = getFunction("sayHello");
     if (fn == nullptr) {std::cout << "Failed to find function pointer for sayHello";}
-    funcion f = (function)fn;
+    function f = (function)fn;
     f();
 }
 
