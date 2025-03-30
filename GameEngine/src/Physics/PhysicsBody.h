@@ -2,13 +2,13 @@
 #include <box2d/box2d.h>
 #include <Scene/Components.h>
 #include <unordered_map>
-#include "Scene/Components.h"
 #include "Core/UUID.h"
 #include <entt/entt.hpp>
 
 namespace GameEngine
 {
 	class Entity;
+	class Scene;
 	namespace Physics
 	{
 		class PhysicsWorld
@@ -17,17 +17,11 @@ namespace GameEngine
 			b2WorldId id{ 0 };
 			//map of dynamic objects to UUID's
 			std::unordered_map<uint64_t, b2BodyId> rigidBodies;
+			Scene* scene;
 
 			//In the beginning the [b2World] was created.
 			//This has made a lot of people very angry and been widely regarded as a bad move.
-			bool create()
-			{
-				//notes, world uses +y for up
-				//we're using defaults for now
-				b2WorldDef wd = b2DefaultWorldDef();
-				id = b2CreateWorld(&wd);
-				return true;
-			}
+			bool create(Scene*);
 
 			//As you will no doubt be aware, the plans for development of the outlying regions of the [memory] 
 			//	require the building of a [new shared memory block] through your [Game Engine]

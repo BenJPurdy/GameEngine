@@ -26,6 +26,8 @@ namespace GameEngine
 			glm::vec3 scale;
 		};
 
+		void populateEntityPointers(ScriptComponent&);
+
 		Entity make(uint32_t);
 		//Entity make(uint32_t id)
 		//{
@@ -34,10 +36,6 @@ namespace GameEngine
 
 		//match data layout of all types(
 		//interface with engine -> script
-		//SCRIPTAPI TransformComponent scriptGetTransform(Entity e);
-		SCRIPTAPI CameraComponent scriptGetCamera(Entity e);
-		//SCRIPTAPI Transform getTransform(uint32_t id);
-		//SCRIPTAPI glm::vec3 scriptGetTransformPosition(uint32_t id);
 
 		//holds stuff to do with compiling and attaching the dll to the engine
 		class Script
@@ -47,6 +45,7 @@ namespace GameEngine
 			HMODULE dllHandle = nullptr;
 			bool compileScripts();
 			bool loadLib();
+			FARPROC getFn(std::string);
 			void unloadLib();
 		};
 	}

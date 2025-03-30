@@ -275,13 +275,13 @@ namespace GameEngine
 			{
 				ImGui::Text("Function Name:");
 				char buffer[512] = { "" };
-				if (comp.functionName.size() > 0)
+				if (comp.onUpdate.size() > 0)
 				{
-					strncpy_s(buffer, comp.functionName.c_str(), sizeof(buffer));
+					strncpy_s(buffer, comp.onUpdate.c_str(), sizeof(buffer));
 				}
 				if (ImGui::InputText("##Function Name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 				{
-					comp.functionName = buffer;
+					comp.onUpdate = buffer;
 				}
 				
 			});

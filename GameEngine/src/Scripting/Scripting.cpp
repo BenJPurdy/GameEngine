@@ -4,7 +4,9 @@
 #include "Scene/Entity.h"
 #include "Scene/Scene.h"
 
-typedef void (*function)();
+
+typedef void (*voidFn)();
+typedef GameEngine::Scripting::Transform(*TransformFn)(GameEngine::Entity);
 
 namespace GameEngine
 {
@@ -19,6 +21,9 @@ namespace Scripting
 	//	return t;
 	//}
 
+	//test function
+	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
+
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
 		return Transform(e.getComponent<TransformComponent>());
@@ -31,33 +36,34 @@ namespace Scripting
 		tr.scale = t.scale;
 		tr.mod = true;
 	}
-	SCRIPTAPI glm::vec3 scriptGetTransformPosition(Entity e) 
+	SCRIPTAPI void scriptOnCollisionEnter(Entity e)
 	{
-		return e.getComponent<TransformComponent>().transform;
+
 	}
-	SCRIPTAPI glm::vec3 scriptGetTransformRotation(Entity e)
+	SCRIPTAPI void scriptOnCollisionExit(Entity e)
 	{
-		return e.getComponent<TransformComponent>().rotation;
+
 	}
-	SCRIPTAPI glm::vec3 scriptGetTransformScale(Entity e)
+	SCRIPTAPI void scriptOnStart(Entity e)
 	{
-		return e.getComponent<TransformComponent>().scale;
+
 	}
-	SCRIPTAPI void scriptSetTransformPosition(Entity e, glm::vec3 v)
+	SCRIPTAPI void scriptOnDestroy(Entity e)
 	{
-		e.getComponent<TransformComponent>().transform = v;
-	}
-	SCRIPTAPI void scriptSetTransformRotation(Entity e, glm::vec3 v)
-	{
-		e.getComponent<TransformComponent>().rotation = v;
-	}
-	SCRIPTAPI void scriptSetTransformScale(Entity e, glm::vec3 v)
-	{
-		e.getComponent<TransformComponent>().scale = v;
+
 	}
 
-	//test function
-	SCRIPTAPI void sayHello() { LOG_TRACE("Hello from the script from the engine"); }
+	void populateEntityPointers(ScriptComponent& s)
+	{
+		s.onStartPtr = scripting.getFn(s.onStart);
+		s.onUpdatePtr = scripting.getFn(s.onUpdate);
+		s.onCollisionEnterPtr = scripting.getFn(s.onCollisionEnter);
+		s.onCollisionExitPtr = scripting.getFn(s.onCollisionExit);
+		s.onDestoryPtr = scripting.getFn(s.onDestory);
+	}
+	
+
+	
 	
 	bool Script::compileScripts()
 	{
@@ -100,6 +106,11 @@ namespace Scripting
 		return true;
 	}
 
+	FARPROC Script::getFn(std::string name)
+	{
+		return GetProcAddress(dllHandle, name.c_str());
+	}
+
 	bool Script::loadLib()
 	{
 		dllHandle = LoadLibraryA("JFAaB.dll");
@@ -110,7 +121,7 @@ namespace Scripting
 		}
 		void* fn = GetProcAddress(dllHandle, "testFunction");
 		if (fn == nullptr) return false;
-		function f = (function)fn;
+		voidFn f = (voidFn)fn;
 		f();
 		return true;
 	}

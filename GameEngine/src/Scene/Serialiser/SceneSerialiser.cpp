@@ -90,7 +90,13 @@ namespace GameEngine
 			out << YAML::Key << "ScriptComponent";
 			out << YAML::BeginMap;
 			auto& sciptComp = e.getComponent<ScriptComponent>();
-			out << YAML::Key << "Script" << YAML::Value << sciptComp.functionName;
+			out << YAML::Key << "Script";
+			out << YAML::BeginMap;
+			out << YAML::Key << "OnStart" << YAML::Value << sciptComp.onStart;
+			out << YAML::Key << "OnUpdate" << YAML::Value << sciptComp.onUpdate;
+			out << YAML::Key << "OnCollisionStart" << YAML::Value << sciptComp.onCollisionEnter;
+			out << YAML::Key << "OnCollisionExit" << YAML::Value << sciptComp.onCollisionExit;
+			out << YAML::Key << "OnDestroy" << YAML::Value << sciptComp.onUpdate;
 			out << YAML::EndMap;
 		}
 

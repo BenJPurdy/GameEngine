@@ -7,11 +7,17 @@
     <Filter Include="3rdParty\ImGuizmo">
       <UniqueIdentifier>{3E81F3E0-AA97-F176-F30E-7D985F64C2FE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rdParty\imgui">
+      <UniqueIdentifier>{08595F4B-F426-5351-DDBA-C377C9272FB6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Visualization">
       <UniqueIdentifier>{F72D7571-63EE-F0A7-2C29-3A2598A83584}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Audio">
+      <UniqueIdentifier>{EE2696B2-5A91-4A29-A3CF-FBCE0F79287E}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Core">
       <UniqueIdentifier>{A5D31CCF-91A0-77DA-BAB9-6582A6E5AC68}</UniqueIdentifier>
@@ -107,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="3rdParty\ImGuizmo\ImZoomSlider.h">
       <Filter>3rdParty\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\imgui\imgui_stdlib.h">
+      <Filter>3rdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Audio\Audio.h">
+      <Filter>src\Audio</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\App.h">
       <Filter>src\Core</Filter>
@@ -310,6 +322,12 @@
     </ClCompile>
     <ClCompile Include="3rdParty\ImGuizmo\ImSequencer.cpp">
       <Filter>3rdParty\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui\imgui_stdlib.cpp">
+      <Filter>3rdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Audio\FMOD_ERROR.cpp">
+      <Filter>src\Audio</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\App.cpp">
       <Filter>src\Core</Filter>

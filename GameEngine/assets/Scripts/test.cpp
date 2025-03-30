@@ -40,7 +40,7 @@ setTransform(t);
 
 ACCESSPOINT void testFunction()
 {
-    FARPROC fn = getFunction("sayHello");
+    FARPROC fn = getFunction("scriptSayHello");
     if (fn == nullptr) {std::cout << "Failed to find function pointer for sayHello";}
     function f = (function)fn;
     f();

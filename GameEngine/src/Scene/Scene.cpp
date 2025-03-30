@@ -9,11 +9,14 @@
 
 #include "Scripting/Scripting.h"
 
+#include "Core/Input.h"
+
 namespace GameEngine
 {
     Scene::Scene(const std::string& _name, bool _isEditorScene)
         : name(_name), isEditorScene(_isEditorScene)
     {
+        audioEngine.init();
         registerComponentHandler<CameraComponent>([](Entity e, CameraComponent& c)
             {
                 LOG_INFO("Camera component added");
@@ -131,7 +134,12 @@ namespace GameEngine
                 Render2d::drawSprite(transform.getTransform(), sprite, (int)entity);
             }
         }
+        if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
+        {
+            audioEngine.playTestSound();
+        }
 
+        audioEngine.update();
         {
             auto view = registry.view<TransformComponent, CircleRenderComponent>();
             for (auto e : view)
@@ -171,7 +179,7 @@ namespace GameEngine
                 //SC.fnPtr(ts);
             }
         }
-        
+        //if ()
         Physics::simulateWorld(world, registry);
         
 
@@ -228,7 +236,7 @@ namespace GameEngine
             std::cout << "\x1b[44m \x1b[37mFINISHED COMPILING SCRIPTS\x1b[0m\n";
         }
         scripting.loadLib();
-        world.create();
+        world.create(this);
         {
             auto& view = registry.view<IDComponent, Rigidbody2dComponent>();
             for (auto& e : view)
@@ -253,8 +261,16 @@ namespace GameEngine
                 Physics::addCircle(world, Entity(e, this));
             }
         }
-#
+
         //make a bunch of function pointers by looping over entities
+        {
+            auto& view = registry.view<ScriptComponent>();
+            for (auto& e : view)
+            {
+                auto sc = view.get<ScriptComponent>(e);
+                Scripting::populateEntityPointers(sc);
+            }
+        }
         
     }
 

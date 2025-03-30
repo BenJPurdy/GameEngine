@@ -12,6 +12,7 @@
 #include "Physics/PhysicsBody.h"
 
 #include "Scripting/Scripting.h"
+#include "Audio/Audio.h"
 
 
 namespace GameEngine
@@ -151,6 +152,7 @@ namespace GameEngine
         entt::registry registry;
         Physics::PhysicsWorld world;
         Scripting::Script scripting;
+        AudioEngine audioEngine;
         friend class Entity;
         //friend class SceneHierarchyPanel;
 

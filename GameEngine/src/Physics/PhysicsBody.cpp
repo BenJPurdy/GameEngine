@@ -2,9 +2,22 @@
 #include "PhysicsBody.h"
 #include "Scene/Entity.h"
 #include "Core/Timestep.h"
+#include "Scene/Scene.h"
 
 namespace GameEngine
 {
+	bool Physics::PhysicsWorld::create(Scene* s)
+	{
+		
+		//notes, world uses +y for up
+		//we're using defaults for now
+		b2WorldDef wd = b2DefaultWorldDef();
+		scene = s;
+		id = b2CreateWorld(&wd);
+
+		return true;
+	}
+
 	void Physics::syncToWorld(PhysicsWorld& w, entt::registry& r)
 	{
 		auto view = r.view<TransformComponent, Rigidbody2dComponent>();
@@ -101,6 +114,25 @@ namespace GameEngine
 		//rot = 4x float
 		Physics::syncToWorld(w, r);
 		b2World_Step(w.id, 0.01667f, 4);
+
+		
+
+		b2SensorEvents sensorEvents = b2World_GetSensorEvents(w.id);
+		b2ContactEvents contactEvents = b2World_GetContactEvents(w.id);
+		for (int i = 0; i < sensorEvents.beginCount; i++)
+		{
+			b2SensorBeginTouchEvent* beginTouch = sensorEvents.beginEvents + i;
+			void* data = b2Shape_GetUserData(beginTouch->visitorShapeId);
+			entt::entity id = (entt::entity)(uint32_t)data;
+			Entity e = Entity(id, w.scene);
+			if (e.hasComponent<ScriptComponent>())
+			{
+				ScriptComponent eSC = e.getComponent<ScriptComponent>();
+			}
+			
+		}
+		
+
 		Physics::syncToRender(w, r);
 	}
 }

@@ -4,6 +4,12 @@
 
 class Entity
 {
+
+    void onStart()
+    {
+
+    }
+
     void setTransform(Transform t)
     {
         SetTransformFunc f = (SetTransformFunc)getFunction("scriptSetTransform");
@@ -15,6 +21,21 @@ class Entity
     {
         GetTransformFunc f = (GetTransformFunc)getFunction("scriptGetTransform");
         return f(*this);
+    }
+
+    void onCollisionEnter()
+    {
+
+    }
+
+    void onCollisionExit()
+    {
+
+    }
+
+    void onDestory()
+    {
+        
     }
 
     //Behold, my [entity handle]

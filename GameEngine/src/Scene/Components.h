@@ -79,12 +79,26 @@ namespace GameEngine
 
     struct ScriptComponent
     {
-        std::string functionName = (512, "");
+        std::string onStart = (512, "");
+        std::string onUpdate = (512, "");
+        std::string onCollisionEnter = (512, "");
+        std::string onCollisionExit = (512, "");
+        std::string onDestory = (512, "");
+
+        void* onStartPtr = nullptr;
         void* onUpdatePtr = nullptr;
-        
+        void* onCollisionEnterPtr = nullptr;
+        void* onCollisionExitPtr = nullptr;
+        void* onDestoryPtr = nullptr;
+
+
+        void call(void*)
+        {
+
+        }
         ScriptComponent() = default;
         ScriptComponent(const ScriptComponent&) = default;
-        ScriptComponent(const std::string s) : functionName(s) {}
+        ScriptComponent(const std::string s) : onUpdate(s) {}
     };
 
     struct CircleRenderComponent

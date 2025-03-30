@@ -6,7 +6,7 @@
 
 // See more C++ related extension (fmt, RAII, syntaxis sugar) on Wiki:
 //   https://github.com/ocornut/imgui/wiki/Useful-Extensions#cness
-
+#include "GameEngine_PCH.h"
 #include "imgui.h"
 #ifndef IMGUI_DISABLE
 #include "imgui_stdlib.h"
