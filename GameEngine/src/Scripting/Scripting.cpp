@@ -5,8 +5,8 @@
 #include "Scene/Scene.h"
 
 
-typedef void (*voidFn)();
-typedef GameEngine::Scripting::Transform(*TransformFn)(GameEngine::Entity);
+
+
 
 namespace GameEngine
 {
@@ -24,6 +24,7 @@ namespace Scripting
 	//test function
 	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
 
+	SCRIPTAPI void speak() {}
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
 		return Transform(e.getComponent<TransformComponent>());
@@ -49,6 +50,10 @@ namespace Scripting
 
 	}
 	SCRIPTAPI void scriptOnDestroy(Entity e)
+	{
+
+	}
+	SCRIPTAPI void scriptOnUpdate(Entity e, Timestep ts)
 	{
 
 	}

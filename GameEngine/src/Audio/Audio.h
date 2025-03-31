@@ -62,6 +62,8 @@ namespace GameEngine
 				LOG_TRACE("Playing audio");
 				float idx = ((float)rand() / RAND_MAX);
 				int index = round(idx);
+				//
+				index = 0;
 
 				system->playSound(sounds[index], nullptr, false, &channel);
 				FMOD_RESULT res = channel->setPitch(r);

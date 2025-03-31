@@ -271,20 +271,73 @@ namespace GameEngine
 				ImGui::DragFloat("Mass", &comp.body.mass, 0.05f, 0.0f, 1.0f);
 			});
 
-		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [](auto& comp)
+		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [&](auto& comp)
 			{
-				ImGui::Text("Function Name:");
-				char buffer[512] = { "" };
+				
+				char onStartBuffer[512] = { "" };
+				char onUpdateBuffer[512] = { "" };
+				char onCollisionEnterBuffer[512] = { "" };
+				char onCollisionExitBuffer[512] = { "" };
+				char onDestoryBuffer[512] = { "" };
+				//char onUpdateBuffer[512] = { "" };
+				if (comp.onStart.size() > 0)
+				{
+					strncpy_s(onStartBuffer, comp.onStart.c_str(), sizeof(onStartBuffer));
+				}
 				if (comp.onUpdate.size() > 0)
 				{
-					strncpy_s(buffer, comp.onUpdate.c_str(), sizeof(buffer));
+					strncpy_s(onUpdateBuffer, comp.onUpdate.c_str(), sizeof(onUpdateBuffer));
 				}
-				if (ImGui::InputText("##Function Name", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+				if (comp.onCollisionEnter.size() > 0)
 				{
-					comp.onUpdate = buffer;
+					strncpy_s(onCollisionEnterBuffer, comp.onCollisionEnter.c_str(), sizeof(onCollisionEnterBuffer));
 				}
+				if (comp.onCollisionExit.size() > 0)
+				{
+					strncpy_s(onCollisionExitBuffer, comp.onCollisionExit.c_str(), sizeof(onCollisionExitBuffer));
+				}
+				if (comp.onDestory.size() > 0)
+				{
+					strncpy_s(onDestoryBuffer, comp.onDestory.c_str(), sizeof(onDestoryBuffer));
+				}
+
+				//checkAndCopyBuffer(comp.onStart, onStartBuffer);
+				//checkAndCopyBuffer(comp.onUpdate, onUpdateBuffer);
+				//checkAndCopyBuffer(comp.onCollisionEnter, onCollisionEnterBuffer);
+				//checkAndCopyBuffer(comp.onCollisionExit, onCollisionExitBuffer);
+				//checkAndCopyBuffer(comp.onDestory, onDestoryBuffer);
 				
+				menuItemTextInput("On Start", comp.onStart, onStartBuffer);
+				menuItemTextInput("On Update", comp.onUpdate, onUpdateBuffer);
+				menuItemTextInput("On Collision Enter", comp.onCollisionEnter, onCollisionEnterBuffer);
+				menuItemTextInput("On Collision Exit", comp.onCollisionExit, onCollisionExitBuffer);
+				menuItemTextInput("On Destory", comp.onDestory, onDestoryBuffer);
+
 			});
 
+	}
+
+	void InspectorPanel::checkAndCopyBuffer(std::string& check, char* buff)
+	{
+		if (check.size() > 0)
+		{
+			//strncpy_s(buff, check.c_str(), 512 * sizeof(char));
+			strncpy_s(buff, check.size(), check.c_str(), 512);
+		}
+	}
+
+	void InspectorPanel::menuItemTextInput(const char* name, std::string& out, char* buff)
+	{
+		ImGui::Text(name);
+		ImGui::PushItemWidth(-1);
+		intptr_t nameP = reinterpret_cast<intptr_t>(name);
+		std::string namePtr = std::to_string(nameP);
+		std::string label = "##" + namePtr;
+		
+		if (ImGui::InputText(label.c_str(), buff, 512, ImGuiInputTextFlags_EnterReturnsTrue))
+		{
+			out = buff;
+		}
+		ImGui::PopItemWidth();
 	}
 }

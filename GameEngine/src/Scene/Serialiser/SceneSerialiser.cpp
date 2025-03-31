@@ -98,6 +98,7 @@ namespace GameEngine
 			out << YAML::Key << "OnCollisionExit" << YAML::Value << sciptComp.onCollisionExit;
 			out << YAML::Key << "OnDestroy" << YAML::Value << sciptComp.onUpdate;
 			out << YAML::EndMap;
+			out << YAML::EndMap;
 		}
 
 		if (e.hasComponent<Rigidbody2dComponent>())
@@ -283,7 +284,24 @@ namespace GameEngine
 				auto scriptComp = e["ScriptComponent"];
 				if (scriptComp)
 				{
+					auto scripts = scriptComp["Script"];
+					if (scripts)
+					{
 
+						auto& sC = deserialised.addComponent<ScriptComponent>();
+						if (scripts["OnStart"]) { LOG_WARN("Found start fn"); }
+						else { LOG_ERROR("Didn't find start fn"); }
+						sC.onStart = scripts["OnStart"].as<std::string>();
+						sC.onUpdate = scripts["OnUpdate"].as<std::string>();
+						sC.onCollisionEnter = scripts["OnCollisionStart"].as<std::string>();
+						sC.onCollisionEnter = scripts["OnCollisionExit"].as<std::string>();
+						sC.onDestory = scripts["OnDestroy"].as<std::string>();
+					}
+					else
+					{
+						LOG_ERROR("Didn't find scripts");
+					}
+					
 				}
 
 				//add more components as they are added to the engine

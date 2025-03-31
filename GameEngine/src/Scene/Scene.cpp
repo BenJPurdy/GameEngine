@@ -176,7 +176,8 @@ namespace GameEngine
             {
                 
                 auto& SC = view.get<ScriptComponent>(e);
-                //SC.fnPtr(ts);
+                onUpdateFn f = (onUpdateFn)SC.onUpdatePtr;
+                f(ts);
             }
         }
         //if ()
@@ -242,7 +243,7 @@ namespace GameEngine
             for (auto& e : view)
             {
                 auto [id, rb] = view.get<IDComponent, Rigidbody2dComponent>(e);
-                Physics::addRigedBody(world, id, rb);
+                Physics::addRigidBody(world, id, rb);
             }
         }
         {

@@ -6,6 +6,7 @@
 #define SCRIPTAPI extern "C" __declspec(dllexport)
 
 
+
 namespace GameEngine
 {
 	class Entity;
