@@ -11,6 +11,8 @@
 
 #include <glm/gtx/string_cast.hpp>
 
+#include "Scripting/Scripting.h"
+
 namespace GameEngine
 {
 	EditorLayer::EditorLayer() : Layer("EditorLayer")
@@ -23,7 +25,7 @@ namespace GameEngine
 		camera = EditorCamera(30.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
 		//camera = EditorCamera();
 		
-
+		LOG_TRACE("Current scene ptr: {0}", (intptr_t)&editorScene);
 		FramebufferSpecification spec;
 		spec.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INT, FramebufferTextureFormat::Depth };
 		spec.w = 1280;
@@ -497,8 +499,8 @@ namespace GameEngine
 		runtimeScene = createRef<Scene>();
 		Scene::copyTo(editorScene, runtimeScene);
 
+		Scripting::scripting.currentScene = runtimeScene;
 		runtimeScene->onRuntimeStart();
-
 		activeScene = runtimeScene;
 		sceneHierarchy.setContext(activeScene);
 	}
@@ -510,6 +512,7 @@ namespace GameEngine
 		runtimeScene->onRuntimeStop();
 		runtimeScene = nullptr;
 		activeScene = editorScene;
+		Scripting::scripting.currentScene = nullptr;
 		sceneHierarchy.setContext(activeScene);
 	}
 

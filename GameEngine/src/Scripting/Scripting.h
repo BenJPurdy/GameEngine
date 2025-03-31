@@ -28,6 +28,10 @@ namespace GameEngine
 		};
 
 		void populateEntityPointers(ScriptComponent&);
+		void populatePointers(HMODULE&, ScriptComponent&);
+		void freeDll(HMODULE&);
+		FARPROC getFunc(HMODULE, std::string);
+		bool loadLib(HMODULE&);
 
 		Entity make(uint32_t);
 		//Entity make(uint32_t id)
@@ -42,7 +46,7 @@ namespace GameEngine
 		class Script
 		{
 		public:
-			Scene* currentScene;
+			Ref<Scene> currentScene;
 			HMODULE dllHandle = nullptr;
 			bool compileScripts();
 			bool loadLib();

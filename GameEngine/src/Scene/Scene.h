@@ -151,8 +151,9 @@ namespace GameEngine
 
         void setSceneID(UUID id) { sceneID = id; }
         UUID getSceneID() { return sceneID; }
-        AudioEngine& getAudio() { return audioEngine; }
+        AudioEngine* getAudio() { return &audioEngine; }
 
+        bool isEditorScene = false;
 
     private:
         UUID sceneID;
@@ -161,6 +162,7 @@ namespace GameEngine
         Physics::PhysicsWorld world;
         Scripting::Script scripting;
         AudioEngine audioEngine;
+        HMODULE dll;
         friend class Entity;
         //friend class SceneHierarchyPanel;
 
@@ -169,7 +171,7 @@ namespace GameEngine
         uint32_t viewportWidth = 0, viewportHeight = 0;
 
         std::string name;
-        bool isEditorScene = false;
+        
         CopiedComponent copiedComponent;
 
     };

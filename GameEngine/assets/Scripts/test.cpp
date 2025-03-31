@@ -6,6 +6,7 @@
 //#include "..\..\src\Scripting\ScriptHeader\ScriptHeader.h"
 
 typedef void (*function)();
+typedef void (*fnInt)(int);
 
 #define ACCESSPOINT extern "C"
 
@@ -40,11 +41,39 @@ FileWatch/FileWatcher middleware for checking updates
 
 */
 
+ACCESSPOINT void TestUpdate(float ts)
+{
+    std::cout << "Updating\n";
+    FARPROC fSound = getFunction("playSound");
+    if (fSound == nullptr)
+    {
+        std::cout << "Failed to find function pointer for play sound\n";
+    }
+    else
+    {
+        std::cout << "Found function for playing sound\n";
+    }
+    fnInt func = (fnInt)(fSound);
+    func(0);
+}
+
 ACCESSPOINT void testFunction()
 {
     FARPROC fn = getFunction("scriptSayHello");
-    if (fn == nullptr) {std::cout << "Failed to find function pointer for sayHello";}
+    if (fn == nullptr) {std::cout << "Failed to find function pointer for sayHello\n";}
     function f = (function)fn;
     f();
+    FARPROC fSound = getFunction("playSound");
+    if (fSound == nullptr)
+    {
+        std::cout << "Failed to find function pointer for play sound\n";
+    }
+    else
+    {
+        std::cout << "Found function for playing sound\n";
+    }
+    fnInt func = (fnInt)(fSound);
+    func(0);
+
 }
 

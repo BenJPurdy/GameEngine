@@ -89,10 +89,10 @@ Entities:
     ScriptComponent:
       Script:
         OnStart: Start
-        OnUpdate: ""
+        OnUpdate: TestUpdate
         OnCollisionStart: ""
         OnCollisionExit: ""
-        OnDestroy: ""
+        OnDestroy: TestUpdate
     Rigidbody2dComponent:
       Properties: 2
       Mass: 1
