@@ -404,4 +404,4 @@ FodyWeavers.xsd
 Report20241104-1335.zip
 
 
-!./GameEngine/3rdParty/w64devkit/**
+!./GameEngine/3rdParty/w64devkit/bin/*.exe

@@ -8,7 +8,6 @@ namespace GameEngine
 {
 	bool Physics::PhysicsWorld::create(Scene* s)
 	{
-		
 		//notes, world uses +y for up
 		//we're using defaults for now
 		b2WorldDef wd = b2DefaultWorldDef();
@@ -74,7 +73,6 @@ namespace GameEngine
 
 	}
 
-	//!!
 	void Physics::addBox(PhysicsWorld& w, Entity e)
 	{
 		if (!e.hasComponent<Rigidbody2dComponent>()) return;
@@ -88,7 +86,6 @@ namespace GameEngine
 
 	}
 
-	//A rigidbody [The box2d documentation] says, is about the most massively useful thing a [physics engine] can have.
 	void Physics::addRigedBody(PhysicsWorld& w, IDComponent id, Rigidbody2dComponent& c)
 	{
 		b2BodyId null = b2_nullBodyId;
