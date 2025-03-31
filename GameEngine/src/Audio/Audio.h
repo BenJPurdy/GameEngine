@@ -14,8 +14,8 @@ namespace GameEngine
 
         //fn from the fmod examples provided with the lib
 		static const char* FMOD_ErrorString(FMOD_RESULT);
-		std::vector<FMOD::Sound*> sounds;
-		FMOD::Channel* channel;
+		std::vector<FMOD::Sound*> sounds = {};
+		FMOD::Channel* channel = nullptr;
 		bool isSoundPlaying = false;
 
 		void init()
@@ -35,6 +35,8 @@ namespace GameEngine
 			//system->createSound(testSound.c_str(), )
 			addSound("audio_test.wav");
 			addSound("ADNS.wav");
+
+			LOG_TRACE("Loaded {0} sounds from assets", sounds.size());
 		}
 
 		void addSound(std::string sound)
@@ -50,6 +52,20 @@ namespace GameEngine
 
 		}
 
+		//this function is called from the scripting API to play a sound
+		void playSound(int index)
+		{
+			LOG_TRACE("Playing sound from script");
+			//if (index >= sounds.size())
+			//{
+			//	LOG_ERROR("Sound index {0} is bigger than the maximum index of sounds {1}", index, sounds.size());
+			//}
+			
+			
+			system->playSound(sounds[0], nullptr, false, &channel);
+			channel->setPitch(1.0f);
+		}
+
 		void playTestSound()
 		{
 			bool isPlaying;
@@ -62,6 +78,8 @@ namespace GameEngine
 				LOG_TRACE("Playing audio");
 				float idx = ((float)rand() / RAND_MAX);
 				int index = round(idx);
+				//
+				index = 0;
 
 				system->playSound(sounds[index], nullptr, false, &channel);
 				FMOD_RESULT res = channel->setPitch(r);

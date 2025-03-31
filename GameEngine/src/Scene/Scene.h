@@ -14,6 +14,13 @@
 #include "Scripting/Scripting.h"
 #include "Audio/Audio.h"
 
+typedef void (*voidFn)();
+typedef GameEngine::Scripting::Transform(*TransformFn)(GameEngine::Entity);
+typedef void (*onStartFn)(GameEngine::Entity);
+typedef void (*onUpdateFn)(GameEngine::Timestep);
+typedef void (*onCollisionStartFn)(GameEngine::Entity);
+typedef void (*onCollisionEndFn)(GameEngine::Entity);
+typedef void (*onDestroy)(GameEngine::Entity);
 
 namespace GameEngine
 {
@@ -144,7 +151,9 @@ namespace GameEngine
 
         void setSceneID(UUID id) { sceneID = id; }
         UUID getSceneID() { return sceneID; }
+        AudioEngine* getAudio() { return &audioEngine; }
 
+        bool isEditorScene = false;
 
     private:
         UUID sceneID;
@@ -153,6 +162,7 @@ namespace GameEngine
         Physics::PhysicsWorld world;
         Scripting::Script scripting;
         AudioEngine audioEngine;
+        HMODULE dll;
         friend class Entity;
         //friend class SceneHierarchyPanel;
 
@@ -161,7 +171,7 @@ namespace GameEngine
         uint32_t viewportWidth = 0, viewportHeight = 0;
 
         std::string name;
-        bool isEditorScene = false;
+        
         CopiedComponent copiedComponent;
 
     };

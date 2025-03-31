@@ -11,6 +11,9 @@ namespace GameEngine
 	class Scene;
 	namespace Physics
 	{
+		//This holds the basic box2d variables and a pointer to the scene,
+		// as well as functions relating to the b2World.
+		//
 		class PhysicsWorld
 		{
 		public:
@@ -21,6 +24,7 @@ namespace GameEngine
 
 			//In the beginning the [b2World] was created.
 			//This has made a lot of people very angry and been widely regarded as a bad move.
+			//(Makes the physics world)
 			bool create(Scene*);
 
 			//As you will no doubt be aware, the plans for development of the outlying regions of the [memory] 
@@ -44,15 +48,16 @@ namespace GameEngine
 
 		void syncToRender(PhysicsWorld&, entt::registry&);
 
-		//In the begining there was nothing, which exploded (needs work)
+	
 		void addCircle(PhysicsWorld&, Entity);
 
 		
 		//!!
 		void addBox(PhysicsWorld&, Entity);
 
-		//A rigidbody [The box2d documentation] says, is about the most massively useful thing a [physics engine] can have.
-		void addRigedBody(PhysicsWorld&, IDComponent, Rigidbody2dComponent&);
+		//A rigidbody [The box2d documentation] says, 
+		// is about the most massively useful thing a [physics engine] can have.
+		void addRigidBody(PhysicsWorld&, IDComponent, Rigidbody2dComponent&);
 
 	}
 }

@@ -5,8 +5,8 @@
 #include "Scene/Scene.h"
 
 
-typedef void (*voidFn)();
-typedef GameEngine::Scripting::Transform(*TransformFn)(GameEngine::Entity);
+
+
 
 namespace GameEngine
 {
@@ -24,6 +24,7 @@ namespace Scripting
 	//test function
 	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
 
+	SCRIPTAPI void speak() {}
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
 		return Transform(e.getComponent<TransformComponent>());
@@ -52,14 +53,32 @@ namespace Scripting
 	{
 
 	}
+	SCRIPTAPI void scriptOnUpdate(Entity e, Timestep ts)
+	{
+
+	}
+	SCRIPTAPI void playSound(int index)
+	{
+		LOG_TRACE("Scene is editor ({0})", (int)scripting.currentScene->isEditorScene);
+		scripting.currentScene->getAudio()->playSound(0);
+	}
 
 	void populateEntityPointers(ScriptComponent& s)
 	{
-		s.onStartPtr = scripting.getFn(s.onStart);
-		s.onUpdatePtr = scripting.getFn(s.onUpdate);
-		s.onCollisionEnterPtr = scripting.getFn(s.onCollisionEnter);
-		s.onCollisionExitPtr = scripting.getFn(s.onCollisionExit);
-		s.onDestoryPtr = scripting.getFn(s.onDestory);
+		s.onStartPtr = getFunc(scripting.dllHandle, s.onStart);
+		s.onUpdatePtr = getFunc(scripting.dllHandle, s.onUpdate);
+		s.onCollisionEnterPtr = getFunc(scripting.dllHandle, s.onCollisionEnter);
+		s.onCollisionExitPtr = getFunc(scripting.dllHandle, s.onCollisionExit);
+		s.onDestoryPtr = getFunc(scripting.dllHandle, s.onDestory);
+	}
+
+	void populatePointers(HMODULE& dll, ScriptComponent& s)
+	{
+		if (s.onStart.size())			s.onStartPtr =			getFunc(dll, s.onStart);
+		if (s.onUpdate.size())			s.onUpdatePtr =			getFunc(dll, s.onUpdate);
+		if (s.onCollisionEnter.size())	s.onCollisionEnterPtr = getFunc(dll, s.onCollisionEnter);
+		if (s.onCollisionExit.size())	s.onCollisionExitPtr =	getFunc(dll, s.onCollisionExit);
+		if (s.onDestory.size())			s.onDestoryPtr =		getFunc(dll, s.onDestory);
 	}
 	
 
@@ -106,11 +125,45 @@ namespace Scripting
 		return true;
 	}
 
-	FARPROC Script::getFn(std::string name)
+	FARPROC getFunc(HMODULE handle, std::string name)
 	{
-		return GetProcAddress(dllHandle, name.c_str());
+		if (handle == nullptr)
+		{
+			LOG_ERROR("DLL is not loaded");
+		}
+		return GetProcAddress(handle, name.c_str());
+	}
+	void freeDll(HMODULE& m)
+	{
+		if (m == nullptr)
+		{
+			LOG_WARN("Dll was not loaded");
+		}
+		FreeLibrary(m);
 	}
 
+	FARPROC Script::getFn(std::string name)
+	{
+		if (dllHandle == nullptr)
+		{
+			LOG_ERROR("DLL is not loaded");
+		}
+		return GetProcAddress(dllHandle, name.c_str());
+	}
+	bool loadLib(HMODULE& m)
+	{
+		m = LoadLibraryA("JFAaB.dll");
+		if (!m)
+		{
+			LOG_ERROR("Failed to load scripts DLL");
+			return false;
+		}
+		void* fn = GetProcAddress(m, "testFunction");
+		if (fn == nullptr) return false;
+		voidFn f = (voidFn)fn;
+		f();
+		return true;
+	}
 	bool Script::loadLib()
 	{
 		dllHandle = LoadLibraryA("JFAaB.dll");
@@ -128,12 +181,20 @@ namespace Scripting
 
 	void Script::unloadLib()
 	{
+		if (dllHandle == nullptr)
+		{
+			LOG_WARN("Dll was not loaded");
+		}
+		else
+		{
+			LOG_WARN("Dll was loaded");
+		}
 		FreeLibrary(dllHandle);
 	}
 
 	Entity make(uint32_t id)
 	{
-		return Entity((entt::entity)id, scripting.currentScene);
+		return Entity((entt::entity)id, scripting.currentScene.get());
 	}
 }
 }

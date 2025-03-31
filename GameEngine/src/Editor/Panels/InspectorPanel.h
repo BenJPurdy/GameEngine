@@ -19,5 +19,7 @@ namespace GameEngine
 		void drawAddComponentMenuItem(Entity, const char*);
 
 		std::string rigidbodyType(Entity);
+		void checkAndCopyBuffer(std::string&, char*);
+		void menuItemTextInput(const char*, std::string&, char*);
 	};
 }

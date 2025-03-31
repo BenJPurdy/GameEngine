@@ -73,6 +73,7 @@ namespace GameEngine
 
 	}
 
+	//!!
 	void Physics::addBox(PhysicsWorld& w, Entity e)
 	{
 		if (!e.hasComponent<Rigidbody2dComponent>()) return;
@@ -86,7 +87,8 @@ namespace GameEngine
 
 	}
 
-	void Physics::addRigedBody(PhysicsWorld& w, IDComponent id, Rigidbody2dComponent& c)
+	
+	void Physics::addRigidBody(PhysicsWorld& w, IDComponent id, Rigidbody2dComponent& c)
 	{
 		b2BodyId null = b2_nullBodyId;
 		b2BodyDef def = b2DefaultBodyDef();
@@ -125,6 +127,7 @@ namespace GameEngine
 			if (e.hasComponent<ScriptComponent>())
 			{
 				ScriptComponent eSC = e.getComponent<ScriptComponent>();
+				//eSC.onCollisionEnterPtr();
 			}
 			
 		}

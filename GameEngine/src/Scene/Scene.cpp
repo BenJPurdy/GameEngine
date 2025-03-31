@@ -176,7 +176,15 @@ namespace GameEngine
             {
                 
                 auto& SC = view.get<ScriptComponent>(e);
-                //SC.fnPtr(ts);
+                onUpdateFn uF = (onUpdateFn)SC.onUpdatePtr;
+                if (uF)
+                {
+                    uF(ts);
+                }
+                else
+                {
+                    LOG_WARN("Failed to get update function");
+                }
             }
         }
         //if ()
@@ -226,7 +234,8 @@ namespace GameEngine
 
     void Scene::onRuntimeStart()
     {
-        scripting.currentScene = this;
+        LOG_TRACE("Current scene ptr: {0}", (intptr_t)this);
+        //scripting.currentScene = this;
         if (!scripting.compileScripts())
         {
             LOG_FATAL("Failed to compile scripts into dll, using previous version");
@@ -235,14 +244,16 @@ namespace GameEngine
         {
             std::cout << "\x1b[44m \x1b[37mFINISHED COMPILING SCRIPTS\x1b[0m\n";
         }
-        scripting.loadLib();
+        Scripting::loadLib(dll);
+        LOG_TRACE("Audio engine has {0} sounds", audioEngine.sounds.size());
+        LOG_TRACE("DLLHandle is {0}", (intptr_t)dll);
         world.create(this);
         {
             auto& view = registry.view<IDComponent, Rigidbody2dComponent>();
             for (auto& e : view)
             {
                 auto [id, rb] = view.get<IDComponent, Rigidbody2dComponent>(e);
-                Physics::addRigedBody(world, id, rb);
+                Physics::addRigidBody(world, id, rb);
             }
         }
         {
@@ -267,8 +278,8 @@ namespace GameEngine
             auto& view = registry.view<ScriptComponent>();
             for (auto& e : view)
             {
-                auto sc = view.get<ScriptComponent>(e);
-                Scripting::populateEntityPointers(sc);
+                auto& sc = view.get<ScriptComponent>(e);
+                Scripting::populatePointers(dll, sc);
             }
         }
         
@@ -284,7 +295,8 @@ namespace GameEngine
         {
             view.get<TransformComponent>(e).mod = true;
         }
-        scripting.unloadLib();
+        Scripting::freeDll(dll);
+        //scripting.unloadLib();
         scripting.currentScene = nullptr;
     }
 }
