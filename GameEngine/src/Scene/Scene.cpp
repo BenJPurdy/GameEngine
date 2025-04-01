@@ -189,6 +189,7 @@ namespace GameEngine
         }
         //if ()
         Physics::simulateWorld(world, registry);
+        audioEngine.update();
         
 
         if (mainCamera)

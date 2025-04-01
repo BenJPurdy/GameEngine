@@ -101,7 +101,7 @@ namespace Scripting
 		}
 		if (includeFiles.size() > 0)
 		{
-			std::string cmd = "g++ ";
+			std::string cmd = "g++ -v -I../../3rdParty/glm ";
 			for (auto& i : includeFiles)
 			{
 				cmd += i;
@@ -117,7 +117,7 @@ namespace Scripting
 #endif
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
-
+			LOG_TRACE("systemCall: {0}", cmd);
 			if (system(cmd.c_str()) != 0) return false;
 			return true;
 		}
@@ -125,12 +125,14 @@ namespace Scripting
 		return true;
 	}
 
-	FARPROC getFunc(HMODULE handle, std::string name)
+	FARPROC getFunc(HMODULE& handle, std::string name)
 	{
 		if (handle == nullptr)
 		{
 			LOG_ERROR("DLL is not loaded");
+			return nullptr;
 		}
+		//std::string fnName = "Test::" + name;
 		return GetProcAddress(handle, name.c_str());
 	}
 	void freeDll(HMODULE& m)
@@ -158,8 +160,13 @@ namespace Scripting
 			LOG_ERROR("Failed to load scripts DLL");
 			return false;
 		}
+		
+			
 		void* fn = GetProcAddress(m, "testFunction");
-		if (fn == nullptr) return false;
+		if (fn == nullptr) {
+			LOG_ERROR("Failed to get testFunction");
+			return false;
+		}
 		voidFn f = (voidFn)fn;
 		f();
 		return true;
@@ -172,6 +179,8 @@ namespace Scripting
 			LOG_ERROR("Failed to load scripts DLL");
 			return false;
 		}
+
+		
 		void* fn = GetProcAddress(dllHandle, "testFunction");
 		if (fn == nullptr) return false;
 		voidFn f = (voidFn)fn;

@@ -1,6 +1,8 @@
 
 #include "Internal/EngineInterop.h"
 #include "test2.h"
+
+//#include "Entity.h"
 //GameEngine\assets\Scripts
 //GameEngine\src\Scripting\ScriptHeader
 //#include "..\..\src\Scripting\ScriptHeader\ScriptHeader.h"
@@ -40,6 +42,8 @@ FileWatch/FileWatcher middleware for checking updates
 
 
 */
+
+
 
 ACCESSPOINT void TestUpdate(float ts)
 {

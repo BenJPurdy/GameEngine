@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ScriptInteface.h"
 #include "Scene/Components.h"
 
 
@@ -14,6 +15,7 @@ namespace GameEngine
 
 	namespace Scripting
 	{
+		typedef std::vector<Interface*> (*GetScriptRegistryFn)();
 		class Script;
 		extern Script scripting;
 		struct Transform
@@ -28,9 +30,11 @@ namespace GameEngine
 		};
 
 		void populateEntityPointers(ScriptComponent&);
+		//slightly janky workaround to stop the HMODULE invalidating itself due to scope
 		void populatePointers(HMODULE&, ScriptComponent&);
 		void freeDll(HMODULE&);
-		FARPROC getFunc(HMODULE, std::string);
+		//slightly janky workaround to stop the HMODULE invalidating itself when it falls out of scope
+		FARPROC getFunc(HMODULE&, std::string);
 		bool loadLib(HMODULE&);
 
 		Entity make(uint32_t);
@@ -46,6 +50,7 @@ namespace GameEngine
 		class Script
 		{
 		public:
+			std::map<std::string, Interface*> scriptsMap;
 			Ref<Scene> currentScene;
 			HMODULE dllHandle = nullptr;
 			bool compileScripts();

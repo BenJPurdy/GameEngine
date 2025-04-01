@@ -214,6 +214,7 @@
     <ClInclude Include="src\Scene\Serialiser\yamlConverter.h" />
     <ClInclude Include="src\Scripting\ScriptHeader\ScriptHeader.h" />
     <ClInclude Include="src\Scripting\Scripting.h" />
+    <ClInclude Include="src\Scripting\ScriptInteface.h" />
     <ClInclude Include="src\Utilities\FileManagement.h" />
     <ClInclude Include="src\Utilities\OpenGLError.h" />
     <ClInclude Include="src\Utilities\PlatformUtils.h" />
@@ -276,6 +277,7 @@
     <ClCompile Include="src\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp" />
     <ClCompile Include="src\Scripting\Scripting.cpp" />
+    <ClCompile Include="src\Scripting\ScriptInteface.cpp" />
     <ClCompile Include="src\Utilities\FileManagement.cpp" />
     <ClCompile Include="src\Utilities\PlatformUtils.cpp" />
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp" />
