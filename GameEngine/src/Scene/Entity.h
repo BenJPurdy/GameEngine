@@ -81,6 +81,7 @@ namespace GameEngine
 
         bool operator!= (const Entity& other) const { return !(*this == other); }
 
+        entt::entity getEntt() { return entityHandle; }
         Scene* getScene() { return scene; }
 
         UUID getUUID() const { return getComponent<IDComponent>().id; }

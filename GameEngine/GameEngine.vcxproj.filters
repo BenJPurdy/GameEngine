@@ -306,6 +306,7 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripting\API\API.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
@@ -449,6 +450,7 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scripting\API\API.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="natvis\config.natvis">

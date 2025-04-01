@@ -3,6 +3,8 @@
 #include "Utilities/FileManagement.h"
 #include "Scene/Entity.h"
 #include "Scene/Scene.h"
+#include "Core/Input.h"
+#include "API/API.h"
 
 
 
@@ -11,57 +13,18 @@
 namespace GameEngine
 {
 	
-namespace Scripting
-{
-	Scripting::Script scripting;
-	//SCRIPTAPI Transform getTransform(uint32_t id)
-	//{
-	//	TransformComponent TRC = make(id).getComponent<TransformComponent>();
-	//	Transform t(TRC);
-	//	return t;
-	//}
+	namespace Scripting
+	{
+		Scripting::Script scripting;
+		//SCRIPTAPI Transform getTransform(uint32_t id)
+		//{
+		//	TransformComponent TRC = make(id).getComponent<TransformComponent>();
+		//	Transform t(TRC);
+		//	return t;
+		//}
 
-	//test function
-	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
-
-	SCRIPTAPI void speak() {}
-	SCRIPTAPI Transform scriptGetTransform(Entity e)
-	{
-		return Transform(e.getComponent<TransformComponent>());
-	}
-	SCRIPTAPI void scriptSetTransform(Entity e, Transform t)
-	{
-		auto& tr = e.getComponent<TransformComponent>();
-		tr.transform = t.position;
-		tr.rotation= t.rotation;
-		tr.scale = t.scale;
-		tr.mod = true;
-	}
-	SCRIPTAPI void scriptOnCollisionEnter(Entity e)
-	{
-
-	}
-	SCRIPTAPI void scriptOnCollisionExit(Entity e)
-	{
-
-	}
-	SCRIPTAPI void scriptOnStart(Entity e)
-	{
-
-	}
-	SCRIPTAPI void scriptOnDestroy(Entity e)
-	{
-
-	}
-	SCRIPTAPI void scriptOnUpdate(Entity e, Timestep ts)
-	{
-
-	}
-	SCRIPTAPI void playSound(int index)
-	{
-		LOG_TRACE("Scene is editor ({0})", (int)scripting.currentScene->isEditorScene);
-		scripting.currentScene->getAudio()->playSound(0);
-	}
+		//test function
+		
 
 	void populateEntityPointers(ScriptComponent& s)
 	{
@@ -74,11 +37,11 @@ namespace Scripting
 
 	void populatePointers(HMODULE& dll, ScriptComponent& s)
 	{
-		if (s.onStart.size())			s.onStartPtr =			getFunc(dll, s.onStart);
-		if (s.onUpdate.size())			s.onUpdatePtr =			getFunc(dll, s.onUpdate);
-		if (s.onCollisionEnter.size())	s.onCollisionEnterPtr = getFunc(dll, s.onCollisionEnter);
-		if (s.onCollisionExit.size())	s.onCollisionExitPtr =	getFunc(dll, s.onCollisionExit);
-		if (s.onDestory.size())			s.onDestoryPtr =		getFunc(dll, s.onDestory);
+		if (s.onStart.size())			s.onStartPtr =			getFunc(dll, std::string(s.script + "_" + s.onStart));
+		if (s.onUpdate.size())			s.onUpdatePtr =			getFunc(dll, std::string(s.script + "_" + s.onUpdate));
+		if (s.onCollisionEnter.size())	s.onCollisionEnterPtr = getFunc(dll, std::string(s.script + "_" + s.onCollisionEnter));
+		if (s.onCollisionExit.size())	s.onCollisionExitPtr =	getFunc(dll, std::string(s.script + "_" + s.onCollisionExit));
+		if (s.onDestory.size())			s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_" + s.onDestory));
 	}
 	
 
@@ -91,7 +54,30 @@ namespace Scripting
 		namespace FM = FileManagment;
 		std::vector<std::pair<std::string, std::string>> files;
 		FM::getFilesInFolder(&files, scriptFolder);
+		scriptFolder = "./assets/Scripts/Internal";
+		FM::getFilesInFolder(&files, scriptFolder);
 		std::vector<std::string> includeFiles;
+		std::filesystem::path dllPath = FM::getFile("./JFAaB.dll", "./");
+		std::filesystem::file_time_type dllTime;
+		bool isModified = false;
+		if (!dllPath.empty())
+		{
+			dllTime = std::filesystem::last_write_time(dllPath);
+		}
+		else
+		{
+			isModified = true;
+		}
+		
+		for (auto& f : files)
+		{
+			if (std::filesystem::last_write_time(f.first) > dllTime)
+			{
+				isModified = true;
+				break;
+			}
+		}
+
 		for (auto& f : files)
 		{
 			if (f.second == ".cpp")
@@ -99,6 +85,7 @@ namespace Scripting
 				includeFiles.push_back(f.first);
 			}
 		}
+		
 		if (includeFiles.size() > 0)
 		{
 			std::string cmd = "g++ ";
@@ -110,13 +97,21 @@ namespace Scripting
 
 			//cmd += "-I ";
 
+			//optimising this could use -c to make object files of each script
+			// the link them as a seperate compile step to produce the dll, allows
+			// for only compiling modified files again and then just linking all
+			// step one: -c with each modified script
+			// step two: -shared with object files
+
 #ifdef DEBUG
-			cmd += "-shared -O3 -g -lmingw32 -o JFAaB.dll";
+			cmd += "-shared -O3 -g -I./3rdParty -lmingw32 -o JFAaB.dll";
 #else
 			cmd += "-shared -O3 -lmingw32 -o JFAaB.dll";
 #endif
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
+
+			LOG_WARN(cmd);
 
 			if (system(cmd.c_str()) != 0) return false;
 			return true;
@@ -131,7 +126,8 @@ namespace Scripting
 		{
 			LOG_ERROR("DLL is not loaded");
 		}
-		return GetProcAddress(handle, name.c_str());
+		FARPROC addr = GetProcAddress(handle, name.c_str());
+		return addr;
 	}
 	void freeDll(HMODULE& m)
 	{
@@ -162,6 +158,12 @@ namespace Scripting
 		if (fn == nullptr) return false;
 		voidFn f = (voidFn)fn;
 		f();
+
+		void* testFn = GetProcAddress(m, "MyEntity::test");
+		if (testFn == nullptr)
+		{
+			LOG_WARN("Failed to get name from class");
+		}
 		return true;
 	}
 	bool Script::loadLib()

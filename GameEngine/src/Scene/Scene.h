@@ -13,14 +13,9 @@
 
 #include "Scripting/Scripting.h"
 #include "Audio/Audio.h"
+#include "Scripting/API/API.h"
 
-typedef void (*voidFn)();
-typedef GameEngine::Scripting::Transform(*TransformFn)(GameEngine::Entity);
-typedef void (*onStartFn)(GameEngine::Entity);
-typedef void (*onUpdateFn)(GameEngine::Timestep);
-typedef void (*onCollisionStartFn)(GameEngine::Entity);
-typedef void (*onCollisionEndFn)(GameEngine::Entity);
-typedef void (*onDestroy)(GameEngine::Entity);
+
 
 namespace GameEngine
 {
@@ -176,3 +171,11 @@ namespace GameEngine
 
     };
 }
+
+typedef void (*voidFn)();
+typedef GameEngine::Transform(*TransformFn)(GameEngine::Entity);
+typedef void (*onStartFn)(GameEngine::Entity);
+typedef void (*onUpdateFn)(GameEngine::Entity, GameEngine::Timestep);
+typedef void (*onCollisionStartFn)(GameEngine::Entity);
+typedef void (*onCollisionEndFn)(GameEngine::Entity);
+typedef void (*onDestroy)(GameEngine::Entity);

@@ -1,5 +1,5 @@
 #include "test2.h"
 void sayHelloFromScript()
 {
-    std::cout << "Hello from a function call inside a script\n";
+    log(LOG_TRACE, "Hello from a function call inside a script\n");
 }

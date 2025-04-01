@@ -16,16 +16,6 @@ namespace GameEngine
 	{
 		class Script;
 		extern Script scripting;
-		struct Transform
-		{
-			Transform(TransformComponent t)
-			{
-				position = t.transform; rotation = t.rotation; scale = t.scale;
-			}
-			glm::vec3 position;
-			glm::vec3 rotation;
-			glm::vec3 scale;
-		};
 
 		void populateEntityPointers(ScriptComponent&);
 		void populatePointers(HMODULE&, ScriptComponent&);

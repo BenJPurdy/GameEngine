@@ -1,15 +1,41 @@
+#pragma once
 #define WIN32_LEAN_AND_MEAN
 #include "Windows.h"
+#include <cstdint>
 #include <string>
+#include "Keys.h"
 
-HMODULE getEngineHandle()
-{
-	HMODULE exe = nullptr;
-	if (!exe) exe = GetModuleHandle(nullptr);
-	return exe;
-}
+#define ACCESSPOINT extern "C"
+#define SCRIPT __declspec(dllexport)
+#define SCRIPTEXPORT __attribute__ ((dllexport))
 
-FARPROC getFunction(std::string name)
+#define SCRIPTAPI ACCESSPOINT SCRIPT
+
+class Entity;
+using LogFn = void(*)(int, const char*);
+using GetKeyPressedFunc = bool(*)(Key);
+using GetMousePressedFunc = bool(*)(Mouse);
+using GetEntityFunc = Entity(*)(const char*);
+
+using voidFunc = void(*)();
+using intFunc =  void(*)(int);
+
+
+
+
+enum LogLevel
 {
-	return GetProcAddress(getEngineHandle(), name.c_str());
-}
+	LOG_TRACE,
+	LOG_INFO,
+	LOG_WARN,
+	LOG_ERROR,
+	LOG_FATAL
+};
+
+HMODULE getEngineHandle();
+FARPROC getFunction(std::string name);
+void log(LogLevel lvl, std::string msg);
+bool GetKeyPressed(Key k);
+bool GetMousePressed(Mouse m);
+void playSound(int i);
+Entity getEntity(std::string name);

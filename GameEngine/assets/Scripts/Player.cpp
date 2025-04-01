@@ -1,0 +1,147 @@
+
+#include "Internal/EngineInterop.h"
+#include "test2.h"
+
+#include "Entity.h"
+//GameEngine\assets\Scripts
+//GameEngine\src\Scripting\ScriptHeader
+//#include "..\..\src\Scripting\ScriptHeader\ScriptHeader.h"
+
+
+#define SCRIPTNAME MyEntity
+
+#define FUNCTION(NAME)  ACCESSPOINT SCRIPT_API void SCRIPTNAME ## _ ##  NAME 
+
+/*
+
+class Entity
+{
+    void setPosition(Transform)
+        scriptSetPosition(*this, transform)
+
+    private:
+    uint32_t handle;
+    uint64_t sceneHandle;
+}
+
+onUpdate(Entity e)
+{
+    e.setPosition(t);
+}
+
+//in update
+id = 
+...
+Transform t;
+t.position += 0.1f;
+
+setTransform(t);
+
+
+FileWatch/FileWatcher middleware for checking updates
+
+
+*/
+
+//FUNCTION(onStart)()
+//{
+//
+//}
+
+struct MyEntityData
+{
+    bool mouseClicked = false;
+}myEntityData;
+
+glm::vec3 inputHandling()
+{
+    glm::vec3 addPos = glm::vec3{0};
+    if (GetKeyPressed(Key::A))
+    {
+        //log(LOG_WARN, "A key pressed");
+        addPos.x -= 1.0;
+    }
+    if (GetKeyPressed(Key::D))
+    {
+        //log(LOG_WARN, "D key pressed");
+        addPos.x += 1.0;
+    }
+    if (GetKeyPressed(Key::S))
+    {
+        //log(LOG_WARN, "S key pressed");
+        addPos.y -= 1.0;
+    }
+    if (GetKeyPressed(Key::W))
+    {
+        //log(LOG_WARN, "W key pressed");
+        addPos.y += 1.0;
+    }
+    return addPos;
+}
+
+
+SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
+{
+    
+    //std::string msg = "Handle " + std::to_string(e.handle) + " scenePtr " + std::to_string(e.scenePtr);
+    Transform t = e.getTransform();
+    //std::string msg = t.to_string() + "  " + std::to_string(ts);
+    //log(LOG_WARN, msg);
+
+    //log(LOG_TRACE, "Updating entity");
+    glm::vec3 input = inputHandling();
+    
+    e.addForce(input * 10.0f);
+    
+
+    if (GetMousePressed(ButtonLeft) && !myEntityData.mouseClicked)
+    {
+        log(LOG_TRACE, "Mouse clicked");
+    }
+    myEntityData.mouseClicked = GetMousePressed(ButtonLeft);
+}
+
+SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)
+{
+    log(LOG_TRACE, "woah, collision");
+    playSound(0);
+}
+
+
+
+SCRIPTAPI void TestUpdate(float ts)
+{
+    log(LOG_TRACE, "Updating");
+    //FARPROC fSound = getFunction("playSound");
+    //if (fSound == nullptr)
+    //{
+    //    std::cout << "Failed to find function pointer for play sound\n";
+    //}
+    //else
+    //{
+    //    std::cout << "Found function for playing sound\n";
+    //}
+    //fnInt func = (fnInt)(fSound);
+    //func(0);
+}
+
+ACCESSPOINT SCRIPT void testFunction()
+{
+    FARPROC fn = getFunction("scriptSayHello");
+    if (fn == nullptr) {log(LOG_ERROR, "Failed to find function pointer for sayHello");}
+    voidFunc f = (voidFunc)fn;
+    f();
+    FARPROC fSound = getFunction("playSound");
+    if (fSound == nullptr)
+    {
+        log(LOG_ERROR, "Failed to find function pointer for play sound");
+    }
+    else
+    {
+        log(LOG_ERROR, "Found function for playing sound");
+    }
+    intFunc func = (intFunc)(fSound);
+    //func(0);
+
+}
+

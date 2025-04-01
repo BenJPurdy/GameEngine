@@ -273,13 +273,17 @@ namespace GameEngine
 
 		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [&](auto& comp)
 			{
-				
+				char scriptNameBuffer[512] = { "" };
 				char onStartBuffer[512] = { "" };
 				char onUpdateBuffer[512] = { "" };
 				char onCollisionEnterBuffer[512] = { "" };
 				char onCollisionExitBuffer[512] = { "" };
 				char onDestoryBuffer[512] = { "" };
 				//char onUpdateBuffer[512] = { "" };
+				if (comp.script.size() > 0)
+				{
+					strncpy_s(scriptNameBuffer, comp.script.c_str(), sizeof(scriptNameBuffer));
+				}
 				if (comp.onStart.size() > 0)
 				{
 					strncpy_s(onStartBuffer, comp.onStart.c_str(), sizeof(onStartBuffer));
@@ -306,7 +310,7 @@ namespace GameEngine
 				//checkAndCopyBuffer(comp.onCollisionEnter, onCollisionEnterBuffer);
 				//checkAndCopyBuffer(comp.onCollisionExit, onCollisionExitBuffer);
 				//checkAndCopyBuffer(comp.onDestory, onDestoryBuffer);
-				
+				menuItemTextInput("Script Class", comp.script, scriptNameBuffer);
 				menuItemTextInput("On Start", comp.onStart, onStartBuffer);
 				menuItemTextInput("On Update", comp.onUpdate, onUpdateBuffer);
 				menuItemTextInput("On Collision Enter", comp.onCollisionEnter, onCollisionEnterBuffer);

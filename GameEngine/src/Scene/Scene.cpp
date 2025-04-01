@@ -179,7 +179,8 @@ namespace GameEngine
                 onUpdateFn uF = (onUpdateFn)SC.onUpdatePtr;
                 if (uF)
                 {
-                    uF(ts);
+                    Entity local = Entity(e, this);
+                    uF(local, ts.getSeconds());
                 }
                 else
                 {
@@ -252,7 +253,7 @@ namespace GameEngine
             auto& view = registry.view<IDComponent, Rigidbody2dComponent>();
             for (auto& e : view)
             {
-                auto [id, rb] = view.get<IDComponent, Rigidbody2dComponent>(e);
+                auto& [id, rb] = view.get<IDComponent, Rigidbody2dComponent>(e);
                 Physics::addRigidBody(world, id, rb);
             }
         }
@@ -288,6 +289,7 @@ namespace GameEngine
     void Scene::onRuntimeStop()
     {
         world.destory();
+        audioEngine.destory();
         //setting mod to true to make sure that all entities are loaded into the physics next runtime
         //:)
         auto& view = registry.view<TransformComponent>();

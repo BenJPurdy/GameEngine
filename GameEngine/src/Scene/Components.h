@@ -79,6 +79,7 @@ namespace GameEngine
 
     struct ScriptComponent
     {
+        std::string script = (512, "");
         std::string onStart = (512, "");
         std::string onUpdate = (512, "");
         std::string onCollisionEnter = (512, "");

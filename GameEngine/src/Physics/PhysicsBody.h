@@ -57,7 +57,7 @@ namespace GameEngine
 
 		//A rigidbody [The box2d documentation] says, 
 		// is about the most massively useful thing a [physics engine] can have.
-		void addRigidBody(PhysicsWorld&, IDComponent, Rigidbody2dComponent&);
+		void addRigidBody(PhysicsWorld&, IDComponent&, Rigidbody2dComponent&);
 
 	}
 }

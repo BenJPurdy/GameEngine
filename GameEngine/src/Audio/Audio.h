@@ -93,6 +93,15 @@ namespace GameEngine
 			system->update();
 		}
 
+		void destory()
+		{
+			for (auto& i : sounds)
+			{
+				i->release();
+			}
+			system->release();
+		}
+
 		~AudioEngine()
 		{
 			//system->release();

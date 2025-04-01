@@ -10,6 +10,8 @@ namespace FileManagment
 	bool getFilesInFolder(std::vector<std::string>* loc, std::string folder);
 
 	bool getFilesInFolder(std::vector<std::pair<std::string, std::string>>* loc, std::string folder);
+	
+	std::filesystem::path getFile(std::string, std::string);
 
 	bool readFile(const std::string& fileName, std::vector<char>* dst);
 }

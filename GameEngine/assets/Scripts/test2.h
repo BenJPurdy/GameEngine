@@ -1,2 +1,3 @@
-#include <iostream>
-void sayHello();
+#pragma once
+
+#include "Internal/EngineInterop.h"

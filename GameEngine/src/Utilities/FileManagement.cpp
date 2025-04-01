@@ -30,6 +30,20 @@ namespace FileManagment
 		return true;
 	}
 
+	std::filesystem::path getFile(std::string name, std::string path)
+	{
+		std::vector<std::pair<std::string, std::string>> files;
+		getFilesInFolder(&files, path);
+		for (auto& i : files)
+		{
+			if (i.first == name)
+			{
+				return i.first;
+			}
+		}
+		return "";
+	}
+
 	bool readFile(const std::string& fileName, std::vector<char>* dst)
 	{
 		std::ifstream FILE(fileName, std::ios::ate | std::ios::binary);
