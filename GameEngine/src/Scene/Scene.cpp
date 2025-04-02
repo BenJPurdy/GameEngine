@@ -134,10 +134,10 @@ namespace GameEngine
                 Render2d::drawSprite(transform.getTransform(), sprite, (int)entity);
             }
         }
-        if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
-        {
-            audioEngine.playTestSound();
-        }
+       // if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
+       // {
+       //     audioEngine.playTestSound();
+       // }
 
         audioEngine.update();
         {
@@ -153,7 +153,7 @@ namespace GameEngine
 
     void Scene::onUpdateRuntime(Timestep ts)
     {
-        Camera* mainCamera = nullptr;
+        mainCamera = nullptr;
         glm::mat4 cameraTransform;
         {
             auto view = registry.view<TransformComponent, CameraComponent>();
@@ -214,6 +214,7 @@ namespace GameEngine
             }
 
             Render2d::endScene();
+            deleteEntities();
         }
     }
 
@@ -233,8 +234,20 @@ namespace GameEngine
         }
     }
 
+    void Scene::deleteEntities()
+    {
+        for (auto i = 0; i < toDelete.size(); i++)
+        {
+            auto& rb = toDelete[i].getComponent<Rigidbody2dComponent>();
+            b2DestroyBody(rb.id);
+            registry.destroy(toDelete[i]);
+        }
+        toDelete.clear();
+    }
+
     void Scene::onRuntimeStart()
     {
+        system("cls");
         LOG_TRACE("Current scene ptr: {0}", (intptr_t)this);
         //scripting.currentScene = this;
         if (!scripting.compileScripts())
@@ -285,6 +298,7 @@ namespace GameEngine
 
             for (auto& e : view)
             {
+                //LOG_TRACE("Entity handle {0}", e);
                 auto& sc = view.get<ScriptComponent>(e);
                 OnStartFn f = (OnStartFn)sc.onStartPtr;
                 if (f)

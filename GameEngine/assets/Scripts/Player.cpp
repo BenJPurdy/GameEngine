@@ -1,8 +1,6 @@
-
 #include "Internal/EngineInterop.h"
-#include "test2.h"
-
 #include "Entity.h"
+#include <string>
 //GameEngine\assets\Scripts
 //GameEngine\src\Scripting\ScriptHeader
 //#include "..\..\src\Scripting\ScriptHeader\ScriptHeader.h"
@@ -48,10 +46,22 @@ FileWatch/FileWatcher middleware for checking updates
 //
 //}
 
-struct MyEntityData
+static struct MyEntityData
 {
     bool mouseClicked = false;
-}myEntityData;
+    Entity camera;
+}data;
+
+
+SCRIPTAPI void MyEntity_onStart(Entity e)
+{
+    log(LOG_TRACE, "finding camera");
+    std::string find = "Main Camera";
+    log(LOG_TRACE, "getting camera");
+    data.camera = getEntity(find);
+    log(LOG_TRACE, "got camera");
+
+}
 
 glm::vec3 inputHandling()
 {
@@ -94,12 +104,18 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     e.addForce(input * 10.0f);
     
 
-    if (GetMousePressed(ButtonLeft) && !myEntityData.mouseClicked)
+    if (GetMousePressed(ButtonLeft) && !data.mouseClicked)
     {
         log(LOG_TRACE, "Mouse clicked");
-        spawnEntity(e, "projectile");
+        Entity s = spawnEntity(e, "projectile");
+        s.addComponent(ComponentType::ScriptComponent);
+        std::string newName = "Projectile";
+        s.setScript(newName);
     }
-    myEntityData.mouseClicked = GetMousePressed(ButtonLeft);
+    data.mouseClicked = GetMousePressed(ButtonLeft);
+    MousePosition mPos = GetMousePos();
+    std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
+    log(LOG_TRACE, msg);
 }
 
 SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)

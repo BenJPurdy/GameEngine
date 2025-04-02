@@ -41,7 +41,7 @@ namespace GameEngine
 		s.onUpdatePtr =			getFunc(dll, std::string(s.script + "_onUpdate"));
 		s.onCollisionEnterPtr = getFunc(dll, std::string(s.script + "_onCollisionEnter"));
 		s.onCollisionExitPtr =	getFunc(dll, std::string(s.script + "_onCollisionExit"));
-		s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_onDestory"));
+		s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_onDestroy"));
 	}
 	
 
@@ -103,11 +103,11 @@ namespace GameEngine
 			// step one: -c with each modified script
 			// step two: -shared with object files
 
+			cmd += "-shared";
 #ifdef DEBUG
-			cmd += "-shared -O3 -g -I./3rdParty -lmingw32 -o JFAaB.dll";
-#else
-			cmd += "-shared -O3 -lmingw32 -o JFAaB.dll";
+			cmd += " -g";
 #endif
+			cmd += " -std=c++17 -O3 -I./3rdParty -lmingw32 -o JFAaB.dll";
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
 

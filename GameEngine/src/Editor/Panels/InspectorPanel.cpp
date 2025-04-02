@@ -225,7 +225,7 @@ namespace GameEngine
 					rbType = "Dynamic";
 				else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic)
 					rbType = "Kinematic";
-				ImGui::PushItemWidth(50.0f);
+				//ImGui::PushItemWidth(50.0f);
 				if (ImGui::BeginCombo("Type", rbType.c_str()))
 				{
 					bool selected = false;
@@ -250,9 +250,9 @@ namespace GameEngine
 					ImGui::EndCombo();
 				}				
 
-				ImGui::PopItemWidth();
+				//ImGui::PopItemWidth();
 
-				ImGui::SameLine();
+				//ImGui::SameLine();
 				bool fixedRot = ((props & PhysicsProperties::PhysProps_FixedRotation) == PhysicsProperties::PhysProps_FixedRotation);
 				bool tickboxRot = fixedRot; //this variable holds the state to allow ImGui to draw the tickbox correctly
 				if (ImGui::Checkbox("Fixed Rotation", &tickboxRot))

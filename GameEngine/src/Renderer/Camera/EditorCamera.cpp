@@ -22,19 +22,28 @@ namespace GameEngine
 
 	void EditorCamera::onUpdate(Timestep ts)
 	{
-		if (Input::isKeyPressed(Key::LeftAlt))
+		const glm::vec2& mouse{ Input::getMouseX(), Input::getMouseY() };
+		glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
+		m_InitialMousePosition = mouse;
+		if (Input::isKeyPressed(Key::LeftControl))
 		{
-			const glm::vec2& mouse{ Input::getMouseX(), Input::getMouseY() };
-			glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
-			m_InitialMousePosition = mouse;
-
 			if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
-				MousePan(delta);
-			else if (Input::isMouseButtonPressed(Mouse::ButtonLeft))
-				MouseRotate(delta);
-			else if (Input::isMouseButtonPressed(Mouse::ButtonRight))
+			{
 				MouseZoom(delta.y);
+			}
 		}
+		else if (Input::isKeyPressed(Key::LeftShift))
+		{
+			if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
+			{
+				MousePan(delta);
+			}
+		}
+		else if (Input::isMouseButtonPressed(Mouse::ButtonMiddle))
+		{
+				MouseRotate(delta);
+		}
+
 		UpdateView();
 	}
 

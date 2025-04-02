@@ -81,6 +81,14 @@ namespace GameEngine
 
         bool operator!= (const Entity& other) const { return !(*this == other); }
 
+        template <typename T>
+        void addComponentFromScript()
+        {
+            if (hasComponent<T>())
+                return;
+            auto& c = addComponent<T>();
+        }
+
         entt::entity getEntt() { return entityHandle; }
         Scene* getScene() { return scene; }
 
@@ -90,6 +98,7 @@ namespace GameEngine
     private:
         entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;
+        void* entityData;
 
         friend class Scene;
         friend class SceneSerialiser;

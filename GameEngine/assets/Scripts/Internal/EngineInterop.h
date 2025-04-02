@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include "Keys.h"
+#include "glm/glm.hpp"
 
 #define ACCESSPOINT extern "C"
 #define SCRIPT __declspec(dllexport)
@@ -18,8 +19,15 @@ using GetMousePressedFunc = bool(*)(Mouse);
 using GetEntityFunc = Entity(*)(const char*);
 using SpawnEntityFunc = Entity(*)(Entity, const char*);
 
+
 using voidFunc = void(*)();
 using intFunc =  void(*)(int);
+
+struct MousePosition
+{
+	float x;
+	float y;
+};
 
 
 
@@ -41,3 +49,4 @@ bool GetMousePressed(Mouse m);
 void playSound(int i);
 Entity getEntity(std::string name);
 Entity spawnEntity(Entity, std::string);
+MousePosition GetMousePos();

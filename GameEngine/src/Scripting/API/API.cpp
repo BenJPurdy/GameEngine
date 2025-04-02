@@ -5,6 +5,8 @@
 #include "Scene/Components.h"
 #include "Logging/Log.h"
 #include "Scripting/Scripting.h"
+#include "ImGui/imgui.h"
+#include "Maths/Maths.h"
 
 
 namespace GameEngine
@@ -28,6 +30,12 @@ namespace GameEngine
 			glm::vec2 extents;
 			float radius;
 		};
+	};
+
+	struct MousePosition
+	{
+		float x;
+		float y;
 	};
 	
 	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
@@ -57,7 +65,6 @@ namespace GameEngine
 		}
 	}
 	
-	SCRIPTAPI void speak() {}
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
  		return Transform(e.getComponent<TransformComponent>());
@@ -141,5 +148,67 @@ namespace GameEngine
 			return r;
 		}
 	}
+
+	SCRIPTAPI void scriptAddComponent(Entity e, ComponentType c)
+	{
+		Entity en = Entity(e);
+		switch (c)
+		{
+		case ComponentType::Component_ID:
+			en.addComponentFromScript<IDComponent>(); return;
+		case ComponentType::Component_Tag:
+			en.addComponentFromScript<TagComponent>(); return;
+		case ComponentType::Component_Transform:
+			en.addComponentFromScript<TransformComponent>(); return;
+		case ComponentType::Component_Camera:
+			en.addComponentFromScript<CameraComponent>(); return;
+		case ComponentType::Component_SpriteRender:
+			en.addComponentFromScript<SpriteRenderComponent>(); return;
+		case ComponentType::Component_Script:
+			en.addComponentFromScript<ScriptComponent>(); return;
+		case ComponentType::Component_CircleRender:
+			en.addComponentFromScript<CircleRenderComponent>(); return;
+		case ComponentType::Component_Rigidbody2d:
+			en.addComponentFromScript<Rigidbody2dComponent>(); return;
+		case ComponentType::Component_BoxCollider2d:
+			en.addComponentFromScript<BoxCollider2dComponent>(); return;
+		case ComponentType::Component_CircleCollider2d:
+			en.addComponentFromScript<CircleCollider2dComponent>(); return;
+			
+		}
+	}
+
+	SCRIPTAPI void scriptAssignScriptName(Entity e, const char* n)
+	{
+		Scene* sc = Scripting::scripting.currentScene.get();
+		std::string name = std::string(n);
+		auto& sC = e.getComponent<ScriptComponent>();
+		sC.script = name;
+		Scripting::populatePointers(sc->getDll(), sC);
+		OnStartFn f = (OnStartFn)sC.onStartPtr;
+		if (f)
+			f(e);
+		else
+		{
+			LOG_WARN("Entity {0} does not impliment an onStart function\nMake sure this is intended", 
+				e.getComponent<TagComponent>().tag);
+		}
+		
+	}
+
+	SCRIPTAPI void scriptDestroy(Entity e)
+	{
+		Scripting::scripting.currentScene->toDelete.push_back(e);
+	}
+
+	SCRIPTAPI MousePosition scriptGetMousePos()
+	{
+		auto [x, y] = Input::getMousePosition();
+		MousePosition mPos = { x, y };
+
+
+		return mPos;
+	}
+	
 
 }

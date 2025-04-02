@@ -108,6 +108,7 @@ namespace GameEngine
 		b2BodyDef def = b2DefaultBodyDef();
 		
 		def.type = (b2BodyType)c.getBodyType();
+		def.linearDamping = 0.25f;
 		def.userData = (void*)(uint64_t)id.id;
 		c.id = b2CreateBody(w.id, &def);
 	}

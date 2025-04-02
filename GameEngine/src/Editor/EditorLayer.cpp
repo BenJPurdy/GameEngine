@@ -182,10 +182,11 @@ namespace GameEngine
 
 			float windowWidth = (float)ImGui::GetWindowWidth();
 			float windowHeight = (float)ImGui::GetWindowHeight();
-			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+			//ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, 
+			//	windowWidth, windowHeight);
 
-			const glm::mat4& proj = camera.GetProjection();
-			glm::mat4 view = camera.GetViewMatrix();
+			const glm::mat4& cameraProject = camera.GetProjection();
+			glm::mat4 cameraView = camera.GetViewMatrix();
 
 			auto& entityTransform = selected.getComponent<TransformComponent>();
 			glm::mat4 transform = entityTransform.getTransform();
@@ -195,8 +196,10 @@ namespace GameEngine
 
 			float snapValues[3] = { snapValue, snapValue, snapValue };
 
-			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(proj), (ImGuizmo::OPERATION)gizmoType,
-				ImGuizmo::LOCAL, glm::value_ptr(transform), nullptr, snap ? snapValues : nullptr);
+			ImGuizmo::Manipulate(glm::value_ptr(cameraView), 
+				glm::value_ptr(cameraProject), (ImGuizmo::OPERATION)gizmoType,
+				ImGuizmo::LOCAL, glm::value_ptr(transform), nullptr, 
+				snap ? snapValues : nullptr);
 
 			if (ImGuizmo::IsUsing())
 			{

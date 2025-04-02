@@ -147,12 +147,20 @@ namespace GameEngine
         void setSceneID(UUID id) { sceneID = id; }
         UUID getSceneID() { return sceneID; }
         AudioEngine* getAudio() { return &audioEngine; }
-
+        Camera* getCamera() { return mainCamera; }
+        glm::vec2 getViewportDisplay() { return glm::vec2{ 
+            viewportWidth, viewportHeight }; }
+        
+        HMODULE& getDll() { return dll; }
         bool isEditorScene = false;
+        std::vector<Entity> toDelete;
 
     private:
+
+        void deleteEntities();
         UUID sceneID;
 
+        Camera* mainCamera = nullptr;
         entt::registry registry;
         Physics::PhysicsWorld world;
         Scripting::Script scripting;

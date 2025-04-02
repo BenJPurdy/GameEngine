@@ -1,6 +1,7 @@
 #include "EngineInterop.h"
 #include "../Entity.h"
-
+std::unordered_map<uint32_t, void*> entityData;
+void log(LogLevel, std::string);
 
 HMODULE getEngineHandle()
 {
@@ -11,7 +12,9 @@ HMODULE getEngineHandle()
 
 FARPROC getFunction(std::string name)
 {
-	return GetProcAddress(getEngineHandle(), name.c_str());
+	FARPROC f = GetProcAddress(getEngineHandle(), name.c_str());
+	if (f == nullptr) { std::string msg = "failed to get fn: " + name; log(LOG_ERROR, msg); return nullptr;}
+	return f;
 }
 
 void log(LogLevel lvl, std::string msg)
@@ -24,28 +27,28 @@ void log(LogLevel lvl, std::string msg)
 bool GetKeyPressed(Key k)
 {
     GetKeyPressedFunc f = (GetKeyPressedFunc)getFunction("scriptGetKey");
-	if (f == nullptr) { log(LOG_ERROR, "Failed to find getkeypressed fn"); return false; }
+	if (f ==  nullptr) return false;
     return f(k);
 }
 
 bool GetMousePressed(Mouse m)
 {
 	GetMousePressedFunc f = (GetMousePressedFunc)getFunction("scriptGetMouse");
-	if (f == nullptr) {log(LOG_ERROR, "Failed to find getMousePressed"); return false;}
+	if (f == nullptr) return false;
 	return f(m);
 }
 
 void playSound(int i)
 {
 	intFunc f = (intFunc)getFunction("playSound");
-	if (f == nullptr) { log(LOG_ERROR, "Failed to find playSound"); return;}
+	if (f == nullptr) return;
 	f(0);
 }
 
 Entity getEntity(std::string name)
 {
 	GetEntityFunc f = (GetEntityFunc)getFunction("scriptGetEntity");
-	if (f == nullptr) {log(LOG_ERROR, "failed to find getEntity"); return Entity(0, 0);}
+	if (f == nullptr) return Entity(0, 0);
 	return f(name.c_str());
 }
 
@@ -53,6 +56,13 @@ Entity getEntity(std::string name)
 Entity spawnEntity(Entity e, std::string name)
 {
 	SpawnEntityFunc f = (SpawnEntityFunc)getFunction("scriptSpawnEntity");
-	if (f == nullptr) {log(LOG_ERROR, "failed to find spawnEntity"); return Entity(0, 0);}
+	if (f == nullptr) return Entity(0, 0);
 	return f(e, name.c_str());
+}
+
+MousePosition GetMousePos()
+{
+    GetMousePosFunc f = (GetMousePosFunc)getFunction("scriptGetMousePos");
+    if (f == nullptr) return MousePosition{0};
+    return f();
 }

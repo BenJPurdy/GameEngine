@@ -1,8 +1,9 @@
 #pragma once
-
+#include <unordered_map>
 #include "Internal/EngineInterop.h"
 #include "Internal/Types.h"
 
+extern std::unordered_map<uint32_t, void*> entityData;
 
 class Entity
 {  
@@ -33,10 +34,28 @@ class Entity
         return f(*this);
     }
 
+    void addComponent(ComponentType t)
+    {
+        AddComponentFunc f = (AddComponentFunc)getFunction("scriptAddComponent");
+        if (f == nullptr) return;
+        f(*this, t);
+    }
+
+    void destroy()
+    {
+        DestroyFunc f = (DestroyFunc)getFunction("scriptDestroy");
+        if (f == nullptr) return;
+        f(*this);
+    }
+
     
 
-
-
+    void setScript(std::string name)
+    {
+        SetScriptNameFunc f = (SetScriptNameFunc)getFunction("scriptAssignScriptName");
+        if (f == nullptr) return;
+        f(*this, name.c_str());
+    }
     //Behold, my [entity handle]
  
     uint32_t handle = 0;
