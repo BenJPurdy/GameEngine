@@ -16,8 +16,9 @@ FARPROC getFunction(std::string name)
 
 void log(LogLevel lvl, std::string msg)
 {
+	std::string scirptMsg = "SCRIPTING: " + msg;
 	LogFn f = (LogFn)getFunction("scriptLog");
-	f((int)lvl, msg.c_str());
+	f((int)lvl, scirptMsg.c_str());
 }
 
 bool GetKeyPressed(Key k)
@@ -46,4 +47,12 @@ Entity getEntity(std::string name)
 	GetEntityFunc f = (GetEntityFunc)getFunction("scriptGetEntity");
 	if (f == nullptr) {log(LOG_ERROR, "failed to find getEntity"); return Entity(0, 0);}
 	return f(name.c_str());
+}
+
+//Spawned entities inheret their spawning entities rigidbody type
+Entity spawnEntity(Entity e, std::string name)
+{
+	SpawnEntityFunc f = (SpawnEntityFunc)getFunction("scriptSpawnEntity");
+	if (f == nullptr) {log(LOG_ERROR, "failed to find spawnEntity"); return Entity(0, 0);}
+	return f(e, name.c_str());
 }

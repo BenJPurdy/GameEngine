@@ -25,23 +25,23 @@ namespace GameEngine
 
 		//test function
 		
-
+	// currently non-functional, should not be called
 	void populateEntityPointers(ScriptComponent& s)
 	{
-		s.onStartPtr = getFunc(scripting.dllHandle, s.onStart);
-		s.onUpdatePtr = getFunc(scripting.dllHandle, s.onUpdate);
-		s.onCollisionEnterPtr = getFunc(scripting.dllHandle, s.onCollisionEnter);
-		s.onCollisionExitPtr = getFunc(scripting.dllHandle, s.onCollisionExit);
-		s.onDestoryPtr = getFunc(scripting.dllHandle, s.onDestory);
+		//s.onStartPtr = getFunc(scripting.dllHandle, s.onStart);
+		//s.onUpdatePtr = getFunc(scripting.dllHandle, s.onUpdate);
+		//s.onCollisionEnterPtr = getFunc(scripting.dllHandle, s.onCollisionEnter);
+		//s.onCollisionExitPtr = getFunc(scripting.dllHandle, s.onCollisionExit);
+		//s.onDestoryPtr = getFunc(scripting.dllHandle, s.onDestory);
 	}
 
 	void populatePointers(HMODULE& dll, ScriptComponent& s)
 	{
-		if (s.onStart.size())			s.onStartPtr =			getFunc(dll, std::string(s.script + "_" + s.onStart));
-		if (s.onUpdate.size())			s.onUpdatePtr =			getFunc(dll, std::string(s.script + "_" + s.onUpdate));
-		if (s.onCollisionEnter.size())	s.onCollisionEnterPtr = getFunc(dll, std::string(s.script + "_" + s.onCollisionEnter));
-		if (s.onCollisionExit.size())	s.onCollisionExitPtr =	getFunc(dll, std::string(s.script + "_" + s.onCollisionExit));
-		if (s.onDestory.size())			s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_" + s.onDestory));
+		s.onStartPtr =			getFunc(dll, std::string(s.script + "_onStart"));
+		s.onUpdatePtr =			getFunc(dll, std::string(s.script + "_onUpdate"));
+		s.onCollisionEnterPtr = getFunc(dll, std::string(s.script + "_onCollisionEnter"));
+		s.onCollisionExitPtr =	getFunc(dll, std::string(s.script + "_onCollisionExit"));
+		s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_onDestory"));
 	}
 	
 

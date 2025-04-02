@@ -97,6 +97,7 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     if (GetMousePressed(ButtonLeft) && !myEntityData.mouseClicked)
     {
         log(LOG_TRACE, "Mouse clicked");
+        spawnEntity(e, "projectile");
     }
     myEntityData.mouseClicked = GetMousePressed(ButtonLeft);
 }

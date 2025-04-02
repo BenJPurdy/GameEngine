@@ -174,8 +174,7 @@ namespace GameEngine
 
 typedef void (*voidFn)();
 typedef GameEngine::Transform(*TransformFn)(GameEngine::Entity);
-typedef void (*onStartFn)(GameEngine::Entity);
 typedef void (*onUpdateFn)(GameEngine::Entity, GameEngine::Timestep);
 typedef void (*onCollisionStartFn)(GameEngine::Entity);
 typedef void (*onCollisionEndFn)(GameEngine::Entity);
-typedef void (*onDestroy)(GameEngine::Entity);
+typedef void (*onDestroyFn)(GameEngine::Entity);

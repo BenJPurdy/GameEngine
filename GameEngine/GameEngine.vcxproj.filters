@@ -85,6 +85,9 @@
     <Filter Include="src\Scripting">
       <UniqueIdentifier>{6FBC2D98-DB7C-A9CE-A4B7-F24B1037EEAA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scripting\API">
+      <UniqueIdentifier>{D8409F38-4457-9DCE-8DCE-28F0F9236E56}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Scripting\ScriptHeader">
       <UniqueIdentifier>{DCF9E919-C809-96EA-31C3-FA081DF28483}</UniqueIdentifier>
     </Filter>
@@ -288,6 +291,9 @@
     <ClInclude Include="src\Scene\Serialiser\yamlConverter.h">
       <Filter>src\Scene\Serialiser</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scripting\API\API.h">
+      <Filter>src\Scripting\API</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scripting\ScriptHeader\ScriptHeader.h">
       <Filter>src\Scripting\ScriptHeader</Filter>
     </ClInclude>
@@ -306,7 +312,6 @@
     <ClInclude Include="src\Utilities\Windows\WindowsPlatformUtils.h">
       <Filter>src\Utilities\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scripting\API\API.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ImGuizmo\GraphEditor.cpp">
@@ -438,6 +443,9 @@
     <ClCompile Include="src\Scene\Serialiser\SceneSerialiser.cpp">
       <Filter>src\Scene\Serialiser</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scripting\API\API.cpp">
+      <Filter>src\Scripting\API</Filter>
+    </ClCompile>
     <ClCompile Include="src\Scripting\Scripting.cpp">
       <Filter>src\Scripting</Filter>
     </ClCompile>
@@ -450,7 +458,6 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scripting\API\API.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="natvis\config.natvis">

@@ -93,11 +93,6 @@ namespace GameEngine
 			out << YAML::Key << "Script";
 			out << YAML::BeginMap;
 			out << YAML::Key << "ScriptClass" << YAML::Value << scriptComp.script;
-			out << YAML::Key << "OnStart" << YAML::Value << scriptComp.onStart;
-			out << YAML::Key << "OnUpdate" << YAML::Value << scriptComp.onUpdate;
-			out << YAML::Key << "OnCollisionStart" << YAML::Value << scriptComp.onCollisionEnter;
-			out << YAML::Key << "OnCollisionExit" << YAML::Value << scriptComp.onCollisionExit;
-			out << YAML::Key << "OnDestroy" << YAML::Value << scriptComp.onDestory;
 			out << YAML::EndMap;
 			out << YAML::EndMap;
 		}
@@ -293,11 +288,6 @@ namespace GameEngine
 						if (scripts["OnStart"]) { LOG_WARN("Found start fn"); }
 						else { LOG_ERROR("Didn't find start fn"); }
 						if (scripts["ScriptClass"]) sC.script = scripts["ScriptClass"].as<std::string>();
-						sC.onStart = scripts["OnStart"].as<std::string>();
-						sC.onUpdate = scripts["OnUpdate"].as<std::string>();
-						sC.onCollisionEnter = scripts["OnCollisionStart"].as<std::string>();
-						sC.onCollisionExit = scripts["OnCollisionExit"].as<std::string>();
-						sC.onDestory = scripts["OnDestroy"].as<std::string>();
 					}
 					else
 					{

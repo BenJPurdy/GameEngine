@@ -19,6 +19,16 @@ namespace GameEngine
 		glm::vec3 rotation;
 		glm::vec3 scale;
 	};
+
+	struct Render
+	{
+		glm::vec4 colour;
+		union
+		{
+			glm::vec2 extents;
+			float radius;
+		};
+	};
 	
 	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
 	
@@ -50,7 +60,7 @@ namespace GameEngine
 	SCRIPTAPI void speak() {}
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
-		return Transform(e.getComponent<TransformComponent>());
+ 		return Transform(e.getComponent<TransformComponent>());
 	}
 	SCRIPTAPI void scriptSetTransform(Entity e, Transform t)
 	{
@@ -90,8 +100,45 @@ namespace GameEngine
 			auto& tag = view.get<TagComponent>(e);
 			if (tag.tag == name)
 			{
-				return Entity(e, scenePtr);
+				Entity et = Entity(e, Scripting::scripting.currentScene.get());
+				LOG_TRACE("Entity {1} got at {0}", (uint32_t)et.getEntt(), et.getComponent<TagComponent>().tag);
+				
+				return et;
 			}
+		}
+	}
+	SCRIPTAPI Entity scriptSpawnEntity(Entity spawner, const char* name)
+	{
+		std::string entityName = std::string(name);
+		Ref<Scene> scene = Scripting::scripting.currentScene;
+		auto& e = scene->createEntity(entityName);
+		e.getComponent<TransformComponent>().transform = spawner.getComponent<TransformComponent>().transform + glm::vec3(1.0f, 1.0f, 0.0f);
+		auto& rbc = e.addComponent<Rigidbody2dComponent>();
+		rbc.properties = spawner.getComponent<Rigidbody2dComponent>().properties;
+		auto& ccc = e.addComponent<CircleCollider2dComponent>();
+		auto& crc = e.addComponent<CircleRenderComponent>();
+		ccc.radius = 0.5f;
+
+
+		return e;
+	}
+
+	SCRIPTAPI Render scriptGetRender(Entity e)
+	{
+		if (e.hasComponent<CircleRenderComponent>())
+		{
+			auto& c = e.getComponent<CircleRenderComponent>();
+			Render r;
+			r.colour = c.colour;
+			r.radius = c.radius;
+			return r;
+		}
+		else if (e.hasComponent<SpriteRenderComponent>())
+		{
+			auto& c = e.getComponent<SpriteRenderComponent>();
+			Render r;
+			r.colour = c.colour;
+			return r;
 		}
 	}
 

@@ -16,6 +16,7 @@ using LogFn = void(*)(int, const char*);
 using GetKeyPressedFunc = bool(*)(Key);
 using GetMousePressedFunc = bool(*)(Mouse);
 using GetEntityFunc = Entity(*)(const char*);
+using SpawnEntityFunc = Entity(*)(Entity, const char*);
 
 using voidFunc = void(*)();
 using intFunc =  void(*)(int);
@@ -39,3 +40,4 @@ bool GetKeyPressed(Key k);
 bool GetMousePressed(Mouse m);
 void playSound(int i);
 Entity getEntity(std::string name);
+Entity spawnEntity(Entity, std::string);

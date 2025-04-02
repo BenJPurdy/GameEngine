@@ -274,13 +274,21 @@ namespace GameEngine
             }
         }
 
-        //make a bunch of function pointers by looping over entities
+        //make a bunch of function pointers by looping over entities, then we can call their onStart functions
         {
             auto& view = registry.view<ScriptComponent>();
             for (auto& e : view)
             {
                 auto& sc = view.get<ScriptComponent>(e);
                 Scripting::populatePointers(dll, sc);
+            }
+
+            for (auto& e : view)
+            {
+                auto& sc = view.get<ScriptComponent>(e);
+                OnStartFn f = (OnStartFn)sc.onStartPtr;
+                if (f)
+                    f(Entity(e, Scripting::scripting.currentScene.get()));
             }
         }
         

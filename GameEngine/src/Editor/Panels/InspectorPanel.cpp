@@ -274,48 +274,13 @@ namespace GameEngine
 		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [&](auto& comp)
 			{
 				char scriptNameBuffer[512] = { "" };
-				char onStartBuffer[512] = { "" };
-				char onUpdateBuffer[512] = { "" };
-				char onCollisionEnterBuffer[512] = { "" };
-				char onCollisionExitBuffer[512] = { "" };
-				char onDestoryBuffer[512] = { "" };
-				//char onUpdateBuffer[512] = { "" };
+				
 				if (comp.script.size() > 0)
 				{
 					strncpy_s(scriptNameBuffer, comp.script.c_str(), sizeof(scriptNameBuffer));
 				}
-				if (comp.onStart.size() > 0)
-				{
-					strncpy_s(onStartBuffer, comp.onStart.c_str(), sizeof(onStartBuffer));
-				}
-				if (comp.onUpdate.size() > 0)
-				{
-					strncpy_s(onUpdateBuffer, comp.onUpdate.c_str(), sizeof(onUpdateBuffer));
-				}
-				if (comp.onCollisionEnter.size() > 0)
-				{
-					strncpy_s(onCollisionEnterBuffer, comp.onCollisionEnter.c_str(), sizeof(onCollisionEnterBuffer));
-				}
-				if (comp.onCollisionExit.size() > 0)
-				{
-					strncpy_s(onCollisionExitBuffer, comp.onCollisionExit.c_str(), sizeof(onCollisionExitBuffer));
-				}
-				if (comp.onDestory.size() > 0)
-				{
-					strncpy_s(onDestoryBuffer, comp.onDestory.c_str(), sizeof(onDestoryBuffer));
-				}
-
-				//checkAndCopyBuffer(comp.onStart, onStartBuffer);
-				//checkAndCopyBuffer(comp.onUpdate, onUpdateBuffer);
-				//checkAndCopyBuffer(comp.onCollisionEnter, onCollisionEnterBuffer);
-				//checkAndCopyBuffer(comp.onCollisionExit, onCollisionExitBuffer);
-				//checkAndCopyBuffer(comp.onDestory, onDestoryBuffer);
-				menuItemTextInput("Script Class", comp.script, scriptNameBuffer);
-				menuItemTextInput("On Start", comp.onStart, onStartBuffer);
-				menuItemTextInput("On Update", comp.onUpdate, onUpdateBuffer);
-				menuItemTextInput("On Collision Enter", comp.onCollisionEnter, onCollisionEnterBuffer);
-				menuItemTextInput("On Collision Exit", comp.onCollisionExit, onCollisionExitBuffer);
-				menuItemTextInput("On Destory", comp.onDestory, onDestoryBuffer);
+				
+				menuItemTextInput("Script Name Specifier", comp.script, scriptNameBuffer);
 
 			});
 

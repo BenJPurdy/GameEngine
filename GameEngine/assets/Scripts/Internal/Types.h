@@ -17,6 +17,18 @@ struct Transform
 
 };
 
+struct Render
+{
+	glm::vec4 colour;
+	union
+	{
+		glm::vec2 extents;
+		float radius;
+	}
+}
+
+using GetRenderFunc = Render(*)(Entity);
+using SetRenderFunc = void(*)(Entity, Render);
 using SetTransformFunc = void(*)(Entity, Transform);
 using GetTransformFunc = Transform(*)(Entity);
 using AddForceFunc = void(*)(Entity, glm::vec3);

@@ -28,6 +28,20 @@ namespace GameEngine
 			//{
 			//	continue;
 			//}
+			if (!b2Body_IsValid(rb.id))
+			{
+				Entity en(e, Scripting::scripting.currentScene.get());
+				if (en.hasComponent<CircleCollider2dComponent>())
+				{
+					addRigidBody(w, en.getComponent<IDComponent>(), en.getComponent<Rigidbody2dComponent>());
+					addCircle(w, en);
+				}
+				else if (en.hasComponent<BoxCollider2dComponent>())
+				{
+					addRigidBody(w, en.getComponent<IDComponent>(), en.getComponent<Rigidbody2dComponent>());
+					addBox(w, en);
+				}
+			}
 			if (!transform.mod) continue;
 			else
 			{
