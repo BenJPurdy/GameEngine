@@ -135,6 +135,17 @@ namespace GameEngine
 			out << YAML::EndMap;
 		}
 
+		if (e.hasComponent<AudioComponent>())
+		{
+			out << YAML::Key << "AudioComponent";
+			out << YAML::BeginMap;
+			auto& acc = e.getComponent<AudioComponent>();
+			size_t found = acc.path.find("assets");
+			std::string path = acc.path.substr(found);
+			out << YAML::Key << "File Path" << YAML::Value << path;
+			out << YAML::EndMap;
+		}
+
 		out << YAML::EndMap;
 	}
 
@@ -294,6 +305,18 @@ namespace GameEngine
 						LOG_ERROR("Didn't find scripts");
 					}
 					
+				}
+				
+				auto ac = e["AudioComponent"];
+				if (ac)
+				{
+					auto& aC = deserialised.addComponent<AudioComponent>();
+					auto fP = ac["File Path"].as<std::string>();
+					std::filesystem::path root = std::filesystem::current_path();
+					std::string r = root.string();
+					std::string path = r + "/" + fP;
+					aC.path = path;
+					aC.localPath = fP;
 				}
 
 				//add more components as they are added to the engine

@@ -8,6 +8,10 @@
 #include "Scene/Components.h"
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Utilities/PlatformUtils.h"
+
+#define MAX_BUFFER_SIZE 512
+
 namespace GameEngine
 {
 	void InspectorPanel::drawAddComponents(Entity e)
@@ -26,6 +30,7 @@ namespace GameEngine
 			//drawAddComponentMenuItem<Rigidbody2dComponent>(e, "Rigidbody Component");
 			drawAddComponentMenuItem<BoxCollider2dComponent>(e, "Box Collider Component");
 			drawAddComponentMenuItem<CircleCollider2dComponent>(e, "Circle Collider Component");
+			drawAddComponentMenuItem<AudioComponent>(e, "Audio Component");
 
 
 			ImGui::EndPopup();
@@ -219,11 +224,11 @@ namespace GameEngine
 				}
 				std::string rbType = "None";
 				auto props = comp.properties;
-				if ((props & PhysicsProperties::PhysProps_Static) == PhysicsProperties::PhysProps_Static)
+				if (comp.has(PhysicsProperties::PhysProps_Static))
 					rbType = "Static";
-				else if ((props & PhysicsProperties::PhysProps_Dynamic) == PhysicsProperties::PhysProps_Dynamic)
+				else if (comp.has(PhysicsProperties::PhysProps_Dynamic))
 					rbType = "Dynamic";
-				else if ((props & PhysicsProperties::PhysProps_Kinematic) == PhysicsProperties::PhysProps_Kinematic)
+				else if (comp.has(PhysicsProperties::PhysProps_Kinematic))
 					rbType = "Kinematic";
 				//ImGui::PushItemWidth(50.0f);
 				if (ImGui::BeginCombo("Type", rbType.c_str()))
@@ -253,7 +258,7 @@ namespace GameEngine
 				//ImGui::PopItemWidth();
 
 				//ImGui::SameLine();
-				bool fixedRot = ((props & PhysicsProperties::PhysProps_FixedRotation) == PhysicsProperties::PhysProps_FixedRotation);
+				bool fixedRot = comp.has(PhysicsProperties::PhysProps_FixedRotation);
 				bool tickboxRot = fixedRot; //this variable holds the state to allow ImGui to draw the tickbox correctly
 				if (ImGui::Checkbox("Fixed Rotation", &tickboxRot))
 				{
@@ -273,7 +278,7 @@ namespace GameEngine
 
 		ImGuiLib::drawComponent<ScriptComponent>("Script Component", e, [&](auto& comp)
 			{
-				char scriptNameBuffer[512] = { "" };
+				char scriptNameBuffer[MAX_BUFFER_SIZE] = { "" };
 				
 				if (comp.script.size() > 0)
 				{
@@ -282,6 +287,20 @@ namespace GameEngine
 				
 				menuItemTextInput("Script Name Specifier", comp.script, scriptNameBuffer);
 
+			});
+
+		ImGuiLib::drawComponent<AudioComponent>("Audio Component", e, [](auto& comp)
+			{
+				ImGui::TextWrapped(comp.localPath.c_str());
+				char audioPath[MAX_BUFFER_SIZE] = { "" };
+				if (ImGui::Button("Load Sound"))
+				{
+					std::string filePath = FileDialogs::openFile("Audio File (*.wav\0*.wav\0");
+					comp.path = filePath;
+					size_t found = comp.path.find("assets");
+					std::string path = comp.path.substr(found);
+					comp.localPath = path;
+				}
 			});
 
 	}

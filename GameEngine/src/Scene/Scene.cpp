@@ -68,6 +68,7 @@ namespace GameEngine
         copyComponent<BoxCollider2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<CircleCollider2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<ScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<AudioComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
         //for (auto& i : componentTypes)
         //add more here as and when more componenets are added
@@ -305,20 +306,42 @@ namespace GameEngine
                     f(Entity(e, Scripting::scripting.currentScene.get()));
             }
         }
+        {
+            auto& view = registry.view<AudioComponent>();
+            for (auto& e : view)
+            {
+                auto& ac = view.get<AudioComponent>(e);
+                //audioEngine.addSound(ac.path);
+                ac.makeSound();
+            }
+        }
         
     }
 
     void Scene::onRuntimeStop()
     {
+        //destory the physics world
         world.destory();
-        audioEngine.destory();
+        
         //setting mod to true to make sure that all entities are loaded into the physics next runtime
         //:)
-        auto& view = registry.view<TransformComponent>();
-        for (auto& e : view)
         {
-            view.get<TransformComponent>(e).mod = true;
+            auto& view = registry.view<TransformComponent>();
+            for (auto& e : view)
+            {
+                view.get<TransformComponent>(e).mod = true;
+            }
         }
+        {
+            auto& view = registry.view<AudioComponent>();
+            for (auto& e : view)
+            {
+                view.get<AudioComponent>(e).sound->release();
+            }
+        }
+        //we need to destory the audio engine after we destory the extra sounds we created in our audio components
+        //because FMOD doesn't like it
+        audioEngine.destory();
         Scripting::freeDll(dll);
         //scripting.unloadLib();
         scripting.currentScene = nullptr;

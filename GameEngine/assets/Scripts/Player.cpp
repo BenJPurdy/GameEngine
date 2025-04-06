@@ -114,8 +114,8 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     }
     data.mouseClicked = GetMousePressed(ButtonLeft);
     MousePosition mPos = GetMousePos();
-    std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
-    log(LOG_TRACE, msg);
+    //std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
+    //log(LOG_TRACE, msg);
 }
 
 SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)

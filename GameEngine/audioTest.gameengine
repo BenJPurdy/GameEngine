@@ -1,0 +1,11 @@
+Scene: Untitled Scene
+Entities:
+  - Entity: 5854518935538591777
+    TagComponent:
+      Tag: Empty
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    AudioComponent:
+      File Path: assets\Audio\idkgamestuff.wav

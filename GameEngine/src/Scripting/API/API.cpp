@@ -209,6 +209,16 @@ namespace GameEngine
 
 		return mPos;
 	}
+
+	SCRIPTAPI void playComponentSound(Entity e)
+	{
+		LOG_TRACE("playing component sound");
+		if (e.hasComponent<AudioComponent>())
+		{
+			LOG_TRACE("sound component exists");
+			e.getComponent<AudioComponent>().play();
+		}
+	}
 	
 
 }

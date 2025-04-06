@@ -63,6 +63,10 @@ Entity spawnEntity(Entity e, std::string name)
 MousePosition GetMousePos()
 {
     GetMousePosFunc f = (GetMousePosFunc)getFunction("scriptGetMousePos");
-    if (f == nullptr) return MousePosition{0};
-    return f();
+    if (f == nullptr) return MousePosition{};
+	glm::vec2 mPos = f();
+	
+	
+    return MousePosition{mPos};
 }
+

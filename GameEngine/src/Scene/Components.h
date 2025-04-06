@@ -11,6 +11,7 @@
 #include "SceneCamera.h"
 
 #include "box2d/box2d.h"
+#include "Audio/Audio.h"
 
 namespace GameEngine
 {
@@ -170,6 +171,27 @@ namespace GameEngine
         {
             Collider2d::setDefaults();
             this->radius = 1.0f;
+        }
+    };
+
+    struct AudioComponent
+    {
+        FMOD::Sound* sound = nullptr;
+        std::string path = "";
+        std::string localPath = "";
+
+        void play()
+        {
+            AudioEngine::play(sound);
+        }
+
+        void makeSound()
+        {
+            FMOD_RESULT err = AudioEngine::system->createSound(path.c_str(), FMOD_LOOP_OFF, nullptr, &sound);
+            if (err != FMOD_OK)
+            {
+                LOG_ERROR("Failed to create sound: {0}", FMOD_ErrorString(err));
+            }
         }
     };
 }

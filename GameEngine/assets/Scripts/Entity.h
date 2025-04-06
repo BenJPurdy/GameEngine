@@ -34,6 +34,13 @@ class Entity
         return f(*this);
     }
 
+    void playSound()
+    {
+        VoidEntityFunc f = (VoidEntityFunc)getFunction("playComponentSound");
+        if (f == nullptr) {log(LOG_ERROR, "didn't find playSound"); return;};
+        f(*this);
+    }
+
     void addComponent(ComponentType t)
     {
         AddComponentFunc f = (AddComponentFunc)getFunction("scriptAddComponent");

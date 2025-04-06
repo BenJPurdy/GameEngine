@@ -40,6 +40,6 @@ FUNCTION(onUpdate)(Entity e, float ts)
     data.time += ts;
     std::string msg = std::to_string(data.time);
     log(LOG_WARN, msg);
-    if (data.time >= 1.0f) Projectile_onDestroy(e);
+    if (data.time >= 2.0f) Projectile_onDestroy(e);
 }
 

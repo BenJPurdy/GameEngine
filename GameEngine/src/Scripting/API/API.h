@@ -32,6 +32,7 @@ namespace GameEngine
 	SCRIPTAPI Transform scriptGetTransform(Entity e);
 	SCRIPTAPI void scriptAddForce(Entity e, glm::vec3 f);
 	SCRIPTAPI void playSound(int index);
+	SCRIPTAPI void playComponentSound(Entity e);
 	
 	SCRIPTAPI Entity scriptGetEntity(const char*);
 	SCRIPTAPI Entity scriptSpawnEntity(Entity, const char*);

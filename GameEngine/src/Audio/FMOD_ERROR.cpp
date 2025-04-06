@@ -4,7 +4,7 @@
 
 namespace GameEngine
 {
-    const char* AudioEngine::FMOD_ErrorString(FMOD_RESULT errcode)
+    const char* FMOD_ErrorString(FMOD_RESULT errcode)
     {
         switch (errcode)
         {

@@ -18,6 +18,7 @@ using GetKeyPressedFunc = bool(*)(Key);
 using GetMousePressedFunc = bool(*)(Mouse);
 using GetEntityFunc = Entity(*)(const char*);
 using SpawnEntityFunc = Entity(*)(Entity, const char*);
+using VoidEntityFunc = void(*)(Entity);
 
 
 using voidFunc = void(*)();
@@ -27,6 +28,9 @@ struct MousePosition
 {
 	float x;
 	float y;
+
+	MousePosition(glm::vec2 in): x(in.x), y(in.y){}
+	MousePosition() = default;
 };
 
 
