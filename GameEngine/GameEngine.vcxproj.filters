@@ -46,6 +46,9 @@
     <Filter Include="src\Maths">
       <UniqueIdentifier>{599964B3-C503-192A-0E42-CACF7AEBF67E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Network">
+      <UniqueIdentifier>{A66A4775-1220-C06A-9B14-BA4107C9B66E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Physics">
       <UniqueIdentifier>{9F8B9316-0B41-0C0C-9435-06E300EA0210}</UniqueIdentifier>
     </Filter>
@@ -198,6 +201,9 @@
     <ClInclude Include="src\Maths\Maths.h">
       <Filter>src\Maths</Filter>
     </ClInclude>
+    <ClInclude Include="src\Network\Network.h">
+      <Filter>src\Network</Filter>
+    </ClInclude>
     <ClInclude Include="src\Physics\PhysicsBody.h">
       <Filter>src\Physics</Filter>
     </ClInclude>
@@ -332,6 +338,9 @@
     <ClCompile Include="3rdParty\imgui\imgui_stdlib.cpp">
       <Filter>3rdParty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Audio\Audio.cpp">
+      <Filter>src\Audio</Filter>
+    </ClCompile>
     <ClCompile Include="src\Audio\FMOD_ERROR.cpp">
       <Filter>src\Audio</Filter>
     </ClCompile>
@@ -379,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="src\Maths\Maths.cpp">
       <Filter>src\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Network\Network.cpp">
+      <Filter>src\Network</Filter>
     </ClCompile>
     <ClCompile Include="src\Physics\PhysicsBody.cpp">
       <Filter>src\Physics</Filter>
@@ -458,7 +470,6 @@
     <ClCompile Include="src\Utilities\Windows\WindowsPlatformUtils.cpp">
       <Filter>src\Utilities\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Audio\Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="natvis\config.natvis">

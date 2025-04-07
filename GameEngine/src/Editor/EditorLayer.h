@@ -40,6 +40,9 @@ namespace GameEngine
 		void onScenePlay();
 		void onSceneStop();
 
+		void onServerStart();
+		void onServerStop();
+
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
 		Ref<ShaderLibrary> shaders;
@@ -66,7 +69,11 @@ namespace GameEngine
 			Edit = 0,
 			Play = 1,
 			Pause = 2,
-			Simulate = 3
+			Simulate = 3,
+			Server = 4,
+
+
+			SceneStateSize
 		};
 
 		SceneState sceneState = SceneState::Edit;

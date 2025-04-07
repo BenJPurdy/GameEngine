@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;3rdParty\enet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -92,7 +92,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;3rdParty\enet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -101,7 +101,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;3rdParty\enet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -117,7 +117,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;3rdParty\enet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>GameEngine_PCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECUURE_NO_WARNINGS;YAML_CPP_STATIC_DEFINE;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;3rdParty;3rdParty\GLFW\include;3rdParty\GL\include;3rdParty\spdlog\include;3rdParty\glm;3rdParty\imgui;3rdParty\entt\single_include;3rdParty\ImGuizmo;3rdParty\yamlcpp\include;3rdParty\box2d\include;3rdParty\fmod\include;3rdParty\enet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -144,7 +144,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>3rdParty\GLFW\lib;3rdParty\fmod\lib;3rdParty\enet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -181,6 +181,7 @@
     <ClInclude Include="src\ImGui\ImGuiLib.h" />
     <ClInclude Include="src\Logging\Log.h" />
     <ClInclude Include="src\Maths\Maths.h" />
+    <ClInclude Include="src\Network\Network.h" />
     <ClInclude Include="src\Physics\PhysicsBody.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebufferUtils.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Logging\Log.cpp" />
     <ClCompile Include="src\Maths\Maths.cpp" />
+    <ClCompile Include="src\Network\Network.cpp" />
     <ClCompile Include="src\Physics\PhysicsBody.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
@@ -313,6 +315,9 @@
     </ProjectReference>
     <ProjectReference Include="3rdParty\box2d\box2d.vcxproj">
       <Project>{E4442B0F-5059-53C0-19DB-F61F85AE4FF1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="3rdParty\enet\Enet.vcxproj">
+      <Project>{11C7847C-FDFD-850D-A6EA-6B109200020F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

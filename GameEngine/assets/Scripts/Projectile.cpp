@@ -12,7 +12,7 @@ struct ProjectileData
 #define SCRIPTNAME Projectile
 
 #define FUNCTION(NAME)  SCRIPTAPI void CONCAT(CONCAT(SCRIPTNAME, _), NAME)
-
+ 
 FUNCTION(onDestroy)(Entity e)
 {
     

@@ -12,7 +12,7 @@ struct WallData
 #define SCRIPTNAME Wall
 
 #define FUNCTION(NAME)  SCRIPTAPI void CONCAT(CONCAT(SCRIPTNAME, _), NAME)
-
+ 
 
 FUNCTION(onCollisionEnter)(Entity e)
 {

@@ -123,7 +123,9 @@ namespace GameEngine
 			for (auto& i : sounds)
 			{
 				i->release();
+				i = nullptr;
 			}
+			sounds.clear();
 			system->release();
 		}
 

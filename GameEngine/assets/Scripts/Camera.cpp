@@ -7,7 +7,7 @@ struct CameraData
     Entity player;
     bool hasPrinted = false;
 
-};
+}; 
 #define CONCAT2(x, y) x ## y
 #define CONCAT(one, two) CONCAT2(one, two)
 

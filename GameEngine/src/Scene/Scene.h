@@ -14,12 +14,13 @@
 #include "Scripting/Scripting.h"
 #include "Audio/Audio.h"
 #include "Scripting/API/API.h"
+#include "Network/Network.h"
 
 
 
 namespace GameEngine
 {
-    
+    class Network;
     class Entity;
 
     struct CopiedComponent
@@ -49,12 +50,16 @@ namespace GameEngine
         //void onUpdate(Timestep);
         void onUpdateEditor(Timestep, EditorCamera&);
         void onUpdateRuntime(Timestep);
+        void onUpdateServer();
 
         void destoryEntity(Entity);
         void onViewportResize(uint32_t, uint32_t);
 
         void onRuntimeStart();
         void onRuntimeStop();
+
+        void onServerStart();
+        void onServerStop();
 
         template<typename T>
         void registerComponentHandler(std::function<void(Entity, T&)> hand)
@@ -161,6 +166,7 @@ namespace GameEngine
         UUID sceneID;
 
         Camera* mainCamera = nullptr;
+        Network network;
         entt::registry registry;
         Physics::PhysicsWorld world;
         Scripting::Script scripting;

@@ -31,6 +31,7 @@ namespace GameEngine
 			drawAddComponentMenuItem<BoxCollider2dComponent>(e, "Box Collider Component");
 			drawAddComponentMenuItem<CircleCollider2dComponent>(e, "Circle Collider Component");
 			drawAddComponentMenuItem<AudioComponent>(e, "Audio Component");
+			drawAddComponentMenuItem<NetworkComponent>(e, "Network Component");
 
 
 			ImGui::EndPopup();
@@ -301,6 +302,11 @@ namespace GameEngine
 					std::string path = comp.path.substr(found);
 					comp.localPath = path;
 				}
+			});
+
+		ImGuiLib::drawComponent<NetworkComponent>("Network Component", e, [](auto& comp)
+			{
+				ImGui::Checkbox("Is Local", &comp.local);
 			});
 
 	}

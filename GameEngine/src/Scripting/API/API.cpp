@@ -7,6 +7,8 @@
 #include "Scripting/Scripting.h"
 #include "ImGui/imgui.h"
 #include "Maths/Maths.h"
+#include "GLFW/glfw3.h"
+#include "Core/App.h"
 
 
 namespace GameEngine
@@ -203,8 +205,19 @@ namespace GameEngine
 
 	SCRIPTAPI MousePosition scriptGetMousePos()
 	{
+		//ImVec2 windowPos = ImGui::GetWindowPos();
+		//ImVec2 windowSize = ImGui::GetWindowSize();
+		//ImVec2 windowCenter = ImVec2(windowPos.x + windowSize.x * 0.5,
+		//	windowPos.y + windowSize.y * 0.5);
+		//ImVec2 mousePos = ImGui::GetMousePos();
+		//ImVec2 posToCenter = ImVec2(mousePos.x - windowCenter.x,
+		//	mousePos.y - windowCenter.y);
+		//LOG_TRACE("MousePos: {0}, {1}", posToCenter.x, posToCenter.y);
 		auto [x, y] = Input::getMousePosition();
-		MousePosition mPos = { x, y };
+		int winSizex, winSizey;
+		auto window = static_cast<GLFWwindow*>(App::get().getWindow().getNativeWindow());
+		glfwGetWindowSize(window, &winSizex, &winSizey);
+		MousePosition mPos = { (float)x/winSizex, (float)y/winSizey };
 
 
 		return mPos;

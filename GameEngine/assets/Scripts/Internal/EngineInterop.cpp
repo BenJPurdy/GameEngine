@@ -30,7 +30,7 @@ bool GetKeyPressed(Key k)
 	if (f ==  nullptr) return false;
     return f(k);
 }
-
+ 
 bool GetMousePressed(Mouse m)
 {
 	GetMousePressedFunc f = (GetMousePressedFunc)getFunction("scriptGetMouse");

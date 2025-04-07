@@ -12,7 +12,7 @@ class Entity
     
     Entity(uint32_t _handle, uint64_t _scenePtr) : handle(_handle), scenePtr(_scenePtr)
     {}
-
+ 
     void setTransform(Transform t)
     {
         SetTransformFunc f = (SetTransformFunc)getFunction("scriptSetTransform");

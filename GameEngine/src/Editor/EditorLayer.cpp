@@ -134,27 +134,46 @@ namespace GameEngine
 
 		ImGui::NextColumn();
 		ImGui::SameLine();
-		char* buttonName = (sceneState == SceneState::Edit) ? "Play" : "Stop";
-		if (ImGui::Button(buttonName, buttonSize))
 		{
-			if (sceneState == SceneState::Edit)
+			char* buttonName = (sceneState == SceneState::Edit) ? "Play" : "Stop";
+			if (ImGui::Button(buttonName, buttonSize))
 			{
-				onScenePlay();
-				
-			}
-			else if (sceneState == SceneState::Play)
-			{
-				onSceneStop();
-				
+				if (sceneState == SceneState::Edit)
+				{
+					onScenePlay();
+					
+				}
+				else if (sceneState == SceneState::Play)
+				{
+					onSceneStop();
+					
+				}
 			}
 		}
-		if (ImGui::Button("compile"))
+		ImGui::SameLine();
+		//old code for previous ideas for compiling, could be implimeneted if have time
+		//if (ImGui::Button("compile", buttonSize))
+		//{
+		//	// do system call
+		//	// auto lib = LoadLibraryA(built lib)
+		//	// functions are defined as extern "C" to stop c++ name mangling at compile time
+		//	// populate map of fnptr with names + lib using GetProcAddress(lib, "fnName");
+		//}
 		{
-			// do system call
-			// auto lib = LoadLibraryA(built lib)
-			// functions are defined as extern "C" to stop c++ name mangling at compile time
-			// populate map of fnptr with names + lib using GetProcAddress(lib, "fnName");
+			char* buttonName = (sceneState == SceneState::Edit) ? "Run Server" : "Stop Server";
+			if (ImGui::Button(buttonName, ImVec2(buttonSize.x + 30.0f, buttonSize.y)))
+			{
+				if (sceneState == SceneState::Edit)
+				{
+					onServerStart();
+				}
+				else if (sceneState == SceneState::Server)
+				{
+					onServerStop();
+				}
+			}
 		}
+		
 		ImGui::EndChild();
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
@@ -252,6 +271,9 @@ namespace GameEngine
 			break;
 		case SceneState::Play:
 			activeScene->onUpdateRuntime(ts);
+			break;
+		case SceneState::Server:
+			activeScene->onUpdateServer();
 			break;
 		}
 
@@ -439,7 +461,11 @@ namespace GameEngine
 
 	void EditorLayer::openScene(const std::filesystem::path& path)
 	{
-		if (sceneState != SceneState::Edit)
+		if (sceneState == SceneState::Server)
+		{
+			sceneState == SceneState::Edit;
+		}
+		else if (sceneState != SceneState::Edit)
 		{
 			onSceneStop();
 		}
@@ -517,6 +543,23 @@ namespace GameEngine
 		activeScene = editorScene;
 		Scripting::scripting.currentScene = nullptr;
 		sceneHierarchy.setContext(activeScene);
+	}
+
+	void EditorLayer::onServerStart()
+	{
+		sceneState = SceneState::Server;
+		runtimeScene = createRef<Scene>();
+		Scene::copyTo(editorScene, runtimeScene);
+		activeScene = runtimeScene;
+		runtimeScene->onServerStart();
+	}
+
+	void EditorLayer::onServerStop()
+	{
+		sceneState = SceneState::Edit;
+		runtimeScene->onServerStop();
+		runtimeScene = nullptr;
+		activeScene = editorScene;
 	}
 
 	void EditorLayer::onDuplicateEntity()

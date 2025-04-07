@@ -69,6 +69,7 @@ namespace GameEngine
         copyComponent<CircleCollider2dComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<ScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
         copyComponent<AudioComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+        copyComponent<NetworkComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
         //for (auto& i : componentTypes)
         //add more here as and when more componenets are added
@@ -115,6 +116,10 @@ namespace GameEngine
         copyComponentIfExists<BoxCollider2dComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<CircleCollider2dComponent>(newEntity.entityHandle, registry, e);
         copyComponentIfExists<ScriptComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<AudioComponent>(newEntity.entityHandle, registry, e);
+        copyComponentIfExists<NetworkComponent>(newEntity.entityHandle, registry, e);
+
+        
         return newEntity;
     }
 
@@ -219,6 +224,36 @@ namespace GameEngine
         }
     }
 
+    void Scene::onUpdateServer()
+    {
+        LOG_TRACE("Update server");
+        ENetEvent event;
+
+        while (enet_host_service(network.host, &event, 100) > 0)
+        {
+
+            switch (event.type)
+            {
+            case ENET_EVENT_TYPE_CONNECT:
+                LOG_TRACE("new client from: {0}:{1}", event.peer->address.host, event.peer->address.port);
+                break;
+            case ENET_EVENT_TYPE_DISCONNECT:
+                LOG_TRACE("{0} disconnected", event.peer->data);
+                break;
+            }
+        }
+    }
+
+    void Scene::onServerStart()
+    {
+        network.create(true);
+    }
+
+    void Scene::onServerStop()
+    {
+        network.destroy();
+    }
+
     void Scene::onViewportResize(uint32_t w, uint32_t h)
     {
         viewportWidth = w;
@@ -249,6 +284,7 @@ namespace GameEngine
     void Scene::onRuntimeStart()
     {
         system("cls");
+        network.create();
         LOG_TRACE("Current scene ptr: {0}", (intptr_t)this);
         //scripting.currentScene = this;
         if (!scripting.compileScripts())

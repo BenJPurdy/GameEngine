@@ -50,46 +50,67 @@ namespace GameEngine
 	bool Script::compileScripts()
 	{
 		std::cout << "\x1b[44m \x1b[37m START COMPILING SCRIPTS  \x1b[0m\n";
+		std::vector<std::string> objectFiles;
+		std::vector<std::string> recompileFiles;
+		std::string objectFolder = "./objects";
+		//building scripts into objects
 		std::string scriptFolder = "./assets/Scripts";
 		namespace FM = FileManagment;
 		std::vector<std::pair<std::string, std::string>> files;
+		//get our script files
 		FM::getFilesInFolder(&files, scriptFolder);
+
 		scriptFolder = "./assets/Scripts/Internal";
+		//get our internal script files
 		FM::getFilesInFolder(&files, scriptFolder);
-		std::vector<std::string> includeFiles;
 		std::filesystem::path dllPath = FM::getFile("./JFAaB.dll", "./");
 		std::filesystem::file_time_type dllTime;
 		bool isModified = false;
+		
 		if (!dllPath.empty())
 		{
 			dllTime = std::filesystem::last_write_time(dllPath);
 		}
 		else
 		{
+			LOG_WARN("No DLL found, compiling all scripts");
 			isModified = true;
 		}
 		
 		for (auto& f : files)
 		{
-			if (std::filesystem::last_write_time(f.first) > dllTime)
-			{
-				isModified = true;
-				break;
-			}
-		}
-
-		for (auto& f : files)
-		{
 			if (f.second == ".cpp")
 			{
-				includeFiles.push_back(f.first);
+				size_t nameAt = f.first.find("\\");
+				std::string name = f.first.substr(nameAt + 1);
+				name = name.substr(0, name.find("."));
+				auto fileTime = std::filesystem::last_write_time(f.first);
+				LOG_TRACE("checking path: {0}. diff (src - dll) {1}", f.first, fileTime.time_since_epoch().count() - dllTime.time_since_epoch().count());
+				if (fileTime > dllTime || isModified)
+				{
+					std::string cmd = "g++ -c ";
+#ifdef DEBUG
+					cmd += "-g ";
+#endif
+					cmd += f.first;
+					cmd += " -std=c++17 -O3 -I./3rdParty -lmingw32";
+					std::string output = " -o objects/";
+					output += name;
+					output += ".o";
+					cmd += output;
+					LOG_TRACE("Compiling {0} with {1}", f.first, cmd);
+					system(cmd.c_str());
+				}
 			}
 		}
 		
-		if (includeFiles.size() > 0)
+		FM::getFilesInFolder(&objectFiles, objectFolder);
+
+		LOG_TRACE("Compiling dll");
+		if (objectFiles.size() > 0)
 		{
 			std::string cmd = "g++ ";
-			for (auto& i : includeFiles)
+			for (auto& i : objectFiles)
 			{
 				cmd += i;
 				cmd += " ";
@@ -107,7 +128,9 @@ namespace GameEngine
 #ifdef DEBUG
 			cmd += " -g";
 #endif
-			cmd += " -std=c++17 -O3 -I./3rdParty -lmingw32 -o JFAaB.dll";
+			cmd += " -o JFAaB.dll";
+
+			
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
 

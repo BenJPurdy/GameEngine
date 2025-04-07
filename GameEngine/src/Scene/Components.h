@@ -12,6 +12,7 @@
 
 #include "box2d/box2d.h"
 #include "Audio/Audio.h"
+//#include "Network/Network.h"
 
 namespace GameEngine
 {
@@ -193,5 +194,12 @@ namespace GameEngine
                 LOG_ERROR("Failed to create sound: {0}", FMOD_ErrorString(err));
             }
         }
+    };
+
+    struct NetworkComponent
+    {
+        bool local = false;
+        uint64_t ID;
+        
     };
 }

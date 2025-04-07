@@ -24,6 +24,7 @@ IncludeDir["imguizmo"] = "GameEngine/3rdParty/ImGuizmo"
 IncludeDir["yamlcpp"] = "GameEngine/3rdParty/yamlcpp/include"
 IncludeDir["box2d"] = "GameEngine/3rdParty/box2d/include"
 IncludeDir["fmod"] = "GameEngine/3rdParty/fmod"
+IncludeDir["enet"] = "GameEngine/3rdParty/enet"
 
 
 
@@ -33,6 +34,7 @@ include "GameEngine/3rdParty/GL/"
 include "GameEngine/3rdParty/imgui"
 include "GameEngine/3rdParty/yamlcpp"
 include "GameEngine/3rdParty/box2d"
+include "GameEngine/3rdParty/enet"
 --include "GameEngine/3rdParty/SDL/"
 
 
@@ -83,13 +85,15 @@ project "GameEngine"
         "%{IncludeDir.imguizmo}",
         "%{IncludeDir.yamlcpp}",
         "%{IncludeDir.box2d}",
-        "%{IncludeDir.fmod}/include"
+        "%{IncludeDir.fmod}/include",
+        "%{IncludeDir.enet}/include"
     }
 
     libdirs
     {
         "%{prj.name}/3rdParty/GLFW/lib/",
-        "%{IncludeDir.fmod}/lib"
+        "%{IncludeDir.fmod}/lib",
+        "%{IncludeDir.enet}/"
     }
 
     links
@@ -100,7 +104,8 @@ project "GameEngine"
         "imgui",
         "yaml-cpp",
         "box2d",
-        "fmod_vc"
+        "fmod_vc",
+        "enet"
 
     }
 

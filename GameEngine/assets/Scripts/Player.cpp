@@ -77,7 +77,7 @@ glm::vec3 inputHandling()
         addPos.x += 1.0;
     }
     if (GetKeyPressed(Key::S))
-    {
+    { 
         //log(LOG_WARN, "S key pressed");
         addPos.y -= 1.0;
     }
@@ -114,8 +114,10 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     }
     data.mouseClicked = GetMousePressed(ButtonLeft);
     MousePosition mPos = GetMousePos();
-    //std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
-    //log(LOG_TRACE, msg);
+    mPos.x -= 0.5f;
+    mPos.y -= 0.5f;
+    std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
+    log(LOG_TRACE, msg);
 }
 
 SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)
