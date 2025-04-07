@@ -50,13 +50,13 @@ namespace GameEngine
         //void onUpdate(Timestep);
         void onUpdateEditor(Timestep, EditorCamera&);
         void onUpdateRuntime(Timestep);
-        void onUpdateServer();
+        void onUpdateServer(uint32_t = 100);
 
         void destoryEntity(Entity);
         void onViewportResize(uint32_t, uint32_t);
 
-        void onRuntimeStart();
-        void onRuntimeStop();
+        void onRuntimeStart(bool = false);
+        void onRuntimeStop(bool = false);
 
         void onServerStart();
         void onServerStop();
@@ -167,6 +167,7 @@ namespace GameEngine
 
         Camera* mainCamera = nullptr;
         Network network;
+        Network client;
         entt::registry registry;
         Physics::PhysicsWorld world;
         Scripting::Script scripting;

@@ -220,16 +220,17 @@ namespace GameEngine
             }
 
             Render2d::endScene();
+            //checks delete queue and removes entities that are in it
             deleteEntities();
         }
     }
 
-    void Scene::onUpdateServer()
+    void Scene::onUpdateServer(uint32_t timeout)
     {
         LOG_TRACE("Update server");
         ENetEvent event;
 
-        while (enet_host_service(network.host, &event, 100) > 0)
+        while (enet_host_service(network.localHost, &event, timeout) > 0)
         {
 
             switch (event.type)
@@ -246,11 +247,16 @@ namespace GameEngine
 
     void Scene::onServerStart()
     {
-        network.create(true);
+        network.init();
+        //network.create(true);
+        network.serverThread = std::thread(&Network::runServer, &network);
     }
 
     void Scene::onServerStop()
     {
+        network.serverThread.join();
+
+        client.destroy();
         network.destroy();
     }
 
@@ -281,10 +287,20 @@ namespace GameEngine
         toDelete.clear();
     }
 
-    void Scene::onRuntimeStart()
+    void Scene::onRuntimeStart(bool runServer)
     {
         system("cls");
-        network.create();
+        network.init();
+        if (runServer)
+        {
+            network.create(true);
+            network.runThread = true;
+        }
+        
+        client.create();
+        
+        network.serverThread = std::thread(&Network::runServer, &network);
+           
         LOG_TRACE("Current scene ptr: {0}", (intptr_t)this);
         //scripting.currentScene = this;
         if (!scripting.compileScripts())
@@ -352,9 +368,11 @@ namespace GameEngine
             }
         }
         
+        client.connect();
+        
     }
 
-    void Scene::onRuntimeStop()
+    void Scene::onRuntimeStop(bool runServer)
     {
         //destory the physics world
         world.destory();
@@ -372,7 +390,10 @@ namespace GameEngine
             auto& view = registry.view<AudioComponent>();
             for (auto& e : view)
             {
-                view.get<AudioComponent>(e).sound->release();
+                auto& sc = view.get<AudioComponent>(e);
+                sc.sound->release();
+                sc.sound = nullptr;
+                
             }
         }
         //we need to destory the audio engine after we destory the extra sounds we created in our audio components
@@ -381,5 +402,13 @@ namespace GameEngine
         Scripting::freeDll(dll);
         //scripting.unloadLib();
         scripting.currentScene = nullptr;
+        network.runThread = false;
+        client.destroy();
+        if (runServer)
+        {
+            network.serverThread.join();
+            network.destroy();
+        }
+        
     }
 }

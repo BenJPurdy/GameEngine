@@ -297,6 +297,10 @@ namespace GameEngine
 				if (ImGui::Button("Load Sound"))
 				{
 					std::string filePath = FileDialogs::openFile("Audio File (*.wav\0*.wav\0");
+					if (filePath.empty())
+					{
+						return;
+					}
 					comp.path = filePath;
 					size_t found = comp.path.find("assets");
 					std::string path = comp.path.substr(found);

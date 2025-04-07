@@ -118,6 +118,7 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     mPos.y -= 0.5f;
     std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
     log(LOG_TRACE, msg);
+    glm::vec2 mouse = glm::vec2(mPos.x, mPos.y);
 }
 
 SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)

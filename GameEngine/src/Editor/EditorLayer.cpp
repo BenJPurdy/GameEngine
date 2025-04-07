@@ -141,11 +141,15 @@ namespace GameEngine
 				if (sceneState == SceneState::Edit)
 				{
 					onScenePlay();
+					if (runServer) {}
+						//onServerStart();
 					
 				}
 				else if (sceneState == SceneState::Play)
 				{
 					onSceneStop();
+					if (runServer) {}
+						//onServerStop();
 					
 				}
 			}
@@ -160,17 +164,11 @@ namespace GameEngine
 		//	// populate map of fnptr with names + lib using GetProcAddress(lib, "fnName");
 		//}
 		{
-			char* buttonName = (sceneState == SceneState::Edit) ? "Run Server" : "Stop Server";
-			if (ImGui::Button(buttonName, ImVec2(buttonSize.x + 30.0f, buttonSize.y)))
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Run Server", &runServer))
 			{
-				if (sceneState == SceneState::Edit)
-				{
-					onServerStart();
-				}
-				else if (sceneState == SceneState::Server)
-				{
-					onServerStop();
-				}
+				if (runServer)LOG_TRACE("Launching server on start");
+				else { LOG_TRACE("Not launching server on start"); }
 			}
 		}
 		
@@ -271,6 +269,10 @@ namespace GameEngine
 			break;
 		case SceneState::Play:
 			activeScene->onUpdateRuntime(ts);
+			if (runServer)
+			{
+				//activeScene->onUpdateServer(0);
+			}
 			break;
 		case SceneState::Server:
 			activeScene->onUpdateServer();
@@ -463,7 +465,8 @@ namespace GameEngine
 	{
 		if (sceneState == SceneState::Server)
 		{
-			sceneState == SceneState::Edit;
+			sceneState = SceneState::Edit;
+			onServerStop();
 		}
 		else if (sceneState != SceneState::Edit)
 		{
@@ -529,7 +532,7 @@ namespace GameEngine
 		Scene::copyTo(editorScene, runtimeScene);
 
 		Scripting::scripting.currentScene = runtimeScene;
-		runtimeScene->onRuntimeStart();
+		runtimeScene->onRuntimeStart(runServer);
 		activeScene = runtimeScene;
 		sceneHierarchy.setContext(activeScene);
 	}
@@ -538,27 +541,34 @@ namespace GameEngine
 	{
 		sceneState = SceneState::Edit;
 
-		runtimeScene->onRuntimeStop();
+		runtimeScene->onRuntimeStop(runServer);
 		runtimeScene = nullptr;
 		activeScene = editorScene;
 		Scripting::scripting.currentScene = nullptr;
 		sceneHierarchy.setContext(activeScene);
 	}
 
-	void EditorLayer::onServerStart()
+	void EditorLayer::onServerStart(bool standalone)
 	{
-		sceneState = SceneState::Server;
-		runtimeScene = createRef<Scene>();
-		Scene::copyTo(editorScene, runtimeScene);
-		activeScene = runtimeScene;
-		runtimeScene->onServerStart();
+		if (standalone)
+		{
+			sceneState = SceneState::Server;
+			runtimeScene = createRef<Scene>();
+			Scene::copyTo(editorScene, runtimeScene);
+			activeScene = runtimeScene;
+			
+		}
+		activeScene->onServerStart();
 	}
 
-	void EditorLayer::onServerStop()
+	void EditorLayer::onServerStop(bool standalone)
 	{
-		sceneState = SceneState::Edit;
-		runtimeScene->onServerStop();
-		runtimeScene = nullptr;
+		if (standalone)
+		{
+			sceneState = SceneState::Edit;
+			runtimeScene->onServerStop();
+			runtimeScene = nullptr;
+		}
 		activeScene = editorScene;
 	}
 

@@ -40,8 +40,8 @@ namespace GameEngine
 		void onScenePlay();
 		void onSceneStop();
 
-		void onServerStart();
-		void onServerStop();
+		void onServerStart(bool = false);
+		void onServerStop(bool = false);
 
 		EditorCamera camera;
 		Ref<Framebuffer> framebuffer;
@@ -56,6 +56,7 @@ namespace GameEngine
 
 		bool viewportFocus = false;
 		bool viewportHover = false;
+		bool runServer = false;
 		glm::vec2 viewportSize = { 0.0f, 0.0f };
 		glm::vec2 viewportBounds[2];
 
