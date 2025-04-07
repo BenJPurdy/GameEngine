@@ -70,6 +70,14 @@ namespace GameEngine
 		return;
 	}
 
+	void Network::update()
+	{
+		ENetEvent e;
+		while (enet_host_service(localHost, &e, 0) > 0)
+		{
+
+		}
+	}
 	
 
 	void Network::destroy()
@@ -102,6 +110,11 @@ namespace GameEngine
 		else
 		{
 			LOG_ERROR("Connection to server timed out");
+		}
+
+		while (enet_host_service(localHost, &event, 0) > 0)
+		{
+
 		}
 
 

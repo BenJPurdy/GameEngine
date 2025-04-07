@@ -230,7 +230,7 @@ namespace GameEngine
         LOG_TRACE("Update server");
         ENetEvent event;
 
-        while (enet_host_service(network.localHost, &event, timeout) > 0)
+        while (enet_host_service(server.localHost, &event, timeout) > 0)
         {
 
             switch (event.type)
@@ -247,17 +247,17 @@ namespace GameEngine
 
     void Scene::onServerStart()
     {
-        network.init();
+        server.init();
         //network.create(true);
-        network.serverThread = std::thread(&Network::runServer, &network);
+        server.serverThread = std::thread(&Network::runServer, &server);
     }
 
     void Scene::onServerStop()
     {
-        network.serverThread.join();
+        server.serverThread.join();
 
         client.destroy();
-        network.destroy();
+        server.destroy();
     }
 
     void Scene::onViewportResize(uint32_t w, uint32_t h)
@@ -290,16 +290,8 @@ namespace GameEngine
     void Scene::onRuntimeStart(bool runServer)
     {
         system("cls");
-        network.init();
-        if (runServer)
-        {
-            network.create(true);
-            network.runThread = true;
-        }
+        server.init();
         
-        client.create();
-        
-        network.serverThread = std::thread(&Network::runServer, &network);
            
         LOG_TRACE("Current scene ptr: {0}", (intptr_t)this);
         //scripting.currentScene = this;
@@ -367,6 +359,17 @@ namespace GameEngine
                 ac.makeSound();
             }
         }
+        //network intialisation
+
+        if (runServer)
+        {
+            server.create(true);
+            server.runThread = true;
+        }
+
+        client.create();
+
+        server.serverThread = std::thread(&Network::runServer, &server);
         
         client.connect();
         
@@ -402,12 +405,15 @@ namespace GameEngine
         Scripting::freeDll(dll);
         //scripting.unloadLib();
         scripting.currentScene = nullptr;
-        network.runThread = false;
+        server.runThread = false;
+        if (client.serverThread.joinable())
+            client.serverThread.join();
         client.destroy();
+        if (server.serverThread.joinable())
+            server.serverThread.join();
         if (runServer)
         {
-            network.serverThread.join();
-            network.destroy();
+            server.destroy();
         }
         
     }

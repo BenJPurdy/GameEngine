@@ -18,6 +18,7 @@ namespace GameEngine
 		void create(bool isHost = false);
 		void destroy();
 		void connect();
+		void update();
 		void runServer();
 		
 	};

@@ -166,7 +166,7 @@ namespace GameEngine
         UUID sceneID;
 
         Camera* mainCamera = nullptr;
-        Network network;
+        Network server;
         Network client;
         entt::registry registry;
         Physics::PhysicsWorld world;

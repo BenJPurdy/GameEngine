@@ -274,9 +274,9 @@ namespace GameEngine
 				//activeScene->onUpdateServer(0);
 			}
 			break;
-		case SceneState::Server:
-			activeScene->onUpdateServer();
-			break;
+		//case SceneState::Server:
+		//	activeScene->onUpdateServer();
+		//	break;
 		}
 
 		auto [mx, my] = ImGui::GetMousePos();

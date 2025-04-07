@@ -22,7 +22,7 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
+# [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -403,5 +403,5 @@ FodyWeavers.xsd
 *.sln.iml
 Report20241104-1335.zip
 
-
+!./GameEngine/3rdParty/w64devkit/**
 !./GameEngine/3rdParty/w64devkit/bin/*.exe
