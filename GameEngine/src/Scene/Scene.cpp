@@ -19,7 +19,7 @@ namespace GameEngine
         audioEngine.init();
         registerComponentHandler<CameraComponent>([](Entity e, CameraComponent& c)
             {
-                LOG_INFO("Camera component added");
+                //LOG_INFO("Camera component added");
                 if (auto* scenePtr = e.getScene())
                 {
                     c.camera.setViewportSize(scenePtr->getViewportWidth(), scenePtr->getViewpotHeight());
@@ -91,7 +91,7 @@ namespace GameEngine
         auto& tag = e.addComponent<TagComponent>();
         tag.tag = name.empty() ? "Entity" : name;
 
-        LOG_INFO("{0}, ID: {1}", tag.tag, (uint64_t)e.getComponent<IDComponent>().id);
+        //LOG_INFO("{0}, ID: {1}", tag.tag, (uint64_t)e.getComponent<IDComponent>().id);
 
         return e;
     }
@@ -194,7 +194,18 @@ namespace GameEngine
                 }
             }
         }
-        //if ()
+        
+        {
+            auto& view = registry.view<TransformComponent>();
+            for (auto& e : view)
+            {
+                auto& tc = view.get<TransformComponent>(e);
+                if (tc.mod)
+                {
+
+                }
+            }
+        }
         Physics::simulateWorld(world, registry);
         
 
@@ -283,6 +294,14 @@ namespace GameEngine
             auto& rb = toDelete[i].getComponent<Rigidbody2dComponent>();
             b2DestroyBody(rb.id);
             registry.destroy(toDelete[i]);
+            if (toDelete[i].hasComponent<AudioComponent>())
+            {
+                auto& ac = toDelete[i].getComponent<AudioComponent>();
+                ac.sound->release();
+                ac.sound = nullptr;
+            }
+            
+
         }
         toDelete.clear();
     }

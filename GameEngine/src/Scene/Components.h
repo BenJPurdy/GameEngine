@@ -87,6 +87,7 @@ namespace GameEngine
         void* onUpdatePtr = nullptr;
         void* onCollisionEnterPtr = nullptr;
         void* onCollisionExitPtr = nullptr;
+        void* onSensorEnterPtr = nullptr;
         void* onDestoryPtr = nullptr;
 
 
@@ -135,6 +136,7 @@ namespace GameEngine
         Body body;
         bool has(uint16_t c) { return (properties & c) == c; };
         void set(uint16_t c) { properties |= c; }
+        //filter bottom three bits which contain the rigidbody types
         uint16_t getBodyType() { return properties & 0b00000111; }
     };
 

@@ -9,6 +9,7 @@
 #include "Maths/Maths.h"
 #include "GLFW/glfw3.h"
 #include "Core/App.h"
+#include "Physics/PhysicsBody.h"
 
 
 namespace GameEngine
@@ -19,9 +20,40 @@ namespace GameEngine
 		{
 			position = t.transform; rotation = t.rotation; scale = t.scale;
 		}
+		TransformComponent toComponent()
+		{
+			TransformComponent tc;
+			tc.transform = position;
+			tc.rotation = rotation;
+			tc.scale = scale;
+			return tc;
+		}
 		glm::vec3 position;
 		glm::vec3 rotation;
 		glm::vec3 scale;
+	};
+
+	enum ColliderType
+	{
+		ColliderType_None,
+		ColliderType_Box,
+		ColliderType_Circle
+	};
+
+	struct ColliderProperties
+	{
+		//ColliderType type;
+		glm::vec2 offset;
+		float density;
+		float friction;
+		float restitution;
+		glm::vec2 scale;
+	};
+
+	struct RigidbodyProperties
+	{
+		uint16_t props;
+		float mass;
 	};
 
 	struct Render
@@ -39,9 +71,9 @@ namespace GameEngine
 		float x;
 		float y;
 	};
-	
+
 	SCRIPTAPI void scriptSayHello() { LOG_TRACE("Hello from the script from the engine"); }
-	
+
 	SCRIPTAPI void scriptLog(int level, const char* msg)
 	{
 		switch (level)
@@ -66,10 +98,10 @@ namespace GameEngine
 			return;
 		}
 	}
-	
+
 	SCRIPTAPI Transform scriptGetTransform(Entity e)
 	{
- 		return Transform(e.getComponent<TransformComponent>());
+		return Transform(e.getComponent<TransformComponent>());
 	}
 	SCRIPTAPI void scriptSetTransform(Entity e, Transform t)
 	{
@@ -83,11 +115,11 @@ namespace GameEngine
 	{
 		auto& rb = e.getComponent<Rigidbody2dComponent>();
 		b2Body_ApplyForceToCenter(rb.id, b2Vec2{ f.x, f.y }, true);
-	
+
 	}
 	SCRIPTAPI void playSound(int index)
 	{
-		LOG_TRACE("Scene is editor ({0})", 
+		LOG_TRACE("Scene is editor ({0})",
 			(int)Scripting::scripting.currentScene->isEditorScene);
 		Scripting::scripting.currentScene->getAudio()->playSound(0);
 	}
@@ -111,13 +143,14 @@ namespace GameEngine
 			{
 				Entity et = Entity(e, Scripting::scripting.currentScene.get());
 				LOG_TRACE("Entity {1} got at {0}", (uint32_t)et.getEntt(), et.getComponent<TagComponent>().tag);
-				
+
 				return et;
 			}
 		}
 	}
 	SCRIPTAPI Entity scriptSpawnEntity(Entity spawner, const char* name)
 	{
+		Entity origin = spawner;
 		std::string entityName = std::string(name);
 		Ref<Scene> scene = Scripting::scripting.currentScene;
 		auto& e = scene->createEntity(entityName);
@@ -127,6 +160,40 @@ namespace GameEngine
 		auto& ccc = e.addComponent<CircleCollider2dComponent>();
 		auto& crc = e.addComponent<CircleRenderComponent>();
 		ccc.radius = 0.5f;
+		Physics::addRigidBody(spawner.getScene()->getWorld(), e.getComponent<IDComponent>(), rbc);
+		Physics::addCircle(spawner.getScene()->getWorld(), e);
+
+
+		return e;
+	}
+
+	SCRIPTAPI Entity scriptNewSpawnEntity(Entity spawner, const char* n)
+	{
+		std::string name = std::string(n);
+		Ref<Scene> scene = Scripting::scripting.currentScene;
+		auto& e = scene->createEntity(name);
+		return e;
+	}
+
+	
+
+	SCRIPTAPI Entity scriptSpawnEntityTransform(Entity spawner, const char* name, Transform t)
+	{
+		Entity origin = spawner;
+
+		std::string entityName = std::string(name);
+		Ref<Scene> scene = Scripting::scripting.currentScene;
+		auto& e = scene->createEntity(entityName);
+		e.getComponent<TransformComponent>() = t.toComponent();
+		auto& rbc = e.addComponent<Rigidbody2dComponent>();
+		float scl = glm::length(t.scale);
+		rbc.body.mass = 1.0f * scl;
+		rbc.properties = spawner.getComponent<Rigidbody2dComponent>().properties;
+		auto& ccc = e.addComponent<CircleCollider2dComponent>();
+		auto& crc = e.addComponent<CircleRenderComponent>();
+		ccc.radius = 0.5f * scl;
+		Physics::addRigidBody(spawner.getScene()->getWorld(), e.getComponent<IDComponent>(), rbc);
+		Physics::addCircle(spawner.getScene()->getWorld(), e);
 
 
 		return e;
@@ -150,6 +217,72 @@ namespace GameEngine
 			return r;
 		}
 	}
+
+	//SCRIPTAPI void scriptSetRigidbodyProperties(Entity e, float mass = 1.0f, uint16_t props = 0)
+	//{
+	//	auto& rb = e.getComponent<Rigidbody2dComponent>();
+	//	rb.set(props);
+	//	rb.body.mass = mass;
+	//	Physics::addRigidBody(e.getScene()->getWorld(), e.getComponent<IDComponent>(), rb);
+	//}
+
+	void setBoxColliderProperties(Entity e, ColliderProperties p)
+	{
+		auto& c = e.getComponent<BoxCollider2dComponent>();
+		c.extents = 1.0f * p.scale;
+		c.density = p.density;
+		c.friction = p.friction;
+		c.restitution = p.restitution;
+		c.offset = p.offset;
+	}
+
+	void setCircleColliderProperties(Entity e, ColliderProperties p)
+	{
+		auto& c = e.getComponent<CircleCollider2dComponent>();
+		c.radius = 1.0f * p.scale.x;
+		c.density = p.density;
+		c.friction = p.friction;
+		c.restitution = p.restitution;
+		c.offset = p.offset;
+	}
+
+	SCRIPTAPI void scriptSpawnPrefab(Entity spawner, const char* name)
+	{
+		//TODO (p) set up creation of prefabs, and their spawning
+		//return Entity(0, 0);
+	}
+
+	SCRIPTAPI void scriptSetColliderProperties(Entity e, ColliderProperties props)
+	{
+		if (e.hasComponent<BoxCollider2dComponent>())
+		{
+			setBoxColliderProperties(e, props);
+			Physics::addBox(e.getScene()->getWorld(), e);
+
+		}
+		else if (e.hasComponent<CircleCollider2dComponent>())
+		{
+			setCircleColliderProperties(e, props);
+			Physics::addCircle(e.getScene()->getWorld(), e);
+		}
+	}
+
+	SCRIPTAPI void scriptCopyRigidbodyProperties(Entity to, Entity from)
+	{
+		to.getComponent<Rigidbody2dComponent>() = from.getComponent<Rigidbody2dComponent>();
+		Physics::addRigidBody(to.getScene()->getWorld(), to.getComponent<IDComponent>(), 
+			to.getComponent<Rigidbody2dComponent>());
+	}
+
+	SCRIPTAPI void scriptSetRigidbodyProperties(Entity e, RigidbodyProperties p)
+	{
+		auto& rb = e.getComponent<Rigidbody2dComponent>();
+		rb.set(p.props);
+		rb.body.mass = p.mass;
+		Physics::addRigidBody(e.getScene()->getWorld(), e.getComponent<IDComponent>(), rb);
+	}
+
+	
 
 	SCRIPTAPI void scriptAddComponent(Entity e, ComponentType c)
 	{
@@ -232,6 +365,8 @@ namespace GameEngine
 			e.getComponent<AudioComponent>().play();
 		}
 	}
+
+	
 	
 
 }

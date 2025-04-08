@@ -41,6 +41,7 @@ namespace GameEngine
 		s.onUpdatePtr =			getFunc(dll, std::string(s.script + "_onUpdate"));
 		s.onCollisionEnterPtr = getFunc(dll, std::string(s.script + "_onCollisionEnter"));
 		s.onCollisionExitPtr =	getFunc(dll, std::string(s.script + "_onCollisionExit"));
+		s.onSensorEnterPtr =	getFunc(dll, std::string(s.script + "_onSensorEnter"));
 		s.onDestoryPtr =		getFunc(dll, std::string(s.script + "_onDestroy"));
 	}
 	

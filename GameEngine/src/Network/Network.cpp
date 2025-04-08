@@ -65,7 +65,7 @@ namespace GameEngine
 					break;
 				}
 			}
-			LOG_TRACE("No packet recived");
+			//LOG_TRACE("No packet recived");
 		}
 		LOG_TRACE("exiting thread");
 		return;

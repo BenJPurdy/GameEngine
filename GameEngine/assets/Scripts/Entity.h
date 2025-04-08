@@ -55,13 +55,33 @@ class Entity
         f(*this);
     }
 
-    
+    void setColliderProperties(ColliderProperties props)
+    {
+        SetColliderPropertiesFunc f = (SetColliderPropertiesFunc)getFunction("scriptSetColliderProperties");
+        if (f == nullptr) return;
+        f(*this, props);
+    }
 
     void setScript(std::string name)
     {
         SetScriptNameFunc f = (SetScriptNameFunc)getFunction("scriptAssignScriptName");
         if (f == nullptr) return;
         f(*this, name.c_str());
+    }
+
+    //copies the rigidbody properties from the entity passed into the function onto the calling entity
+    void copyRigidbodyProperites(Entity e)
+    {
+        CopyRigidbodyPropsFunc f = (CopyRigidbodyPropsFunc)getFunction("scriptCopyRigidbodyProperties");
+        if (f == nullptr) return;
+        f(*this, e);
+    }
+
+    void setRigidbodyProperties(RigidbodyProperties p)
+    {
+        SetRigidbodyPropsFunc f = (SetRigidbodyPropsFunc)getFunction("scriptSetRigidbodyProperties");
+        if (f == nullptr) return;
+        f(*this, p);
     }
     //Behold, my [entity handle]
  

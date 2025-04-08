@@ -91,6 +91,7 @@ namespace GameEngine
 
         entt::entity getEntt() { return entityHandle; }
         Scene* getScene() { return scene; }
+        const Scene* getConstScene() { return scene; }
 
         UUID getUUID() const { return getComponent<IDComponent>().id; }
         UUID getSceneID() const { return scene->sceneID; }

@@ -13,11 +13,13 @@
 #define SCRIPTAPI ACCESSPOINT SCRIPT
 
 class Entity;
+struct Transform;
 using LogFn = void(*)(int, const char*);
 using GetKeyPressedFunc = bool(*)(Key);
 using GetMousePressedFunc = bool(*)(Mouse);
 using GetEntityFunc = Entity(*)(const char*);
 using SpawnEntityFunc = Entity(*)(Entity, const char*);
+using SpawnEntityWithTransformFunc = Entity(*)(Entity, const char*, Transform);
 using VoidEntityFunc = void(*)(Entity);
 
 
@@ -53,4 +55,6 @@ bool GetMousePressed(Mouse m);
 void playSound(int i);
 Entity getEntity(std::string name);
 Entity spawnEntity(Entity, std::string);
+Entity spawnEntity(Entity, std::string, Transform);
+Entity newSpawnEntity(Entity, std::string);
 MousePosition GetMousePos();

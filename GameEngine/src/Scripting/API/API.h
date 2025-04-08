@@ -26,6 +26,8 @@ namespace GameEngine
 
 	using OnStartFn = void(*)(Entity);
 
+	//TransformComponent fromTranform(Transform);
+
 	
 	//SCRIPTAPI void scriptSayHello();
 	//SCRIPTAPI void scriptLog(int level, const char* msg);

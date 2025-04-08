@@ -80,7 +80,7 @@ namespace GameEngine
             }
             else
             {
-                LOG_INFO("Component of type {0} added to entity ID {1}", typeid(T).name(), (uint32_t)e);
+               // LOG_INFO("Component of type {0} added to entity ID {1}", typeid(T).name(), (uint32_t)e);
             }
         }
 
@@ -155,6 +155,7 @@ namespace GameEngine
         Camera* getCamera() { return mainCamera; }
         glm::vec2 getViewportDisplay() { return glm::vec2{ 
             viewportWidth, viewportHeight }; }
+        Physics::PhysicsWorld& getWorld() { return world; }
         
         HMODULE& getDll() { return dll; }
         bool isEditorScene = false;
@@ -190,6 +191,7 @@ namespace GameEngine
 typedef void (*voidFn)();
 typedef GameEngine::Transform(*TransformFn)(GameEngine::Entity);
 typedef void (*onUpdateFn)(GameEngine::Entity, GameEngine::Timestep);
-typedef void (*onCollisionStartFn)(GameEngine::Entity);
+typedef void (*onSensorEnterFn)(GameEngine::Entity);
+typedef void (*onCollisionStartFn)(GameEngine::Entity, GameEngine::Entity);
 typedef void (*onCollisionEndFn)(GameEngine::Entity);
 typedef void (*onDestroyFn)(GameEngine::Entity);

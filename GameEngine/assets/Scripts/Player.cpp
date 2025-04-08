@@ -104,24 +104,51 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
     e.addForce(input * 10.0f);
     
 
-    if (GetMousePressed(ButtonLeft) && !data.mouseClicked)
-    {
-        log(LOG_TRACE, "Mouse clicked");
-        Entity s = spawnEntity(e, "projectile");
-        s.addComponent(ComponentType::ScriptComponent);
-        std::string newName = "Projectile";
-        s.setScript(newName);
-    }
-    data.mouseClicked = GetMousePressed(ButtonLeft);
+    
     MousePosition mPos = GetMousePos();
     mPos.x -= 0.5f;
     mPos.y -= 0.5f;
-    std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
-    log(LOG_TRACE, msg);
+    //std::string msg = "MPOS: " + std::to_string(mPos.x) + ", " + std::to_string(mPos.y);
+    //log(LOG_TRACE, msg);
     glm::vec2 mouse = glm::vec2(mPos.x, mPos.y);
+    mouse = glm::normalize(mouse);
+    //log(LOG_TRACE, glm::to_string(mouse));
+ 
+
+    //state lock on mouse click, and we spawn a projectile
+    if (GetMousePressed(ButtonLeft) && GetKeyPressed(LeftAlt) && !data.mouseClicked)
+    {
+        mouse = glm::vec2(mouse.x, -mouse.y);
+        glm::vec3 sp = e.getTransform().position;
+        sp += glm::vec3(mouse, 0.0f);
+        Transform spawn;
+        spawn.position = sp;
+        spawn.scale = glm::vec3(0.1f); 
+        log(LOG_TRACE, "Mouse clicked");
+        std::string name = "Projectile";
+        Entity s = newSpawnEntity(e, name);
+        s.addComponent(ComponentType::ScriptComponent);
+        s.setScript(name);
+        s.addComponent(ComponentType::Rigidbody2dComponent);
+        s.copyRigidbodyProperites(e);
+        s.addComponent(ComponentType::CircleCollider2dComponent);
+        s.setTransform(spawn);
+        ColliderProperties collProps;
+        collProps.scale = glm::vec2(0.1f);
+        collProps.density = 2.0f;
+        collProps.friction = 0.0f;
+        s.setColliderProperties(collProps);
+        s.addComponent(ComponentType::CircleRenderComponent);
+        s.addForce(glm::vec3(mouse, 0.0f) * 25.0f);
+        
+        
+        
+    }
+    data.mouseClicked = GetMousePressed(ButtonLeft);
 }
 
-SCRIPTAPI void MyEntity_onCollisionEnter(Entity e)
+//Entity other can be ignored but is passed in
+SCRIPTAPI void MyEntity_onCollisionEnter(Entity e, Entity other)
 {
     log(LOG_TRACE, "woah, collision");
     playSound(0);

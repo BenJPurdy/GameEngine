@@ -1,5 +1,6 @@
 #include "EngineInterop.h"
 #include "../Entity.h"
+#include "Types.h"
 std::unordered_map<uint32_t, void*> entityData;
 void log(LogLevel, std::string);
 
@@ -56,6 +57,20 @@ Entity getEntity(std::string name)
 Entity spawnEntity(Entity e, std::string name)
 {
 	SpawnEntityFunc f = (SpawnEntityFunc)getFunction("scriptSpawnEntity");
+	if (f == nullptr) return Entity(0, 0);
+	return f(e, name.c_str());
+}
+
+Entity spawnEntity(Entity e, std::string name, Transform init)
+{
+	SpawnEntityWithTransformFunc f = (SpawnEntityWithTransformFunc)getFunction("scriptSpawnEntityTransform");
+	if (f == nullptr) return Entity(0, 0);
+	return f(e, name.c_str(), init);
+}
+
+Entity newSpawnEntity(Entity e, std::string name)
+{
+	SpawnEntityFunc f = (SpawnEntityFunc)getFunction("scriptNewSpawnEntity");
 	if (f == nullptr) return Entity(0, 0);
 	return f(e, name.c_str());
 }

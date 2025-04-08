@@ -47,7 +47,9 @@ namespace GameEngine
 			{
 				b2Vec2 p{ transform.transform.x, transform.transform.y };
 				b2Rot r = b2MakeRot(transform.rotation.z);
+				
 				b2Body_SetTransform(rb.id, p, r);
+				
 				b2Body_SetLinearVelocity(rb.id, b2Vec2{ 0.0f, 0.0f });
 				transform.mod = false;
 			}
@@ -140,13 +142,16 @@ namespace GameEngine
 			void* data = b2Shape_GetUserData(beginTouch->visitorShapeId);
 			entt::entity id = (entt::entity)(uint32_t)data;
 			Entity e = Entity(id, w.scene);
+			data = b2Shape_GetUserData(beginTouch->sensorShapeId);
+			id = (entt::entity)(uint32_t)data;
+			Entity v = Entity(id, w.scene);
 			if (e.hasComponent<ScriptComponent>())
 			{
 				ScriptComponent eSC = e.getComponent<ScriptComponent>();
 				if (eSC.onCollisionEnterPtr)
 				{
 					onCollisionStartFn f = onCollisionStartFn(eSC.onCollisionEnterPtr);
-					f(e);
+					f(e, v);
 				}
 			}
 		}
@@ -173,13 +178,16 @@ namespace GameEngine
 				void* data = b2Shape_GetUserData(beginTouch->shapeIdA);
 				entt::entity id = (entt::entity)(uint32_t)data;
 				Entity e = Entity(id, w.scene);
+				data = b2Shape_GetUserData(beginTouch->shapeIdB);
+				id = (entt::entity)(uint32_t)data;
+				Entity v = Entity(id, w.scene);
 				if (e.hasComponent<ScriptComponent>())
 				{
 					ScriptComponent eSC = e.getComponent<ScriptComponent>();
 					if (eSC.onCollisionEnterPtr)
 					{
 						onCollisionStartFn f = onCollisionStartFn(eSC.onCollisionEnterPtr);
-						f(e);
+						f(e, v);
 					}
 				}
 			}
@@ -187,13 +195,16 @@ namespace GameEngine
 				void* data = b2Shape_GetUserData(beginTouch->shapeIdB);
 				entt::entity id = (entt::entity)(uint32_t)data;
 				Entity e = Entity(id, w.scene);
+				data = b2Shape_GetUserData(beginTouch->shapeIdA);
+				id = (entt::entity)(uint32_t)data;
+				Entity v = Entity(id, w.scene);
 				if (e.hasComponent<ScriptComponent>())
 				{
 					ScriptComponent eSC = e.getComponent<ScriptComponent>();
 					if (eSC.onCollisionEnterPtr)
 					{
 						onCollisionStartFn f = onCollisionStartFn(eSC.onCollisionEnterPtr);
-						f(e);
+						f(e, v);
 					}
 				}
 			}

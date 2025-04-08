@@ -48,6 +48,9 @@ namespace GameEngine
 
 		void syncToRender(PhysicsWorld&, entt::registry&);
 
+		// TOOD (P) set this up properly, current solution is messy
+		void registerEntity(PhysicsWorld&, Entity);
+
 	
 		void addCircle(PhysicsWorld&, Entity);
 

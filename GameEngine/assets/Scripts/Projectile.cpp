@@ -23,6 +23,16 @@ FUNCTION(onDestroy)(Entity e)
     f(e);
 }
 
+FUNCTION(onStart)(Entity e)
+{
+    
+}
+
+FUNCTION(onCollisionEnter)(Entity e)
+{
+    e.destroy();
+}
+
 FUNCTION(onUpdate)(Entity e, float ts)
 {
     if (!entityData.count(e.handle))
@@ -38,8 +48,6 @@ FUNCTION(onUpdate)(Entity e, float ts)
     }
     ProjectileData& data = *(ProjectileData*)entityData[e.handle];
     data.time += ts;
-    std::string msg = std::to_string(data.time);
-    log(LOG_WARN, msg);
-    if (data.time >= 2.0f) Projectile_onDestroy(e);
+    if (data.time >= 1.0f) Projectile_onDestroy(e);
 }
 
