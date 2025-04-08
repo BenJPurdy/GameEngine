@@ -351,6 +351,9 @@ namespace GameEngine
             }
         }
         {
+            //lets make all our sounds from our audio components
+            //could realise efficiencies by checking filenames 
+            //TODO (p): This
             auto& view = registry.view<AudioComponent>();
             for (auto& e : view)
             {
