@@ -2,6 +2,7 @@
 #include "Network.h"
 #include "Logging/Log.h"
 #include "Scene/Components.h"
+#include "Scene/Entity.h"
 
 #define PORT_NUMBER 8888
 
@@ -70,12 +71,15 @@ namespace GameEngine
 		return;
 	}
 
-	void Network::update()
+	void Network::update(std::vector<Entity> networkObjects)
 	{
 		ENetEvent e;
+		ENetPacket* packet;
+		//we can send all the packets by calling enet_host_service
+		//or enet_peer_send & enet_host_flushto send a specific packet
 		while (enet_host_service(localHost, &e, 0) > 0)
 		{
-
+			
 		}
 	}
 	
@@ -114,12 +118,64 @@ namespace GameEngine
 
 		while (enet_host_service(localHost, &event, 0) > 0)
 		{
-
+			//call this to make sure the server registers that we have connected.
+			//it works so I won't be questioning it
 		}
+	}
 
+	void Network::test(Entity e)
+	{
+		ENetPacket* t = makeTransformPacket(e);
+	}
 
+	//packet
+	// byte 0-3 = id
+	// byte 4 = packet Type
+	// 
+	//
 
+	ENetPacket* Network::makeTransformPacket(Entity e)
+	{
+		//size of a transform (assuming glm::vec3 for pos, rot, scl)
+		const size_t packetSize = (3 * sizeof(glm::vec3));
+		if (!e.hasComponent<TransformComponent>()) return nullptr;
+		auto& tc = e.getComponent<TransformComponent>();
+		uint8_t data[36];
+		serialiseTransform(tc, data);
+		TransformComponent test = deserialiseTransform(data);
+		LOG_TRACE("finished");
+	}
 
+	void Network::serialiseTransform(TransformComponent& tc, uint8_t* buffer)
+	{
+		float* b = reinterpret_cast<float*>(buffer);
+		b[0] = tc.transform.x;	b[1] = tc.transform.y;	b[2] = tc.transform.z;
+		b[3] = tc.rotation.x;	b[4] = tc.rotation.y;	b[5] = tc.rotation.z;
+		b[6] = tc.scale.x;		b[7] = tc.scale.y;		b[8] = tc.scale.z;
+	}
 
+	TransformComponent Network::deserialiseTransform(uint8_t* buffer)
+	{
+		const float* b = reinterpret_cast<const float*>(buffer);
+		TransformComponent tc;
+		tc.transform = glm::vec3(b[0], b[1], b[2]);
+		tc.rotation = glm::vec3(b[3], b[4], b[5]);
+		tc.scale = glm::vec3(b[6], b[7], b[8]);
+		tc.mod = true;
+		//we set true on the assumption that this will change the transform and we
+		//should update the physics world.
+		//this might not always be the case but it's better to do this than not
+		return tc;
+
+	}
+
+	
+
+	void Network::serialiseVec3(glm::vec3& v, uint8_t* buffer)
+	{
+		float* b = reinterpret_cast<float*>(buffer);
+		b[0] = v.x;
+		b[1] = v.y;
+		b[2] = v.z;
 	}
 }

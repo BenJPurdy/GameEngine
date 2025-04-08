@@ -73,6 +73,7 @@ namespace GameEngine
 		}
 		else
 		{
+			//we don't have the dll, we should compile everything, just to be safe
 			LOG_WARN("No DLL found, compiling all scripts");
 			isModified = true;
 		}
@@ -81,15 +82,24 @@ namespace GameEngine
 		{
 			if (f.second == ".cpp")
 			{
+				//substr into the filename to extract the name of the file without the prefix folders or suffix filetype
+				//(via a quirk of std::filesystem populating the list with "\" when it adds the file name)
+				//probably not portable but it works
 				size_t nameAt = f.first.find("\\");
 				std::string name = f.first.substr(nameAt + 1);
 				name = name.substr(0, name.find("."));
+				//do we need to update the file
 				auto fileTime = std::filesystem::last_write_time(f.first);
-				LOG_TRACE("checking path: {0}. diff (src - dll) {1}", f.first, fileTime.time_since_epoch().count() - dllTime.time_since_epoch().count());
+				LOG_TRACE("checking path: {0}. diff (src - dll) {1}", f.first, 
+					fileTime.time_since_epoch().count() - dllTime.time_since_epoch().count());
+				//if the file was modified *AFTER* the DLL was created
+				//we need to recompile the file
+				//or we're doing everything, in which case,
+				//compile the file to a .o object file
 				if (fileTime > dllTime || isModified)
 				{
 					std::string cmd = "g++ -c ";
-#ifdef DEBUG
+#ifdef DEBUG		// if we're debugging we may as well add debug symbols
 					cmd += "-g ";
 #endif
 					cmd += f.first;
@@ -103,10 +113,11 @@ namespace GameEngine
 				}
 			}
 		}
-		
+		//get all our .o files from the objects folder
 		FM::getFilesInFolder(&objectFiles, objectFolder);
 
-		LOG_TRACE("Compiling dll");
+		//link the object files into a DLL
+		LOG_TRACE("Linking dll");
 		if (objectFiles.size() > 0)
 		{
 			std::string cmd = "g++ ";
@@ -116,16 +127,9 @@ namespace GameEngine
 				cmd += " ";
 			}
 
-			//cmd += "-I ";
-
-			//optimising this could use -c to make object files of each script
-			// the link them as a seperate compile step to produce the dll, allows
-			// for only compiling modified files again and then just linking all
-			// step one: -c with each modified script
-			// step two: -shared with object files
-
 			cmd += "-shared";
-#ifdef DEBUG
+#ifdef DEBUG // if we're debugging, lets make sure the debug symbols exist
+			//luckly if this isn't doing anything the compiler will discard it
 			cmd += " -g";
 #endif
 			cmd += " -o JFAaB.dll";
@@ -134,8 +138,10 @@ namespace GameEngine
 			//cmd = g++ [files] -shared -o JFAaB.dll 
 			//system(cmd);
 
+			//lets print the command just to make sure it's doing everythign we expect
 			LOG_WARN(cmd);
 
+			//return 0 means good, anything else is a failstate
 			if (system(cmd.c_str()) != 0) return false;
 			return true;
 		}
@@ -149,6 +155,8 @@ namespace GameEngine
 		{
 			LOG_ERROR("DLL is not loaded");
 		}
+		//this is unsafe but will return nullptr if it's an invalid
+		//address, so we can make our checks at at the caller
 		FARPROC addr = GetProcAddress(handle, name.c_str());
 		return addr;
 	}
@@ -158,6 +166,8 @@ namespace GameEngine
 		{
 			LOG_WARN("Dll was not loaded");
 		}
+		//this has no effect if called on a nullptr,
+		//but we'll warnthe user anyway
 		FreeLibrary(m);
 	}
 
@@ -177,14 +187,19 @@ namespace GameEngine
 			LOG_ERROR("Failed to load scripts DLL");
 			return false;
 		}
+		//lets run our test function to make sure it's built the
+		//dll. 
 		void* fn = GetProcAddress(m, "testFunction");
 		if (fn == nullptr) return false;
 		voidFn f = (voidFn)fn;
 		f();
-
+		//testing for class name coherency, apparently not doable due to shifting between
+		//gcc and msvc compilers between engine and script build systems
 		void* testFn = GetProcAddress(m, "MyEntity::test");
 		if (testFn == nullptr)
 		{
+			//its not a fatal error so we can just inform the user
+			//we didn't find the function
 			LOG_WARN("Failed to get name from class");
 		}
 		return true;
