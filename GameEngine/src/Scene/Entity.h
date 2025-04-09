@@ -99,7 +99,7 @@ namespace GameEngine
     private:
         entt::entity entityHandle = entt::null;
         Scene* scene = nullptr;
-        void* entityData;
+        //void* entityData = nullptr;
 
         friend class Scene;
         friend class SceneSerialiser;

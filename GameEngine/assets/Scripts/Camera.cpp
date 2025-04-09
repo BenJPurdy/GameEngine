@@ -21,6 +21,10 @@ FUNCTION(onStart)(Entity e)
     //log(LOG_TRACE, msg);
     CameraData* data = new CameraData;
     data->player = getEntity("player");
+    //Entity test = getEntity("player");
+    //CameraData* testData = new CameraData;
+    //testData->player = test;
+    //entityData[188756] = (void*)testData;
     //msg = "Player entity handle: " + std::to_string(data->player.handle);
     //log(LOG_TRACE, msg);
     //entityData.emplace(e.handle, (void*)data);

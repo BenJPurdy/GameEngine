@@ -45,9 +45,10 @@ FUNCTION(onStart)(Entity e)
     std::string msg = "Adding enemy data to list of entity data at " + std::to_string(eID);
     log(LOG_ERROR, msg);
     EnemyData* d = new EnemyData;
-    Entity et = getEntity("player");
-    d->target = et;
-    log(LOG_ERROR, std::to_string(et.handle));
+    //Entity et;
+    d->target = getEntity("player");
+    //d->target = et;
+    //log(LOG_ERROR, std::to_string(et.handle));
     log(LOG_ERROR, std::to_string(d->target.handle));
     //d->target = getEntity("player");
     
@@ -57,13 +58,13 @@ FUNCTION(onStart)(Entity e)
     //} 
     
     //this seems to fix issues so I'm not going to question it
-    
+    entityData[e.handle] = (void*)d;
     try
     {
        //auto ret = entityData.insert({e.handle, (void*)d});
        //msg = "RET: Map: " + std::to_string(ret.second); 
        //log(LOG_TRACE, msg);
-       entityData[e.handle] = (void*)d;
+       //entityData[e.handle] = (void*)d;// new EnemyData;
     }
     catch(const std::exception& err)
     {
