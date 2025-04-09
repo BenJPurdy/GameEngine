@@ -18,6 +18,13 @@ FARPROC getFunction(std::string name)
 	return f;
 }
 
+std::string getTag(Entity e)
+{
+	CharEntityFunc f = (CharEntityFunc)getFunction("scriptGetTag");
+	if (f == nullptr) return "";
+	return std::string(f(e));
+}
+
 void log(LogLevel lvl, std::string msg)
 {
 	std::string scirptMsg = "SCRIPTING: " + msg;

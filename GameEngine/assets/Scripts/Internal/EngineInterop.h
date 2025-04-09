@@ -21,6 +21,7 @@ using GetEntityFunc = Entity(*)(const char*);
 using SpawnEntityFunc = Entity(*)(Entity, const char*);
 using SpawnEntityWithTransformFunc = Entity(*)(Entity, const char*, Transform);
 using VoidEntityFunc = void(*)(Entity);
+using CharEntityFunc = const char*(*)(Entity);
 
 
 using voidFunc = void(*)();
@@ -58,3 +59,4 @@ Entity spawnEntity(Entity, std::string);
 Entity spawnEntity(Entity, std::string, Transform);
 Entity newSpawnEntity(Entity, std::string);
 MousePosition GetMousePos();
+std::string getTag(Entity);

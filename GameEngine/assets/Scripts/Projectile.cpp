@@ -16,11 +16,11 @@ struct ProjectileData
 FUNCTION(onDestroy)(Entity e)
 {
     
-    DestroyFunc f = (DestroyFunc)getFunction("scriptDestroy");
-    if (f == nullptr) return;
-    delete((ProjectileData*)entityData[e.handle]);
-    entityData.erase(e.handle);
-    f(e);
+    //DestroyFunc f = (DestroyFunc)getFunction("scriptDestroy");
+    //if (f == nullptr) return;
+    //delete((ProjectileData*)entityData[e.handle]);
+    //entityData.erase(e.handle);
+    //f(e);
 }
 
 FUNCTION(onStart)(Entity e)

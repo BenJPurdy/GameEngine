@@ -27,10 +27,14 @@ FUNCTION(onDestroy)(Entity e)
 FUNCTION(onCollisionEnter)(Entity e, Entity other)
 {
     //log(LOG_TRACE, "Entities collided");
-    EnemyData& data = *(EnemyData*)entityData[e.handle];
-    data.health -= 10;
-    log(LOG_TRACE, "Enemy shot");
-    other.destroy();
+    if (getTag(other) == "Projectile")
+    {
+        EnemyData& data = *(EnemyData*)entityData[e.handle];
+        data.health -= 10;
+        log(LOG_TRACE, "Enemy shot");
+        other.destroy();
+    }
+    
 }
 
 FUNCTION(onUpdate)(Entity e, float ts)

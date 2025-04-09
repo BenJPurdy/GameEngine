@@ -331,6 +331,14 @@ namespace GameEngine
 		
 	}
 
+	SCRIPTAPI const char* scriptGetTag(Entity e)
+	{
+		if (e.hasComponent<TagComponent>())
+		{
+			return e.getComponent<TagComponent>().tag.c_str();
+		}
+	}
+
 	SCRIPTAPI void scriptDestroy(Entity e)
 	{
 		Scripting::scripting.currentScene->toDelete.push_back(e);

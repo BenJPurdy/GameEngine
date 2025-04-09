@@ -289,17 +289,27 @@ namespace GameEngine
 
     void Scene::deleteEntities()
     {
+        std::vector<entt::entity> deleted;
         for (auto i = 0; i < toDelete.size(); i++)
         {
-            auto& rb = toDelete[i].getComponent<Rigidbody2dComponent>();
-            b2DestroyBody(rb.id);
-            registry.destroy(toDelete[i]);
+            if (!registry.valid(toDelete[i]))
+                continue;
+            deleted.push_back(toDelete[i]);
+            LOG_TRACE("deleting {0}", (uint32_t)toDelete[i].entityHandle);
+            if (toDelete[i].hasComponent<Rigidbody2dComponent>())
+            {
+                auto& rb = toDelete[i].getComponent<Rigidbody2dComponent>();
+                b2DestroyBody(rb.id);
+            }
+            
+            
             if (toDelete[i].hasComponent<AudioComponent>())
             {
                 auto& ac = toDelete[i].getComponent<AudioComponent>();
                 ac.sound->release();
                 ac.sound = nullptr;
             }
+            registry.destroy(toDelete[i]);
             
 
         }
