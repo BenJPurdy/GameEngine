@@ -56,7 +56,7 @@ void playSound(int i)
 Entity getEntity(std::string name)
 {
 	GetEntityFunc f = (GetEntityFunc)getFunction("scriptGetEntity");
-	if (f == nullptr) return Entity(0, 0);
+	if (f == nullptr) {log(LOG_ERROR, "Failed to capture get entity function");return Entity(0, 0);}
 	return f(name.c_str());
 }
 

@@ -141,12 +141,13 @@ namespace GameEngine
 			auto& tag = view.get<TagComponent>(e);
 			if (tag.tag == name)
 			{
-				Entity et = Entity(e, Scripting::scripting.currentScene.get());
+				Entity et = Entity(e, scenePtr);
 				LOG_TRACE("Entity {1} got at {0}", (uint32_t)et.getEntt(), et.getComponent<TagComponent>().tag);
 
 				return et;
 			}
 		}
+		return Entity((entt::entity)0, nullptr);
 	}
 	SCRIPTAPI Entity scriptSpawnEntity(Entity spawner, const char* name)
 	{

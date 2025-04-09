@@ -288,17 +288,11 @@ namespace GameEngine
     }
 
     void Scene::deleteEntities()
-    {
-        //this is kind of messy and a bit hacky but it catches anything in the case that
-        //there is a double delete request
-        //could probbaly be improved by using a map 
-        //TODO (p)
-        std::vector<entt::entity> deleted;
+    {       
         for (auto i = 0; i < toDelete.size(); i++)
         {
             if (!registry.valid(toDelete[i]))
                 continue;
-            deleted.push_back(toDelete[i]);
             LOG_TRACE("deleting {0}", (uint32_t)toDelete[i].entityHandle);
             if (toDelete[i].hasComponent<Rigidbody2dComponent>())
             {

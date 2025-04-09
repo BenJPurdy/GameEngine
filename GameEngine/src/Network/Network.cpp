@@ -161,10 +161,10 @@ namespace GameEngine
 		tc.transform = glm::vec3(b[0], b[1], b[2]);
 		tc.rotation = glm::vec3(b[3], b[4], b[5]);
 		tc.scale = glm::vec3(b[6], b[7], b[8]);
-		tc.mod = true;
 		//we set true on the assumption that this will change the transform and we
 		//should update the physics world.
 		//this might not always be the case but it's better to do this than not
+		tc.mod = true;
 		return tc;
 
 	}

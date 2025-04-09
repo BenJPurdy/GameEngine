@@ -9,6 +9,12 @@ class Entity
 {  
     public:
     Entity() = default;
+
+    bool exists()
+    {
+        return true;
+        return scenePtr == 0;
+    }
     
     Entity(uint32_t _handle, uint64_t _scenePtr) : handle(_handle), scenePtr(_scenePtr)
     {}

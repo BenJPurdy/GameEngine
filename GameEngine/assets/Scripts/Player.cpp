@@ -49,6 +49,7 @@ FileWatch/FileWatcher middleware for checking updates
 static struct MyEntityData
 {
     bool mouseClicked = false;
+    int health = 10;
     Entity camera;
 }data;
 
