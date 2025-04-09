@@ -126,7 +126,8 @@ namespace GameEngine
 				i = nullptr;
 			}
 			sounds.clear();
-			system->release();
+			auto r = system->release();
+			LOG_TRACE("on audio shutdown: {0}", FMOD_ErrorString(r));
 		}
 
 		~AudioEngine()

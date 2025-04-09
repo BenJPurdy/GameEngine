@@ -18,12 +18,13 @@ layout (location = 4) in flat int vertID;
 void main()
 {
     float dist = 1.0 - length(inData.pos);
+    vec2 uv = ((inData.pos.xy) + vec2(1.0f))/vec2(2.0f);
     float circle = smoothstep(0.0, inData.fade, dist);
     circle *= smoothstep(inData.thickness + inData.fade, inData.thickness, dist);
 
     if (circle == 0.0) discard;
-
-    fragColour = inData.col;
+    vec4 col = vec4(uv, 0.0f, 1.0f);
+    fragColour = col;
     fragColour.a *= circle;
     outID = vertID;
 }
