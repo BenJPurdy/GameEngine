@@ -2147,7 +2147,7 @@ int ImFormatString(char* buf, size_t buf_size, const char* fmt, ...)
     va_list args;
     va_start(args, fmt);
 #ifdef IMGUI_USE_STB_SPRINTF
-    int w = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);
+    int width = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);
 #else
     int w = vsnprintf(buf, buf_size, fmt, args);
 #endif
@@ -2163,7 +2163,7 @@ int ImFormatString(char* buf, size_t buf_size, const char* fmt, ...)
 int ImFormatStringV(char* buf, size_t buf_size, const char* fmt, va_list args)
 {
 #ifdef IMGUI_USE_STB_SPRINTF
-    int w = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);
+    int width = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);
 #else
     int w = vsnprintf(buf, buf_size, fmt, args);
 #endif

@@ -402,6 +402,8 @@ namespace GameEngine
         server.serverThread = std::thread(&Network::runServer, &server);
         
         client.connect();
+
+        
         
     }
 

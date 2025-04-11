@@ -340,16 +340,16 @@ int main(int argc, char **argv)
 {
    stbtt_fontinfo font;
    unsigned char *bitmap;
-   int w,h,i,j,c = (argc > 1 ? atoi(argv[1]) : 'a'), s = (argc > 2 ? atoi(argv[2]) : 20);
+   int width,height,i,j,c = (argc > 1 ? atoi(argv[1]) : 'a'), s = (argc > 2 ? atoi(argv[2]) : 20);
 
    fread(ttf_buffer, 1, 1<<25, fopen(argc > 3 ? argv[3] : "c:/windows/fonts/arialbd.ttf", "rb"));
 
    stbtt_InitFont(&font, ttf_buffer, stbtt_GetFontOffsetForIndex(ttf_buffer,0));
-   bitmap = stbtt_GetCodepointBitmap(&font, 0,stbtt_ScaleForPixelHeight(&font, s), c, &w, &h, 0,0);
+   bitmap = stbtt_GetCodepointBitmap(&font, 0,stbtt_ScaleForPixelHeight(&font, s), c, &width, &height, 0,0);
 
-   for (j=0; j < h; ++j) {
-      for (i=0; i < w; ++i)
-         putchar(" .:ioVM@"[bitmap[j*w+i]>>5]);
+   for (j=0; j < height; ++j) {
+      for (i=0; i < width; ++i)
+         putchar(" .:ioVM@"[bitmap[j*width+i]>>5]);
       putchar('\n');
    }
    return 0;
@@ -2887,16 +2887,16 @@ static stbtt__active_edge *stbtt__new_active(stbtt__hheap *hh, stbtt__edge *e, i
 static void stbtt__fill_active_edges(unsigned char *scanline, int len, stbtt__active_edge *e, int max_weight)
 {
    // non-zero winding fill
-   int x0=0, w=0;
+   int x0=0, width=0;
 
    while (e) {
-      if (w == 0) {
+      if (width == 0) {
          // if we're currently at zero, we need to record the edge start point
-         x0 = e->x; w += e->direction;
+         x0 = e->x; width += e->direction;
       } else {
-         int x1 = e->x; w += e->direction;
+         int x1 = e->x; width += e->direction;
          // if we went to zero, we need to draw
-         if (w == 0) {
+         if (width == 0) {
             int i = x0 >> STBTT_FIXSHIFT;
             int j = x1 >> STBTT_FIXSHIFT;
 
@@ -2935,16 +2935,16 @@ static void stbtt__rasterize_sorted_edges(stbtt__bitmap *result, stbtt__edge *e,
    int s; // vertical subsample index
    unsigned char scanline_data[512], *scanline;
 
-   if (result->w > 512)
-      scanline = (unsigned char *) STBTT_malloc(result->w, userdata);
+   if (result->width > 512)
+      scanline = (unsigned char *) STBTT_malloc(result->width, userdata);
    else
       scanline = scanline_data;
 
    y = off_y * vsubsample;
-   e[n].y0 = (off_y + result->h) * (float) vsubsample + 1;
+   e[n].y0 = (off_y + result->height) * (float) vsubsample + 1;
 
-   while (j < result->h) {
-      STBTT_memset(scanline, 0, result->w);
+   while (j < result->height) {
+      STBTT_memset(scanline, 0, result->width);
       for (s=0; s < vsubsample; ++s) {
          // find center of pixel for this scanline
          float scan_y = y + 0.5f;
@@ -3012,11 +3012,11 @@ static void stbtt__rasterize_sorted_edges(stbtt__bitmap *result, stbtt__edge *e,
 
          // now process all active edges in XOR fashion
          if (active)
-            stbtt__fill_active_edges(scanline, result->w, active, max_weight);
+            stbtt__fill_active_edges(scanline, result->width, active, max_weight);
 
          ++y;
       }
-      STBTT_memcpy(result->pixels + j * result->stride, scanline, result->w);
+      STBTT_memcpy(result->pixels + j * result->stride, scanline, result->width);
       ++j;
    }
 
@@ -3501,7 +3501,7 @@ static void stbtt__rasterize(stbtt__bitmap *result, stbtt__point *pts, int *wcou
    stbtt__edge *e;
    int n,i,j,k,m;
 #if STBTT_RASTERIZER_VERSION == 1
-   int vsubsample = result->h < 8 ? 15 : 5;
+   int vsubsample = result->height < 8 ? 15 : 5;
 #elif STBTT_RASTERIZER_VERSION == 2
    int vsubsample = 1;
 #else
@@ -3919,7 +3919,7 @@ typedef struct
 struct stbrp_rect
 {
    stbrp_coord x,y;
-   int id,w,h,was_packed;
+   int id,width,height,was_packed;
 };
 
 static void stbrp_init_target(stbrp_context *con, int pw, int ph, stbrp_node *nodes, int num_nodes)
@@ -3937,18 +3937,18 @@ static void stbrp_pack_rects(stbrp_context *con, stbrp_rect *rects, int num_rect
 {
    int i;
    for (i=0; i < num_rects; ++i) {
-      if (con->x + rects[i].w > con->width) {
+      if (con->x + rects[i].width > con->width) {
          con->x = 0;
          con->y = con->bottom_y;
       }
-      if (con->y + rects[i].h > con->height)
+      if (con->y + rects[i].height > con->height)
          break;
       rects[i].x = con->x;
       rects[i].y = con->y;
       rects[i].was_packed = 1;
-      con->x += rects[i].w;
-      if (con->y + rects[i].h > con->bottom_y)
-         con->bottom_y = con->y + rects[i].h;
+      con->x += rects[i].width;
+      if (con->y + rects[i].height > con->bottom_y)
+         con->bottom_y = con->y + rects[i].height;
    }
    for (   ; i < num_rects; ++i)
       rects[i].was_packed = 0;

@@ -49,7 +49,7 @@ FileWatch/FileWatcher middleware for checking updates
 static struct MyEntityData
 {
     bool mouseClicked = false;
-    int health = 10;
+    int health = 20;
     Entity camera;
 }data;
 
@@ -61,7 +61,6 @@ SCRIPTAPI void MyEntity_onStart(Entity e)
     log(LOG_TRACE, "getting camera");
     data.camera = getEntity(find);
     log(LOG_TRACE, "got camera");
-
 }
 
 glm::vec3 inputHandling()
@@ -140,7 +139,7 @@ SCRIPTAPI void MyEntity_onUpdate(Entity e, float ts)
         collProps.friction = 0.0f;
         s.setColliderProperties(collProps);
         s.addComponent(ComponentType::CircleRenderComponent);
-        s.addForce(glm::vec3(mouse, 0.0f) * 25.0f);
+        s.addForce(glm::vec3(mouse, 0.0f) * 0.5f);
         
         
         
@@ -153,6 +152,10 @@ SCRIPTAPI void MyEntity_onCollisionEnter(Entity e, Entity other)
 {
     log(LOG_TRACE, "woah, collision");
     playSound(0);
+    if (getTag(other) == "Projectile")
+    {
+        data.health -= 10;
+    }
 }
 
 

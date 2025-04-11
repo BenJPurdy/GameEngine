@@ -82,7 +82,7 @@ namespace GameEngine
 		auto& rb = e.getComponent<Rigidbody2dComponent>();
 		b2Circle circle;
 		circle.center = b2Vec2{ c.offset.x, c.offset.y };
-		circle.radius = c.radius; 
+		circle.radius = c.radius * std::abs(e.getComponent<TransformComponent>().scale.x); 
 		b2ShapeDef shape = setShapeDefs(c);
 		shape.userData = (void*)e.getEntt();
 		b2CreateCircleShape(rb.id, &shape, &circle);

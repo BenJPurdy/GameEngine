@@ -31,6 +31,7 @@ namespace GameEngine
 		spec.w = 1280;
 		spec.h = 720;
 		framebuffer = Framebuffer::create(spec);
+		statsPannel.init();
 
 		editorScene = createRef<Scene>();
 		activeScene = editorScene;
@@ -96,6 +97,7 @@ namespace GameEngine
 		//ImGui::End();
 
 		sceneHierarchy.onImGuiRender();
+		statsPannel.onImGuiRender();
 
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });

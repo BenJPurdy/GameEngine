@@ -12,6 +12,7 @@
 
 #include "box2d/box2d.h"
 #include "Audio/Audio.h"
+#include "Renderer/Texture/Texture2d.h"
 //#include "Network/Network.h"
 
 namespace GameEngine
@@ -73,6 +74,7 @@ namespace GameEngine
     struct SpriteRenderComponent
     {
         glm::vec4 colour =  {1.0f, 1.0f, 0.0f, 1.0f};
+        Texture2d texture;
 
         SpriteRenderComponent() = default;
         SpriteRenderComponent(const SpriteRenderComponent&) = default;

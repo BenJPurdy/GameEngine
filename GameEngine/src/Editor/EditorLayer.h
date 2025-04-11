@@ -4,7 +4,7 @@
 #include "Scene/Scene.h"
 #include "Scene/Entity.h"
 #include "Editor/Panels/SceneHierarchyPanel.h"
-
+#include "Editor/Panels/stats.h"
 #include <filesystem>
 
 
@@ -64,6 +64,7 @@ namespace GameEngine
 
 		
 		SceneHierarchyPanel sceneHierarchy;
+		Stats statsPannel;
 
 		enum class SceneState
 		{

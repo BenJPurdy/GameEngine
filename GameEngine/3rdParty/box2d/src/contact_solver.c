@@ -1058,7 +1058,7 @@ static b2BodyStateW b2GatherBodies( const b2BodyState* B2_RESTRICT states, int* 
 	b2BodyStateW simdBody;
 	simdBody.v.X = _mm256_permute2f128_ps( tt0, tt4, 0x20 );
 	simdBody.v.Y = _mm256_permute2f128_ps( tt1, tt5, 0x20 );
-	simdBody.w = _mm256_permute2f128_ps( tt2, tt6, 0x20 );
+	simdBody.width = _mm256_permute2f128_ps( tt2, tt6, 0x20 );
 	simdBody.flags = _mm256_permute2f128_ps( tt3, tt7, 0x20 );
 	simdBody.dp.X = _mm256_permute2f128_ps( tt0, tt4, 0x31 );
 	simdBody.dp.Y = _mm256_permute2f128_ps( tt1, tt5, 0x31 );
@@ -1074,8 +1074,8 @@ static void b2ScatterBodies( b2BodyState* B2_RESTRICT states, int* B2_RESTRICT i
 	B2_ASSERT( ( (uintptr_t)states & 0x1F ) == 0 );
 	b2FloatW t0 = _mm256_unpacklo_ps( simdBody->v.X, simdBody->v.Y );
 	b2FloatW t1 = _mm256_unpackhi_ps( simdBody->v.X, simdBody->v.Y );
-	b2FloatW t2 = _mm256_unpacklo_ps( simdBody->w, simdBody->flags );
-	b2FloatW t3 = _mm256_unpackhi_ps( simdBody->w, simdBody->flags );
+	b2FloatW t2 = _mm256_unpacklo_ps( simdBody->width, simdBody->flags );
+	b2FloatW t3 = _mm256_unpackhi_ps( simdBody->width, simdBody->flags );
 	b2FloatW t4 = _mm256_unpacklo_ps( simdBody->dp.X, simdBody->dp.Y );
 	b2FloatW t5 = _mm256_unpackhi_ps( simdBody->dp.X, simdBody->dp.Y );
 	b2FloatW t6 = _mm256_unpacklo_ps( simdBody->dq.C, simdBody->dq.S );
@@ -1148,7 +1148,7 @@ static b2BodyStateW b2GatherBodies( const b2BodyState* B2_RESTRICT states, int* 
 	b2BodyStateW simdBody;
 	simdBody.v.X = b2UnpackLoW( t1a, t2a );
 	simdBody.v.Y = b2UnpackHiW( t1a, t2a );
-	simdBody.w = b2UnpackLoW( t3a, t4a );
+	simdBody.width = b2UnpackLoW( t3a, t4a );
 	simdBody.flags = b2UnpackHiW( t3a, t4a );
 
 	b2FloatW t1b = b2UnpackLoW( b1b, b3b );
@@ -1186,7 +1186,7 @@ static void b2ScatterBodies( b2BodyState* B2_RESTRICT states, int* B2_RESTRICT i
 
 	// transpose
 	float32x4x2_t r1 = vtrnq_f32( simdBody->v.X, simdBody->v.Y );
-	float32x4x2_t r2 = vtrnq_f32( simdBody->w, simdBody->flags );
+	float32x4x2_t r2 = vtrnq_f32( simdBody->width, simdBody->flags );
 
 	// I don't use any dummy body in the body array because this will lead to multithreaded sharing and the
 	// associated cache flushing.
@@ -1253,7 +1253,7 @@ static b2BodyStateW b2GatherBodies( const b2BodyState* B2_RESTRICT states, int* 
 	b2BodyStateW simdBody;
 	simdBody.v.X = b2UnpackLoW( t1a, t2a );
 	simdBody.v.Y = b2UnpackHiW( t1a, t2a );
-	simdBody.w = b2UnpackLoW( t3a, t4a );
+	simdBody.width = b2UnpackLoW( t3a, t4a );
 	simdBody.flags = b2UnpackHiW( t3a, t4a );
 
 	b2FloatW t1b = b2UnpackLoW( b1b, b3b );
@@ -1280,9 +1280,9 @@ static void b2ScatterBodies( b2BodyState* B2_RESTRICT states, int* B2_RESTRICT i
 	// [vx3 vy3 vx4 vy4]
 	b2FloatW t2 = b2UnpackHiW( simdBody->v.X, simdBody->v.Y );
 	// [w1 f1 w2 f2]
-	b2FloatW t3 = b2UnpackLoW( simdBody->w, simdBody->flags );
+	b2FloatW t3 = b2UnpackLoW( simdBody->width, simdBody->flags );
 	// [w3 f3 w4 f4]
-	b2FloatW t4 = b2UnpackHiW( simdBody->w, simdBody->flags );
+	b2FloatW t4 = b2UnpackHiW( simdBody->width, simdBody->flags );
 
 	// I don't use any dummy body in the body array because this will lead to multithreaded sharing and the
 	// associated cache flushing.

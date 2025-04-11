@@ -4,7 +4,15 @@
 struct EnemyData
 {
     Entity target;
-    int health = 100;
+    Entity sensor;
+    int health = 20;
+    float time = 0;
+};
+
+struct SensorData
+{
+    bool canActivate = false;
+    float time;
 };
 
 
@@ -15,10 +23,38 @@ struct EnemyData
 #define SCRIPTNAME Enemy
 
 #define FUNCTION(NAME)  SCRIPTAPI void CONCAT(CONCAT(SCRIPTNAME, _), NAME)
+
+void spawnProjectile(Entity e, glm::vec3 playerPos)
+{
+    glm::vec3 myPos = e.getTransform().position;
+    Transform spawn;
+    glm::vec3 shootDir = glm::normalize(playerPos - myPos);
+    log(LOG_TRACE, glm::to_string(shootDir));
+    spawn.position = myPos + (shootDir);
+    spawn.scale = glm::vec3(0.1f);
+    std::string name = "Projectile";
+    Entity s = newSpawnEntity(e, name);
+    s.addComponent(ComponentType::ScriptComponent);
+    s.setScript(name);
+    s.addComponent(ComponentType::Rigidbody2dComponent);
+    s.copyRigidbodyProperites(e);
+    s.addComponent(ComponentType::CircleCollider2dComponent);
+    s.setTransform(spawn);
+    ColliderProperties collProps;
+    collProps.scale = glm::vec2(0.1f);
+    collProps.density = 2.0f;
+    collProps.friction = 0.0f;
+    s.setColliderProperties(collProps);
+    s.addComponent(ComponentType::CircleRenderComponent);
+    s.addForce((shootDir) * 0.5f);
+}
  
 FUNCTION(onDestroy)(Entity e)
 {
-    log(LOG_TRACE, "Enemy died");
+    log(LOG_TRACE, "Enemy died, you can win the game now");
+    EnemyData& data = *(EnemyData*)entityData[e.handle];
+    SensorData& sensorData = *(SensorData*)entityData[data.sensor.handle];
+    sensorData.canActivate = true;
     DestroyFunc f = (DestroyFunc)getFunction("scriptDestroy");
     if (f == nullptr) return;
     delete((EnemyData*)entityData[e.handle]);
@@ -46,6 +82,7 @@ FUNCTION(onStart)(Entity e)
     log(LOG_ERROR, msg);
     EnemyData* d = new EnemyData;
     //Entity et;
+    d->sensor = getEntity("sensor");
     d->target = getEntity("player");
     //d->target = et;
     //log(LOG_ERROR, std::to_string(et.handle));
@@ -103,8 +140,15 @@ FUNCTION(onUpdate)(Entity e, float ts)
     else
     {
         EnemyData& data = *(EnemyData*)entityData[e.handle];
+        data.time += ts;
         Transform current = e.getTransform();
         if (data.health <= 0) Enemy_onDestroy(e);
+        if (data.time > 1.0f)
+        {
+            spawnProjectile(e, data.target.getTransform().position);
+            data.time = 0.0f;
+        }
+        
     }
     
 

@@ -10,11 +10,29 @@
     <Filter Include="3rdParty\imgui">
       <UniqueIdentifier>{08595F4B-F426-5351-DDBA-C377C9272FB6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rdParty\implot">
+      <UniqueIdentifier>{62444FB7-CECF-BC7B-D7E0-3F7043EB187C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\stb">
+      <UniqueIdentifier>{768A0B5B-62ED-9AFF-0B73-D3B5F7B46682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\sysinfo">
+      <UniqueIdentifier>{78B630BF-64AF-4F11-8DE1-349679392F1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\sysinfo\src">
+      <UniqueIdentifier>{8FF032BD-7B7F-BC86-249E-D081100CCD2C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Visualization">
       <UniqueIdentifier>{F72D7571-63EE-F0A7-2C29-3A2598A83584}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Asset">
+      <UniqueIdentifier>{7C4D95B2-E8B7-4929-31F6-FACE9D9F277E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Asset\TextureInporter">
+      <UniqueIdentifier>{6FFE46B0-DBC0-7A3A-2471-09C790725318}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Audio">
       <UniqueIdentifier>{EE2696B2-5A91-4A29-A3CF-FBCE0F79287E}</UniqueIdentifier>
@@ -79,6 +97,9 @@
     <Filter Include="src\Renderer\Shader">
       <UniqueIdentifier>{B9817B1A-25E3-5828-AE50-9FDA1AB18FE7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Renderer\Texture">
+      <UniqueIdentifier>{D3B98FB1-BF48-197B-6867-2D7654D52921}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Scene">
       <UniqueIdentifier>{0A06D2B3-7670-862A-BFAE-37D02B58647F}</UniqueIdentifier>
     </Filter>
@@ -123,6 +144,21 @@
     <ClInclude Include="3rdParty\imgui\imgui_stdlib.h">
       <Filter>3rdParty\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="3rdParty\stb\stb_image.h">
+      <Filter>3rdParty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Asset\Asset.h">
+      <Filter>src\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Asset\AssetTypes.h">
+      <Filter>src\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Asset\Databuffer.h">
+      <Filter>src\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Asset\TextureInporter\TextureImporter.h">
+      <Filter>src\Asset\TextureInporter</Filter>
+    </ClInclude>
     <ClInclude Include="src\Audio\Audio.h">
       <Filter>src\Audio</Filter>
     </ClInclude>
@@ -166,6 +202,9 @@
       <Filter>src\Editor\Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\Panels\SceneHierarchyPanel.h">
+      <Filter>src\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Panels\stats.h">
       <Filter>src\Editor\Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\ApplicationEvents.h">
@@ -279,6 +318,12 @@
     <ClInclude Include="src\Renderer\Shader\ShaderLibrary.h">
       <Filter>src\Renderer\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Texture\Texture.h">
+      <Filter>src\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Texture\Texture2d.h">
+      <Filter>src\Renderer\Texture</Filter>
+    </ClInclude>
     <ClInclude Include="src\Scene\Components.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
@@ -307,6 +352,9 @@
       <Filter>src\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\FileManagement.h">
+      <Filter>src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utilities\FileSystem.h">
       <Filter>src\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="src\Utilities\OpenGLError.h">
@@ -338,6 +386,27 @@
     <ClCompile Include="3rdParty\imgui\imgui_stdlib.cpp">
       <Filter>3rdParty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="3rdParty\implot\implot.cpp">
+      <Filter>3rdParty\implot</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\implot\implot_demo.cpp">
+      <Filter>3rdParty\implot</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\implot\implot_items.cpp">
+      <Filter>3rdParty\implot</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\stb\stb_image.cpp">
+      <Filter>3rdParty\stb</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\sysinfo\src\ProcessInfo.cpp">
+      <Filter>3rdParty\sysinfo\src</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdParty\sysinfo\src\SystemInformation.cpp">
+      <Filter>3rdParty\sysinfo\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Asset\TextureInporter\TextureImporter.cpp">
+      <Filter>src\Asset\TextureInporter</Filter>
+    </ClCompile>
     <ClCompile Include="src\Audio\Audio.cpp">
       <Filter>src\Audio</Filter>
     </ClCompile>
@@ -366,6 +435,9 @@
       <Filter>src\Editor\Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\Panels\SceneHierarchyPanel.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\stats.cpp">
       <Filter>src\Editor\Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine.cpp">
@@ -443,6 +515,9 @@
     <ClCompile Include="src\Renderer\Shader\ShaderLibrary.cpp">
       <Filter>src\Renderer\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Texture\Texture2d.cpp">
+      <Filter>src\Renderer\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="src\Scene\Entity.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
@@ -462,6 +537,9 @@
       <Filter>src\Scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\Utilities\FileManagement.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\FileSystem.cpp">
       <Filter>src\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="src\Utilities\PlatformUtils.cpp">

@@ -93,7 +93,7 @@
  #define WM_DPICHANGED 0x02E0
 #endif
 #ifndef GET_XBUTTON_WPARAM
- #define GET_XBUTTON_WPARAM(w) (HIWORD(w))
+ #define GET_XBUTTON_WPARAM(width) (HIWORD(width))
 #endif
 #ifndef EDS_ROTATEDMODE
  #define EDS_ROTATEDMODE 0x00000004

@@ -11,6 +11,7 @@
 #include <gl3w.h>
 
 #include "ImGuizmo/ImGuizmo.h"
+#include "implot/implot.h"
 
 namespace GameEngine
 {
@@ -22,6 +23,7 @@ namespace GameEngine
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+		ImPlot::CreateContext();
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
@@ -48,6 +50,7 @@ namespace GameEngine
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
+		ImPlot::DestroyContext();
 		ImGui::DestroyContext();
 	}
 

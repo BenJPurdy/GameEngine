@@ -1039,9 +1039,9 @@ void ImGui_ImplGlfw_InstallEmscriptenCallbacks(GLFWwindow*, const char* canvas_s
 // See https://github.com/pongasoft/emscripten-glfw/blob/master/docs/Usage.md#how-to-make-the-canvas-resizable-by-the-user for an explanation
 void ImGui_ImplGlfw_InstallEmscriptenCallbacks(GLFWwindow* window, const char* canvas_selector)
 {
-  GLFWwindow* w = (GLFWwindow*)(EM_ASM_INT({ return Module.glfwGetWindow(UTF8ToString($0)); }, canvas_selector));
-  IM_ASSERT(window == w); // Sanity check
-  IM_UNUSED(w);
+  GLFWwindow* width = (GLFWwindow*)(EM_ASM_INT({ return Module.glfwGetWindow(UTF8ToString($0)); }, canvas_selector));
+  IM_ASSERT(window == width); // Sanity check
+  IM_UNUSED(width);
   emscripten_glfw_make_canvas_resizable(window, "window", nullptr);
 }
 #endif // #ifdef EMSCRIPTEN_USE_PORT_CONTRIB_GLFW3

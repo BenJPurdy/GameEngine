@@ -25,6 +25,9 @@ IncludeDir["yamlcpp"] = "GameEngine/3rdParty/yamlcpp/include"
 IncludeDir["box2d"] = "GameEngine/3rdParty/box2d/include"
 IncludeDir["fmod"] = "GameEngine/3rdParty/fmod"
 IncludeDir["enet"] = "GameEngine/3rdParty/enet"
+IncludeDir["stb"] = "GameEngine/3rdParty/stb"
+IncludeDir["sysinfo"] = "GameEngine/3rdParty/sysinfo"
+IncludeDir["implot"] = "GameEngine/3rdParty/implot"
 
 
 
@@ -63,7 +66,12 @@ project "GameEngine"
         "%{IncludeDir.imguizmo}/**.cpp",
         "%{IncludeDir.imgui}/imgui_stdlib.h",
         "%{IncludeDir.imgui}/imgui_stdlib.cpp",
-        "%{prj.name}/natvis/**.natvis"
+        "%{IncludeDir.stb}/**.h",
+        "%{IncludeDir.stb}/**.cpp",
+        "%{prj.name}/natvis/**.natvis",
+        "%{IncludeDir.sysinfo}/src/*.cpp",
+        "%{IncludeDir.implot}/*.cpp"
+        
     }
 
     defines
@@ -86,7 +94,11 @@ project "GameEngine"
         "%{IncludeDir.yamlcpp}",
         "%{IncludeDir.box2d}",
         "%{IncludeDir.fmod}/include",
-        "%{IncludeDir.enet}/include"
+        "%{IncludeDir.enet}/include",
+        "{IncludeDir.stb}",
+        "{IncludeDir.sysinfo}/include",
+        "{IncludeDir.implot}"
+
     }
 
     libdirs
@@ -117,6 +129,10 @@ project "GameEngine"
         removeflags{"ExcludeFromBuild"}
         buildaction "None"
     filter "files:GameEngine/3rdParty/ImGuizmo/**.cpp"
+        flags{"NoPCH"}
+    filter "files:GameEngine/3rdParty/implot/**.cpp"
+        flags{"NoPCH"}
+    filter "files:GameEngine/3rdParty/sysinfo/**.cpp"
         flags{"NoPCH"}
 
     filter "system:windows"

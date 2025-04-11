@@ -172,6 +172,20 @@ namespace GameEngine
 			{
 				//TODO Texturing and tiling fields
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.colour));
+				ImGui::TextWrapped(component.texture.path.c_str());
+				char texturePath[MAX_BUFFER_SIZE] = { "" };
+				if (ImGui::Button("Load Texture"))
+				{
+					std::string filePath = FileDialogs::openFile("Texture File (*.png\0*.png\0");
+					if (filePath.empty())
+					{
+						return;
+					}
+					component.texture.path = filePath;
+					size_t found = component.texture.path.find("assets");
+					std::string path = component.texture.path.substr(found);
+					component.texture.path = path;
+				}
 			});
 
 		ImGuiLib::drawComponent<CircleRenderComponent>("Circle Renderer", e,
