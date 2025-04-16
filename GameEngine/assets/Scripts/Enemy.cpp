@@ -53,8 +53,8 @@ FUNCTION(onDestroy)(Entity e)
 {
     log(LOG_TRACE, "Enemy died, you can win the game now");
     EnemyData& data = *(EnemyData*)entityData[e.handle];
-    SensorData& sensorData = *(SensorData*)entityData[data.sensor.handle];
-    sensorData.canActivate = true;
+    //SensorData& sensorData = *(SensorData*)entityData[data.sensor.handle];
+    //sensorData.canActivate = true;
     DestroyFunc f = (DestroyFunc)getFunction("scriptDestroy");
     if (f == nullptr) return;
     delete((EnemyData*)entityData[e.handle]);

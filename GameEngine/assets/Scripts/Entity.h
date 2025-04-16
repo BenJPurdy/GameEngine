@@ -89,8 +89,16 @@ class Entity
         if (f == nullptr) return;
         f(*this, p);
     }
+
+    bool getEntityData(void* d)
+    {
+        d = entityData[e.handle];
+        if (d == nullptr) return false;
+        return true;
+    }
+
+
     //Behold, my [entity handle]
- 
     uint32_t handle = 0;
     intptr_t scenePtr = 0;
 };
